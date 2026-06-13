@@ -47,6 +47,12 @@ ${scan.project.name} is detected as ${scan.project.type}. This summary is genera
 - Environment variables detected: ${scan.graph.envVars.length}
 - Test files detected: ${scan.graph.tests.length}
 
+## Documentation Quality Bar
+
+- Target: Qoder-style, agent-ready repository documentation.
+- Read ${code("docs/repo-wiki/quality.md")} for the quality checklist and model-review loop.
+- Use ${code("docs/repo-wiki/codex-review.md")} with Codex or ChatGPT to identify weak generated docs and concrete RepoWiki improvements.
+
 ## Important Files To Read First
 
 ${list(firstFiles.map(code))}

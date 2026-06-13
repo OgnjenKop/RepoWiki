@@ -3,17 +3,20 @@
 [![Node.js >=20](https://img.shields.io/badge/node-%3E%3D20-339933)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-RepoWiki generates a deterministic, Git-friendly Markdown wiki for a software repository.
+RepoWiki generates Qoder-style, agent-ready documentation for a software repository.
 
-It is built for agents and maintainers who need a fast map of an unfamiliar codebase: modules, architecture, important files, change paths, tests, diagrams, and an optional Codex review prompt.
+It is built for agents and maintainers who need a fast, useful map of an unfamiliar codebase: modules, architecture, important files, change paths, tests, diagrams, and model-ready review context.
+
+The goal is not "docs without AI." The goal is high-quality repository documentation that coding agents can use immediately. RepoWiki starts with deterministic local analysis so every repo gets a stable baseline, then supports model-backed review and summary workflows when you want stronger documentation quality.
 
 ## Why RepoWiki
 
-- Local-first by default: scans files on disk and writes Markdown plus JSON metadata.
-- Deterministic output: generated docs can be committed, reviewed, and checked in CI.
+- Qoder-style repository maps: overview, architecture, setup, modules, areas, flows, and change paths.
+- Deterministic baseline: generated docs can be committed, reviewed, and checked in CI.
 - Agent-ready context: writes `AGENTS.md`, `docs/repo-wiki/*`, and `.repowiki/context/*`.
-- No API key required for the default workflow.
-- Optional OpenAI-compatible summaries are available when explicitly enabled.
+- Model-ready by design: output is structured for Codex, ChatGPT, and other coding agents.
+- Subscription-friendly review: `repowiki review` creates a prompt you can use in Codex or ChatGPT without wiring an API key into the CLI.
+- Optional OpenAI-compatible summaries are available when you want API-backed enrichment.
 - Works across common TypeScript, React, Node, and multi-root app layouts.
 
 ## Quick Start
@@ -44,13 +47,13 @@ Check whether generated docs are stale:
 repowiki --root ../some-repo check
 ```
 
-Generate a no-API review prompt for Codex or ChatGPT:
+Generate a model-review prompt for Codex or ChatGPT:
 
 ```bash
 repowiki --root ../some-repo review
 ```
 
-Then open `../some-repo/docs/repo-wiki/codex-review.md` and use it with your existing Codex or ChatGPT subscription.
+Then open `../some-repo/docs/repo-wiki/codex-review.md` and use it with Codex or ChatGPT to identify weak summaries, bad module boundaries, missing context, and fixes needed to reach Qoder-level documentation quality.
 
 ## Output
 
@@ -64,7 +67,7 @@ RepoWiki writes:
 - `docs/repo-wiki/flows/*.md` - module and route flow summaries.
 - `docs/repo-wiki/diagrams/*.mmd` - Mermaid diagrams.
 - `docs/repo-wiki/agent-context.md` - concise context for coding agents.
-- `docs/repo-wiki/codex-review.md` - no-API review prompt.
+- `docs/repo-wiki/codex-review.md` - model-review prompt for improving generated docs.
 - `AGENTS.md` - generated agent instructions.
 - `.repowiki/*.json` and `.repowiki/context/**/*.json` - machine-readable metadata.
 
@@ -90,11 +93,20 @@ Global flags:
 --ai-api-key <key>
 ```
 
-## Optional AI Summaries
+## Model-Backed Quality Workflows
 
-The default workflow does not call a model provider.
+RepoWiki supports two model-backed quality paths:
 
-To enable OpenAI-compatible summaries, provide an API key explicitly:
+1. Use your Codex or ChatGPT subscription with `repowiki review`.
+2. Use OpenAI-compatible API summaries with `--ai`.
+
+The subscription path is the easiest way to get model judgment without adding API credentials to the CLI:
+
+```bash
+repowiki --root ../some-repo review
+```
+
+For automated API-backed summaries, provide a model and API key explicitly:
 
 ```bash
 repowiki --root ../some-repo --ai --ai-model "<model>" --ai-api-key "$OPENAI_API_KEY" generate
@@ -128,7 +140,7 @@ Before opening a pull request:
 
 ## Project Status
 
-RepoWiki is early-stage OSS. The current focus is high-quality deterministic repository maps and no-API agent review workflows. The scanner intentionally favors practical heuristics over full language-server precision.
+RepoWiki is early-stage OSS. The current focus is reaching Qoder-level documentation quality: useful module boundaries, accurate architecture maps, high-signal change guidance, and model-review loops that catch weak generated docs. The scanner intentionally favors practical heuristics over full language-server precision.
 
 ## Contributing
 

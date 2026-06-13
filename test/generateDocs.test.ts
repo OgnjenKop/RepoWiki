@@ -6,6 +6,7 @@ import { generateArchitectureDoc } from "../src/docs/generateArchitectureDoc.js"
 import { generateFlowsIndexDoc, generateModuleFlowDoc } from "../src/docs/generateFlowDocs.js";
 import { generateIndexDoc } from "../src/docs/generateIndexDoc.js";
 import { generateModuleDoc } from "../src/docs/generateModuleDoc.js";
+import { generateQualityDoc } from "../src/docs/generateQualityDoc.js";
 import type { RepoScan } from "../src/types/index.js";
 
 describe("generateIndexDoc", () => {
@@ -56,6 +57,7 @@ describe("generateIndexDoc", () => {
     expect(doc).toContain("- [auth (src/auth)](modules/src-auth.md) - 1 file");
     expect(doc).toContain("[Flow overview](flows/index.md)");
     expect(doc).toContain("[Areas](areas/index.md)");
+    expect(doc).toContain("[Quality bar](quality.md)");
     expect(doc).toContain("[Codex review prompt](codex-review.md)");
     expect(doc).toContain("## Test Coverage Hotspots");
     expect(doc).toContain("`auth (src/auth)` - 1 test");
@@ -80,6 +82,39 @@ describe("generateIndexDoc", () => {
     expect(doc).toContain("`--root`");
     expect(doc).toContain("`--verbose`");
     expect(doc).toContain("`--ai`");
+  });
+});
+
+describe("generateQualityDoc", () => {
+  it("renders the Qoder-style quality contract", () => {
+    const scan: RepoScan = {
+      rootDir: "/tmp/project",
+      project: {
+        name: "fixture",
+        type: "Node/TypeScript",
+        packageManager: "npm",
+        scripts: {},
+        dependencies: [],
+        devDependencies: [],
+        configFiles: []
+      },
+      graph: {
+        files: [],
+        imports: [],
+        modules: [],
+        areas: [{ id: "area-core", name: "Core application logic: core", modules: [], rootPaths: [], files: [], purpose: "Core behavior." }],
+        routes: [],
+        envVars: [],
+        tests: []
+      }
+    };
+
+    const doc = generateQualityDoc(scan);
+    expect(doc).toContain("# Documentation Quality Bar");
+    expect(doc).toContain("Qoder-style repository documentation");
+    expect(doc).toContain("## Model Review Loop");
+    expect(doc).toContain("`repowiki review`");
+    expect(doc).toContain("Core application logic: core");
   });
 });
 

@@ -113,7 +113,7 @@ Likely orchestrates AI summaries and context packs for the wiki. 6 files belong 
 ## Change Guidance
 
 - `src/ai/contextPacks.ts:56` - A connected implementation file with both imports and exports. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
-- `src/storage/metadataStore.ts:98` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
+- `src/storage/metadataStore.ts:99` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
 - `src/ai/types.ts:6` - A connected implementation file with both imports and exports. [Symbols: AiRuntimeOptions@6, ContextFile@13, ContextRelation@17, ContextFlow@23]
 - `src/commands/update.ts:87` - A directly connected implementation file. [Symbols: updateCommand@9, getAffectedModules@46, getAffectedRoutes@71, getAffectedAreas@87]
 - `src/ai/summaryFormat.ts:4` - A connected implementation file with both imports and exports. [Symbols: AiSummaryDraft@4, parseSummaryDraft@26, renderSummaryMarkdown@60]
@@ -121,7 +121,7 @@ Likely orchestrates AI summaries and context packs for the wiki. 6 files belong 
 ## Decision Points
 
 - Start with `src/ai/contextPacks.ts:56` if you are changing public behavior.
-- Use `src/storage/metadataStore.ts:98` as the next stop for supporting logic.
+- Use `src/storage/metadataStore.ts:99` as the next stop for supporting logic.
 - Check `test/aiBuildSummaries.test.ts:2` before changing implementation details.
 
 ## Verification

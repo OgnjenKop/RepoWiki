@@ -19,7 +19,7 @@ Likely derives evidence-backed repository knowledge, summaries, and change guida
 ## Entry Files
 
 - `src/knowledge/moduleFocus.ts:18` - Imported by 12 external files.
-- `src/knowledge/areaOrdering.ts:24` - Imported by 11 external files.
+- `src/knowledge/areaOrdering.ts:24` - Imported by 12 external files.
 - `src/knowledge/areaFlows.ts:3` - Imported by 9 external files.
 - `src/knowledge/verification.ts:177` - Imported by 7 external files.
 - `src/knowledge/changeTargets.ts:15` - Imported by 5 external files.
@@ -124,8 +124,8 @@ _None detected._
 - `src/knowledge/moduleFocus.ts:18` - A connected implementation file with both imports and exports. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
 - `src/ai/contextPacks.ts:56` - A directly connected implementation file. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
 - `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
-- `src/storage/metadataStore.ts:98` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
-- `src/knowledge/moduleAreas.ts:30` - A connected implementation file with both imports and exports. [Symbols: detectModuleAreas@30]
+- `src/knowledge/areaOrdering.ts:24` - A connected implementation file with both imports and exports. [Symbols: orderedAreas@11, areaRoleRank@24]
+- `src/storage/metadataStore.ts:99` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
 
 ## Decision Points
 

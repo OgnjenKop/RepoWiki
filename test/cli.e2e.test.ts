@@ -44,7 +44,7 @@ describe("CLI end-to-end", () => {
     await execFileAsync("node", [cliPath, "--root", root, "check"]);
   }, 15000);
 
-  it("generates a no-api Codex review prompt", async () => {
+  it("generates a Codex model review prompt", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "repowiki-cli-review-"));
     await fs.mkdir(path.join(root, "src"), { recursive: true });
     await fs.writeFile(path.join(root, "package.json"), JSON.stringify({
@@ -58,7 +58,8 @@ describe("CLI end-to-end", () => {
     const reviewPrompt = await fs.readFile(path.join(root, "docs/repo-wiki/codex-review.md"), "utf8");
     expect(reviewPrompt).toContain("Use this prompt with Codex or ChatGPT");
     expect(reviewPrompt).toContain(".repowiki/context/project.json");
-    expect(reviewPrompt).toContain("Do not call an external model API");
+    expect(reviewPrompt).toContain("Qoder-style documentation quality");
+    expect(reviewPrompt).toContain("subscription-backed model review path");
   }, 15000);
 
   it("removes stale route context packs when route files are deleted", async () => {

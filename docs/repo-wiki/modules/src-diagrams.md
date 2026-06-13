@@ -60,14 +60,14 @@ _None detected._
 ## Change Guidance
 
 - `src/docs/generateArchitectureDoc.ts:17` - A directly connected implementation file. [Symbols: generateArchitectureDoc@17]
-- `src/docs/writeDocs.ts:27` - A directly connected implementation file. [Symbols: writeDocs@27]
+- `src/docs/writeDocs.ts:28` - A directly connected implementation file. [Symbols: writeDocs@28]
 - `src/diagrams/generateDiagrams.ts:4` - A connected implementation file with both imports and exports. [Symbols: generateModuleDiagram@4, generateRouteDiagram@20]
 - `test/diagrams.test.ts:2` - Tests that verify this area. (Update the test expectations if behavior changes.)
 
 ## Decision Points
 
 - Start with `src/docs/generateArchitectureDoc.ts:17` if you are changing public behavior.
-- Use `src/docs/writeDocs.ts:27` as the next stop for supporting logic.
+- Use `src/docs/writeDocs.ts:28` as the next stop for supporting logic.
 - Check `test/diagrams.test.ts:2` before changing implementation details.
 
 ## Verification

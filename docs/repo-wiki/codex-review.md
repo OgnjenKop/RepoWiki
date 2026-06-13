@@ -1,10 +1,10 @@
 # Codex RepoWiki Review Prompt
 
-Use this prompt with Codex or ChatGPT when you want subscription-backed review without an API key.
+Use this prompt with Codex or ChatGPT to review whether RepoWiki reached Qoder-style documentation quality for this repository. This is the subscription-backed model review path when you do not want to wire an API key into the CLI.
 
 ## Prompt
 
-You are reviewing the RepoWiki output for this repository. Do not call an external model API. Work from the generated wiki, metadata, context packs, and source files in this checkout.
+You are reviewing the RepoWiki output for this repository. Work from the generated wiki, metadata, context packs, and source files in this checkout. The goal is to identify concrete generator improvements needed to produce Qoder-level documentation: accurate architecture, useful module boundaries, high-signal change paths, and agent-ready context.
 
 Read these files first:
 
@@ -47,6 +47,7 @@ Assess the wiki against these criteria:
 - Are verification hints actionable and tied to real scripts/tests?
 - Are AI context packs grounded in the same evidence as the docs?
 - Are any summaries misleading, too generic, or unsupported by code evidence?
+- Does the output feel comparable to a Qoder repository wiki for an agent entering this codebase?
 
 Return:
 

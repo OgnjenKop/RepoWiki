@@ -32,6 +32,7 @@ describe("metadata artifacts", () => {
     expect(summaries.project).toBeDefined();
     expect(summaries.routes).toBeDefined();
     expect(index.docs?.some((entry) => entry === "docs/repo-wiki/codex-review.md")).toBe(true);
+    expect(index.docs?.some((entry) => entry === "docs/repo-wiki/quality.md")).toBe(true);
     expect(index.docs?.some((entry) => entry === "docs/repo-wiki/areas/index.md")).toBe(true);
     expect(index.docs?.some((entry) => entry.includes("/areas/"))).toBe(true);
     expect(index.areaFiles).toBeDefined();

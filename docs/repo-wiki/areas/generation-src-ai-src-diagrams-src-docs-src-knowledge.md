@@ -12,7 +12,7 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 - [ai (src/ai)](../modules/src-ai.md) - 6 files
 - [diagrams (src/diagrams)](../modules/src-diagrams.md) - 1 file
-- [docs (src/docs)](../modules/src-docs.md) - 12 files
+- [docs (src/docs)](../modules/src-docs.md) - 13 files
 - [knowledge (src/knowledge)](../modules/src-knowledge.md) - 10 files
 
 ## Entry Files
@@ -45,7 +45,7 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 - `ai (src/ai) -> knowledge (src/knowledge)` (13 imports)
 - `docs (src/docs) -> diagrams (src/diagrams)` (2 imports)
-- `docs (src/docs) -> knowledge (src/knowledge)` (32 imports)
+- `docs (src/docs) -> knowledge (src/knowledge)` (33 imports)
 
 ## Area Flows In
 
@@ -56,7 +56,7 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 ## Area Flows Out
 
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 
 ## Runtime Consumers
 
@@ -68,7 +68,7 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 ## Test Consumers
 
-- `test/generateDocs.test.ts` -> `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts` (7 imports into this area)
+- `test/generateDocs.test.ts` -> `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts` (8 imports into this area)
 - `test/knowledge.test.ts` -> `src/knowledge/areaOrdering.ts`, `src/knowledge/buildKnowledge.ts`, `src/knowledge/moduleFocus.ts` (3 imports into this area)
 - `test/aiPrompt.test.ts` -> `src/ai/prompt.ts`, `src/ai/types.ts` (2 imports into this area)
 
@@ -84,9 +84,9 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 - `src/knowledge/moduleFocus.ts:18` - A connected implementation file with both imports and exports. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
 - `src/ai/contextPacks.ts:56` - A connected implementation file with both imports and exports. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
 - `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
-- `src/storage/metadataStore.ts:98` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
-- `src/knowledge/moduleAreas.ts:30` - A connected implementation file with both imports and exports. [Symbols: detectModuleAreas@30]
 - `src/knowledge/areaOrdering.ts:24` - A connected implementation file with both imports and exports. [Symbols: orderedAreas@11, areaRoleRank@24]
+- `src/storage/metadataStore.ts:99` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
+- `src/knowledge/moduleAreas.ts:30` - A connected implementation file with both imports and exports. [Symbols: detectModuleAreas@30]
 - `src/docs/generateFlowDocs.ts:18` - A connected implementation file with both imports and exports. [Symbols: generateFlowsIndexDoc@18, generateModuleFlowDoc@86]
 - `src/knowledge/buildSummaries.ts:11` - A connected implementation file with both imports and exports. [Symbols: buildDeterministicSummaries@11]
 
@@ -108,7 +108,7 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 - `test/detectTests.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentsMd.ts`, `src/scanner/detectTests.ts`, `src/types/index.ts`
 - `test/diagrams.test.ts:2` covers `src/diagrams/generateDiagrams.ts`, `src/types/index.ts`
 - `test/fileImportance.test.ts:2` covers `src/knowledge/fileImportance.ts`, `src/types/index.ts`
-- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/types/index.ts`
+- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/docs/generateQualityDoc.ts`, `src/types/index.ts`
 - `test/knowledge.test.ts:5` covers `src/knowledge/areaOrdering.ts`, `src/knowledge/buildKnowledge.ts`, `src/knowledge/moduleFocus.ts`, `src/scanner/scanRepo.ts`
 - `test/metadataArtifacts.test.ts:5` covers `src/ai/contextPacks.ts`, `src/scanner/scanRepo.ts`, `src/storage/metadataStore.ts`
 - `test/moduleAreas.test.ts:2` covers `src/knowledge/moduleAreas.ts`, `src/types/index.ts`
@@ -137,6 +137,7 @@ _No related routes detected._
 - `src/docs/generateFlowDocs.ts`
 - `src/docs/generateIndexDoc.ts`
 - `src/docs/generateModuleDoc.ts`
+- `src/docs/generateQualityDoc.ts`
 - `src/docs/generateSetupDoc.ts`
 - `src/docs/repoWikiCli.ts`
 - `src/docs/writeDocs.ts`

@@ -23,7 +23,7 @@ Likely generates repository diagrams and flow visuals. 1 file belong to this mod
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
 - `Core application logic: storage (src/storage)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (3 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Shared support: types (src/types) + utils (src/utils)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
 
 ## Entry Points
@@ -70,7 +70,7 @@ _No external dependencies detected._
 ## Change Targets
 
 - `src/docs/generateArchitectureDoc.ts:17` - A directly connected implementation file. [Symbols: generateArchitectureDoc@17]
-- `src/docs/writeDocs.ts:27` - A directly connected implementation file. [Symbols: writeDocs@27]
+- `src/docs/writeDocs.ts:28` - A directly connected implementation file. [Symbols: writeDocs@28]
 - `src/diagrams/generateDiagrams.ts:4` - A connected implementation file with both imports and exports. [Symbols: generateModuleDiagram@4, generateRouteDiagram@20]
 - `test/diagrams.test.ts:2` - Tests that verify this area. (Update the test expectations if behavior changes.)
 

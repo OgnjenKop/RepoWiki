@@ -115,7 +115,11 @@ ${list(renderRepoWikiFlags(scan), "_No RepoWiki flags detected._")}
 
 - [Flow overview](flows/index.md)
 
-## No-API Codex Review
+## Documentation Quality
+
+- [Quality bar](quality.md)
+
+## Model Review
 
 - [Codex review prompt](codex-review.md)
 
@@ -124,6 +128,7 @@ ${list(renderRepoWikiFlags(scan), "_No RepoWiki flags detected._")}
 - [Setup](setup.md)
 - [Architecture](architecture.md)
 - [Agent Context](agent-context.md)
+- [Documentation Quality Bar](quality.md)
 - [Codex Review Prompt](codex-review.md)
 - [Areas](areas/index.md)
 - [Flow Overview](flows/index.md)

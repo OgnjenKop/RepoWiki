@@ -11,6 +11,12 @@ RepoWiki is detected as Node/TypeScript. This summary is generated from reposito
 - Environment variables detected: 6
 - Test files detected: 31
 
+## Documentation Quality Bar
+
+- Target: Qoder-style, agent-ready repository documentation.
+- Read `docs/repo-wiki/quality.md` for the quality checklist and model-review loop.
+- Use `docs/repo-wiki/codex-review.md` with Codex or ChatGPT to identify weak generated docs and concrete RepoWiki improvements.
+
 ## Important Files To Read First
 
 - `package.json`
@@ -30,11 +36,11 @@ RepoWiki is detected as Node/TypeScript. This summary is generated from reposito
 
 - `src/cli.ts:34` - Defines 7 symbols used inside this module.
 - `src/types/index.ts:162` - Central implementation file with exported behavior.
-- `src/utils/markdown.ts:6` - Imported by 11 external files.
+- `src/utils/markdown.ts:6` - Imported by 12 external files.
 - `src/utils/moduleLabel.ts:3` - Imported by 12 external files.
 - `src/docs/generateAgentsMd.ts:13` - Imported by 2 external files.
-- `src/docs/writeDocs.ts:27` - Imported by 3 external files.
-- `src/knowledge/areaOrdering.ts:24` - Imported by 11 external files.
+- `src/docs/writeDocs.ts:28` - Imported by 3 external files.
+- `src/knowledge/areaOrdering.ts:24` - Imported by 12 external files.
 - `src/knowledge/moduleFocus.ts:18` - Imported by 12 external files.
 - `src/scanner/detectModules.ts:54` - Imported by 1 external file.
 - `src/scanner/scanRepo.ts:49` - Imported by 7 external files.
@@ -45,7 +51,7 @@ RepoWiki is detected as Node/TypeScript. This summary is generated from reposito
 - `cli (src/cli.ts)`: 1 file under `src/cli.ts`
 - `commands (src/commands)`: 4 files under `src/commands`
 - `diagrams (src/diagrams)`: 1 file under `src/diagrams`
-- `docs (src/docs)`: 12 files under `src/docs`
+- `docs (src/docs)`: 13 files under `src/docs`
 - `graph (src/graph)`: 1 file under `src/graph`
 - `knowledge (src/knowledge)`: 10 files under `src/knowledge`
 - `scanner (src/scanner)`: 9 files under `src/scanner`
@@ -81,7 +87,7 @@ Read `docs/repo-wiki/areas/index.md` for the area-level map.
 
 ## Area Flows
 
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
@@ -93,7 +99,7 @@ _No runtime consumers detected._
 
 ## Test Consumers
 
-- `test/generateDocs.test.ts` -> `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts` (8 imports into the repo)
+- `test/generateDocs.test.ts` -> `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts` (9 imports into the repo)
 - `test/knowledge.test.ts` -> `src/knowledge/areaOrdering.ts`, `src/knowledge/buildKnowledge.ts`, `src/knowledge/moduleFocus.ts`, `src/scanner/scanRepo.ts` (4 imports into the repo)
 - `test/areaFlows.test.ts` -> `src/knowledge/areaFlows.ts`, `src/knowledge/moduleAreas.ts`, `src/types/index.ts` (3 imports into the repo)
 - `test/detectTests.test.ts` -> `src/docs/generateAgentsMd.ts`, `src/scanner/detectTests.ts`, `src/types/index.ts` (3 imports into the repo)

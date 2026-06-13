@@ -40,7 +40,7 @@
 
 ## Area Flows
 
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
@@ -57,8 +57,8 @@
 
 ## Import Graph Summary
 
-- Import edges detected: 402
-- Files with imports: 86
+- Import edges detected: 407
+- Files with imports: 87
 
 ## Key Module Flows
 
@@ -74,9 +74,9 @@
 - `diagrams (src/diagrams)` -> `types (src/types)`
 - `diagrams (src/diagrams)` -> `utils (src/utils)`
 - `docs (src/docs)` -> `diagrams (src/diagrams)` (2 imports)
-- `docs (src/docs)` -> `knowledge (src/knowledge)` (32 imports)
-- `docs (src/docs)` -> `types (src/types)` (12 imports)
-- `docs (src/docs)` -> `utils (src/utils)` (64 imports)
+- `docs (src/docs)` -> `knowledge (src/knowledge)` (33 imports)
+- `docs (src/docs)` -> `types (src/types)` (13 imports)
+- `docs (src/docs)` -> `utils (src/utils)` (65 imports)
 - `graph (src/graph)` -> `types (src/types)`
 - `knowledge (src/knowledge)` -> `types (src/types)` (10 imports)
 - `knowledge (src/knowledge)` -> `utils (src/utils)` (10 imports)
@@ -93,10 +93,10 @@
 
 ## Central Files
 
-- `src/types/index.ts` - 54 incoming imports
+- `src/types/index.ts` - 55 incoming imports
 - `src/knowledge/moduleFocus.ts` - 14 incoming imports
-- `src/knowledge/areaOrdering.ts` - 14 incoming imports
-- `src/utils/markdown.ts` - 13 incoming imports
+- `src/knowledge/areaOrdering.ts` - 15 incoming imports
+- `src/utils/markdown.ts` - 14 incoming imports
 - `src/utils/moduleLabel.ts` - 12 incoming imports
 - `src/knowledge/areaFlows.ts` - 11 incoming imports
 - `src/utils/docPaths.ts` - 11 incoming imports
@@ -108,11 +108,11 @@
 
 - `src/cli.ts:34` - Defines 7 symbols used inside this module.
 - `src/types/index.ts:162` - Central implementation file with exported behavior.
-- `src/utils/markdown.ts:6` - Imported by 11 external files.
+- `src/utils/markdown.ts:6` - Imported by 12 external files.
 - `src/utils/moduleLabel.ts:3` - Imported by 12 external files.
 - `src/docs/generateAgentsMd.ts:13` - Imported by 2 external files.
-- `src/docs/writeDocs.ts:27` - Imported by 3 external files.
-- `src/knowledge/areaOrdering.ts:24` - Imported by 11 external files.
+- `src/docs/writeDocs.ts:28` - Imported by 3 external files.
+- `src/knowledge/areaOrdering.ts:24` - Imported by 12 external files.
 - `src/knowledge/moduleFocus.ts:18` - Imported by 12 external files.
 
 ## Test Coverage Summary
@@ -160,7 +160,7 @@ _No runtime consumers detected._
 
 ## Test Consumers
 
-- `test/generateDocs.test.ts` -> `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts` (8 imports into the repo)
+- `test/generateDocs.test.ts` -> `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts` (9 imports into the repo)
 - `test/knowledge.test.ts` -> `src/knowledge/areaOrdering.ts`, `src/knowledge/buildKnowledge.ts`, `src/knowledge/moduleFocus.ts`, `src/scanner/scanRepo.ts` (4 imports into the repo)
 - `test/areaFlows.test.ts` -> `src/knowledge/areaFlows.ts`, `src/knowledge/moduleAreas.ts`, `src/types/index.ts` (3 imports into the repo)
 - `test/detectTests.test.ts` -> `src/docs/generateAgentsMd.ts`, `src/scanner/detectTests.ts`, `src/types/index.ts` (3 imports into the repo)

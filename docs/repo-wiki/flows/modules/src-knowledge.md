@@ -17,7 +17,7 @@ Likely derives evidence-backed repository knowledge, summaries, and change guida
 ## Entry Files
 
 - `src/knowledge/moduleFocus.ts:18` - Imported by 12 external files.
-- `src/knowledge/areaOrdering.ts:24` - Imported by 11 external files.
+- `src/knowledge/areaOrdering.ts:24` - Imported by 12 external files.
 - `src/knowledge/areaFlows.ts:3` - Imported by 9 external files.
 - `src/knowledge/verification.ts:177` - Imported by 7 external files.
 - `src/knowledge/changeTargets.ts:15` - Imported by 5 external files.
@@ -27,7 +27,7 @@ Likely derives evidence-backed repository knowledge, summaries, and change guida
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
 - `Core application logic: storage (src/storage)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (3 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Shared support: types (src/types) + utils (src/utils)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
 
 ## Entry Points
@@ -51,6 +51,7 @@ Likely derives evidence-backed repository knowledge, summaries, and change guida
 - `src/docs/generateFlowDocs.ts` imports this module
 - `src/docs/generateIndexDoc.ts` imports this module
 - `src/docs/generateModuleDoc.ts` imports this module
+- `src/docs/generateQualityDoc.ts` imports this module
 - `src/scanner/scanRepo.ts` imports this module
 - `src/storage/metadataStore.ts` imports this module
 - `src/utils/changePaths.ts` imports this module
@@ -72,7 +73,7 @@ Likely derives evidence-backed repository knowledge, summaries, and change guida
 - `knowledge (src/knowledge) -> types (src/types)` (10 imports)
 - `knowledge (src/knowledge) -> utils (src/utils)` (10 imports)
 - `knowledge (src/knowledge) <- ai (src/ai)` (13 imports)
-- `knowledge (src/knowledge) <- docs (src/docs)` (32 imports)
+- `knowledge (src/knowledge) <- docs (src/docs)` (33 imports)
 - `knowledge (src/knowledge) <- scanner (src/scanner)` (2 imports)
 - `knowledge (src/knowledge) <- storage (src/storage)` (2 imports)
 - `knowledge (src/knowledge) <- utils (src/utils)` (2 imports)
@@ -121,8 +122,8 @@ _No external dependencies detected._
 - `src/knowledge/moduleFocus.ts:18` - A connected implementation file with both imports and exports. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
 - `src/ai/contextPacks.ts:56` - A directly connected implementation file. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
 - `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
-- `src/storage/metadataStore.ts:98` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
-- `src/knowledge/moduleAreas.ts:30` - A connected implementation file with both imports and exports. [Symbols: detectModuleAreas@30]
+- `src/knowledge/areaOrdering.ts:24` - A connected implementation file with both imports and exports. [Symbols: orderedAreas@11, areaRoleRank@24]
+- `src/storage/metadataStore.ts:99` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
 
 ## Verification
 

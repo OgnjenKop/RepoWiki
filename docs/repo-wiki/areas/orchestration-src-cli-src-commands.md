@@ -68,10 +68,10 @@ _No runtime consumers detected._
 
 - `src/cli.ts:34` - A dependency-heavy file that influences nearby code.
 - `src/commands/update.ts:87` - A connected implementation file with both imports and exports. [Symbols: updateCommand@9, getAffectedModules@46, getAffectedRoutes@71, getAffectedAreas@87]
+- `test/generateDocs.test.ts:2` - Tests that verify this area. (Update the test expectations if behavior changes.)
 - `src/commands/check.ts:4` - A connected implementation file with both imports and exports. [Symbols: checkCommand@4]
 - `src/commands/generate.ts:7` - A connected implementation file with both imports and exports. [Symbols: generateCommand@7]
 - `src/commands/review.ts:7` - A connected implementation file with both imports and exports. [Symbols: reviewCommand@7]
-- `test/generateDocs.test.ts:2` - Tests that verify this area. (Update the test expectations if behavior changes.)
 - `test/checkCommand.test.ts:5` - Tests that verify this area. (Update the test expectations if behavior changes.)
 - `test/detectTests.test.ts:2` - Tests that verify this area. (Update the test expectations if behavior changes.)
 
@@ -86,7 +86,7 @@ _No runtime consumers detected._
 - `test/checkCommand.test.ts:5` covers `src/commands/check.ts`
 - `test/cli.e2e.test.ts:8` covers `src/ai/contextPacks.ts`, `src/cli.ts`, `src/utils/docPaths.ts`
 - `test/detectTests.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentsMd.ts`, `src/scanner/detectTests.ts`, `src/types/index.ts`
-- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/types/index.ts`
+- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/docs/generateQualityDoc.ts`, `src/types/index.ts`
 - `test/update.test.ts:2` covers `src/commands/update.ts`, `src/types/index.ts`
 
 ## Related Routes

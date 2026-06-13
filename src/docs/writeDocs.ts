@@ -12,6 +12,7 @@ import { generateFlowsIndexDoc, generateModuleFlowDoc } from "./generateFlowDocs
 import { generateModuleDiagram, generateRouteDiagram } from "../diagrams/generateDiagrams.js";
 import { generateIndexDoc } from "./generateIndexDoc.js";
 import { generateModuleDoc } from "./generateModuleDoc.js";
+import { generateQualityDoc } from "./generateQualityDoc.js";
 import { generateSetupDoc } from "./generateSetupDoc.js";
 import { areaDocFileName } from "../utils/docPaths.js";
 
@@ -45,6 +46,8 @@ export async function writeDocs(scan: RepoScan, options: WriteDocsOptions = {}):
   written.push("docs/repo-wiki/architecture.md");
   await writeText(path.join(docsRoot, "codex-review.md"), generateCodexReviewDoc(scan));
   written.push("docs/repo-wiki/codex-review.md");
+  await writeText(path.join(docsRoot, "quality.md"), generateQualityDoc(scan));
+  written.push("docs/repo-wiki/quality.md");
   await writeText(path.join(docsRoot, "areas", "index.md"), generateAreasIndexDoc(scan));
   written.push("docs/repo-wiki/areas/index.md");
   const areasToWrite = selectedAreas === "all"

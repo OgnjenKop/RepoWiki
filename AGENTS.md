@@ -9,6 +9,7 @@ Read:
 - docs/repo-wiki/index.md
 - docs/repo-wiki/architecture.md
 - docs/repo-wiki/agent-context.md
+- docs/repo-wiki/quality.md
 - docs/repo-wiki/flows/index.md
 - docs/repo-wiki/areas/index.md
 - docs/repo-wiki/codex-review.md
@@ -58,7 +59,7 @@ Read:
 - `cli (src/cli.ts)`: 1 file under `src/cli.ts`
 - `commands (src/commands)`: 4 files under `src/commands`
 - `diagrams (src/diagrams)`: 1 file under `src/diagrams`
-- `docs (src/docs)`: 12 files under `src/docs`
+- `docs (src/docs)`: 13 files under `src/docs`
 - `graph (src/graph)`: 1 file under `src/graph`
 - `knowledge (src/knowledge)`: 10 files under `src/knowledge`
 - `scanner (src/scanner)`: 9 files under `src/scanner`
@@ -94,7 +95,7 @@ Read `docs/repo-wiki/areas/index.md` for the area-level map.
 
 ## Area Flows
 
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)

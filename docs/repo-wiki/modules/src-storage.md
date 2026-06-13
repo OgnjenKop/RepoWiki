@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Likely handles persistence, metadata, cached state, or storage-backed records. 1 file belong to this module. Main files: src/storage/metadataStore.ts. Entry files: src/storage/metadataStore.ts:98. Module areas: Core application logic: storage (src/storage). Exported symbols include areaContextFilesFromScan (src/storage/metadataStore.ts:98), areaFilesFromScan (src/storage/metadataStore.ts:86), diffHashes (src/storage/metadataStore.ts:106), fileModulesFromScan (src/storage/metadataStore.ts:78), hasChanges (src/storage/metadataStore.ts:124), hashesFromScan (src/storage/metadataStore.ts:19), hasStoredHashes (src/storage/metadataStore.ts:27), loadHashes (src/storage/metadataStore.ts:23). Used by: src/commands/check.ts, src/commands/generate.ts, src/commands/review.ts, src/commands/update.ts. Runtime consumers: src/commands/check.ts -> src/storage/metadataStore.ts, src/commands/generate.ts -> src/storage/metadataStore.ts, src/commands/review.ts -> src/storage/metadataStore.ts. Test consumers: test/metadataArtifacts.test.ts -> src/storage/metadataStore.ts, test/metadataStore.test.ts -> src/storage/metadataStore.ts. Common change paths: Read the module entry files first: src/storage/metadataStore.ts - These are the strongest module starting points. (evidence: src/storage/metadataStore.ts); Inspect runtime consumers before changing shared code: src/commands/check.ts, src/storage/metadataStore.ts, src/commands/generate.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/check.ts, src/storage/metadataStore.ts, src/commands/generate.ts); Review test consumers before changing behavior: test/metadataArtifacts.test.ts, src/storage/metadataStore.ts, test/metadataStore.test.ts - These tests show expected behavior around the module boundary. (evidence: test/metadataArtifacts.test.ts, src/storage/metadataStore.ts, test/metadataStore.test.ts). Verification: Run the repository build command: package.json - Use the build script after changing the module. Command: npm run build. (evidence: package.json) Inspect related tests: test/metadataArtifacts.test.ts:5, test/metadataStore.test.ts:5 - These tests exercise module behavior or its direct targets. (evidence: test/metadataArtifacts.test.ts:5, test/metadataStore.test.ts:5) Run the repository test command: package.json - Use the project test script after changing the module. Command: npm run test. (evidence: package.json)
+Likely handles persistence, metadata, cached state, or storage-backed records. 1 file belong to this module. Main files: src/storage/metadataStore.ts. Entry files: src/storage/metadataStore.ts:99. Module areas: Core application logic: storage (src/storage). Exported symbols include areaContextFilesFromScan (src/storage/metadataStore.ts:99), areaFilesFromScan (src/storage/metadataStore.ts:87), diffHashes (src/storage/metadataStore.ts:107), fileModulesFromScan (src/storage/metadataStore.ts:79), hasChanges (src/storage/metadataStore.ts:125), hashesFromScan (src/storage/metadataStore.ts:19), hasStoredHashes (src/storage/metadataStore.ts:27), loadHashes (src/storage/metadataStore.ts:23). Used by: src/commands/check.ts, src/commands/generate.ts, src/commands/review.ts, src/commands/update.ts. Runtime consumers: src/commands/check.ts -> src/storage/metadataStore.ts, src/commands/generate.ts -> src/storage/metadataStore.ts, src/commands/review.ts -> src/storage/metadataStore.ts. Test consumers: test/metadataArtifacts.test.ts -> src/storage/metadataStore.ts, test/metadataStore.test.ts -> src/storage/metadataStore.ts. Common change paths: Read the module entry files first: src/storage/metadataStore.ts - These are the strongest module starting points. (evidence: src/storage/metadataStore.ts); Inspect runtime consumers before changing shared code: src/commands/check.ts, src/storage/metadataStore.ts, src/commands/generate.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/check.ts, src/storage/metadataStore.ts, src/commands/generate.ts); Review test consumers before changing behavior: test/metadataArtifacts.test.ts, src/storage/metadataStore.ts, test/metadataStore.test.ts - These tests show expected behavior around the module boundary. (evidence: test/metadataArtifacts.test.ts, src/storage/metadataStore.ts, test/metadataStore.test.ts). Verification: Run the repository build command: package.json - Use the build script after changing the module. Command: npm run build. (evidence: package.json) Inspect related tests: test/metadataArtifacts.test.ts:5, test/metadataStore.test.ts:5 - These tests exercise module behavior or its direct targets. (evidence: test/metadataArtifacts.test.ts:5, test/metadataStore.test.ts:5) Run the repository test command: package.json - Use the project test script after changing the module. Command: npm run test. (evidence: package.json)
 
 ## Module Path
 
@@ -18,7 +18,7 @@ Likely handles persistence, metadata, cached state, or storage-backed records. 1
 
 ## Entry Files
 
-- `src/storage/metadataStore.ts:98` - Imported by 6 external files.
+- `src/storage/metadataStore.ts:99` - Imported by 6 external files.
 
 ## Main Files
 
@@ -27,17 +27,17 @@ Likely handles persistence, metadata, cached state, or storage-backed records. 1
 ## Exported Symbols
 
 - `MetadataWriteOptions` from `src/storage/metadataStore.ts:9`
-- `areaContextFilesFromScan` from `src/storage/metadataStore.ts:98`
-- `areaFilesFromScan` from `src/storage/metadataStore.ts:86`
-- `diffHashes` from `src/storage/metadataStore.ts:106`
-- `fileModulesFromScan` from `src/storage/metadataStore.ts:78`
-- `hasChanges` from `src/storage/metadataStore.ts:124`
+- `areaContextFilesFromScan` from `src/storage/metadataStore.ts:99`
+- `areaFilesFromScan` from `src/storage/metadataStore.ts:87`
+- `diffHashes` from `src/storage/metadataStore.ts:107`
+- `fileModulesFromScan` from `src/storage/metadataStore.ts:79`
+- `hasChanges` from `src/storage/metadataStore.ts:125`
 - `hasStoredHashes` from `src/storage/metadataStore.ts:27`
 - `hashesFromScan` from `src/storage/metadataStore.ts:19`
 - `loadHashes` from `src/storage/metadataStore.ts:23`
 - `loadIndex` from `src/storage/metadataStore.ts:31`
-- `moduleContextFilesFromScan` from `src/storage/metadataStore.ts:94`
-- `routeContextFilesFromScan` from `src/storage/metadataStore.ts:102`
+- `moduleContextFilesFromScan` from `src/storage/metadataStore.ts:95`
+- `routeContextFilesFromScan` from `src/storage/metadataStore.ts:103`
 - `writeMetadata` from `src/storage/metadataStore.ts:35`
 
 ## Internal Dependencies
@@ -74,7 +74,7 @@ _None detected._
 
 ## Change Guidance
 
-- `src/storage/metadataStore.ts:98` - A connected implementation file with both imports and exports. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
+- `src/storage/metadataStore.ts:99` - A connected implementation file with both imports and exports. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
 - `src/commands/update.ts:87` - A directly connected implementation file. [Symbols: updateCommand@9, getAffectedModules@46, getAffectedRoutes@71, getAffectedAreas@87]
 - `test/metadataArtifacts.test.ts:5` - A directly connected implementation file. (Update the test expectations if behavior changes.)
 - `src/commands/check.ts:4` - A directly connected implementation file. [Symbols: checkCommand@4]
@@ -82,7 +82,7 @@ _None detected._
 
 ## Decision Points
 
-- Start with `src/storage/metadataStore.ts:98` if you are changing public behavior.
+- Start with `src/storage/metadataStore.ts:99` if you are changing public behavior.
 - Use `src/commands/update.ts:87` as the next stop for supporting logic.
 - Check `test/metadataArtifacts.test.ts:5` before changing implementation details.
 

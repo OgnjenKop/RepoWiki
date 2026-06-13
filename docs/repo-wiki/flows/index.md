@@ -9,7 +9,7 @@ Flow docs explain how code moves through the repository: module imports, route e
 - Modules detected: 11
 - Routes detected: 0
 - Test files detected: 31
-- Import edges detected: 402
+- Import edges detected: 407
 
 ## Key Module Flows
 
@@ -25,9 +25,9 @@ Flow docs explain how code moves through the repository: module imports, route e
 - `diagrams (src/diagrams)` -> `types (src/types)`
 - `diagrams (src/diagrams)` -> `utils (src/utils)`
 - `docs (src/docs)` -> `diagrams (src/diagrams)` (2 imports)
-- `docs (src/docs)` -> `knowledge (src/knowledge)` (32 imports)
-- `docs (src/docs)` -> `types (src/types)` (12 imports)
-- `docs (src/docs)` -> `utils (src/utils)` (64 imports)
+- `docs (src/docs)` -> `knowledge (src/knowledge)` (33 imports)
+- `docs (src/docs)` -> `types (src/types)` (13 imports)
+- `docs (src/docs)` -> `utils (src/utils)` (65 imports)
 - `graph (src/graph)` -> `types (src/types)`
 - `knowledge (src/knowledge)` -> `types (src/types)` (10 imports)
 - `knowledge (src/knowledge)` -> `utils (src/utils)` (10 imports)
@@ -68,7 +68,7 @@ Flow docs explain how code moves through the repository: module imports, route e
 
 ## Area Flows
 
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
@@ -107,7 +107,7 @@ _No routes detected._
 - [cli (src/cli.ts)](modules/src-cli.md) - 1 file
 - [commands (src/commands)](modules/src-commands.md) - 4 files
 - [diagrams (src/diagrams)](modules/src-diagrams.md) - 1 file
-- [docs (src/docs)](modules/src-docs.md) - 12 files
+- [docs (src/docs)](modules/src-docs.md) - 13 files
 - [graph (src/graph)](modules/src-graph.md) - 1 file
 - [knowledge (src/knowledge)](modules/src-knowledge.md) - 10 files
 - [scanner (src/scanner)](modules/src-scanner.md) - 9 files

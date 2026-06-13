@@ -6,7 +6,7 @@ Provides shared persistence, configuration, types, and utility helpers. Covers t
 
 ## Summary
 
-Provides shared persistence, configuration, types, and utility helpers. Covers types (src/types), utils (src/utils). Modules: types (src/types), utils (src/utils). Root paths: src/types, src/utils. Entry files: src/types/index.ts:162, src/utils/moduleLabel.ts:3, src/utils/markdown.ts:6. Runtime consumers: src/docs/generateFlowDocs.ts -> src/types/index.ts, src/utils/changePaths.ts, src/docs/generateAgentContextDoc.ts -> src/types/index.ts, src/utils/changePaths.ts, src/docs/generateArchitectureDoc.ts -> src/types/index.ts, src/utils/changePaths.ts. Incoming area flows: Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more -> Shared support: types (src/types) + utils (src/utils), Core application logic: graph (src/graph) + scanner (src/scanner) -> Shared support: types (src/types) + utils (src/utils), Core application logic: storage (src/storage) -> Shared support: types (src/types) + utils (src/utils). Outgoing area flows: Shared support: types (src/types) + utils (src/utils) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more. Common change paths: Read the module entry files first: src/types/index.ts, src/utils/moduleLabel.ts, src/utils/markdown.ts - These are the strongest module starting points. (evidence: src/types/index.ts, src/utils/moduleLabel.ts, src/utils/markdown.ts); Inspect runtime consumers before changing shared code: src/docs/generateFlowDocs.ts, src/types/index.ts, src/utils/changePaths.ts - These runtime-like files depend on the module boundary. (evidence: src/docs/generateFlowDocs.ts, src/types/index.ts, src/utils/changePaths.ts); Change module implementation files together: src/types/index.ts, src/utils/moduleLabel.ts, src/utils/markdown.ts - These files are part of the same module boundary and likely need coordinated edits. (evidence: src/types/index.ts, src/utils/changePaths.ts, src/utils/changeTargets.ts). Verification: Run the project build: package.json - Use the build script after changing the area. Command: npm run build. (evidence: package.json) Run the project test suite: package.json - Use the package test script after changing the area. Command: npm run test. (evidence: package.json) Inspect related tests: test/aiBuildSummaries.test.ts:2, test/areaFlows.test.ts:2, test/buildGraph.test.ts:2 - These tests cover files in the area. (evidence: test/aiBuildSummaries.test.ts:2, test/areaFlows.test.ts:2, test/buildGraph.test.ts:2)
+Provides shared persistence, configuration, types, and utility helpers. Covers types (src/types), utils (src/utils). Modules: types (src/types), utils (src/utils). Root paths: src/types, src/utils. Entry files: src/types/index.ts:162, src/utils/markdown.ts:6, src/utils/moduleLabel.ts:3. Runtime consumers: src/docs/generateFlowDocs.ts -> src/types/index.ts, src/utils/changePaths.ts, src/docs/generateAgentContextDoc.ts -> src/types/index.ts, src/utils/changePaths.ts, src/docs/generateArchitectureDoc.ts -> src/types/index.ts, src/utils/changePaths.ts. Incoming area flows: Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more -> Shared support: types (src/types) + utils (src/utils), Core application logic: graph (src/graph) + scanner (src/scanner) -> Shared support: types (src/types) + utils (src/utils), Core application logic: storage (src/storage) -> Shared support: types (src/types) + utils (src/utils). Outgoing area flows: Shared support: types (src/types) + utils (src/utils) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more. Common change paths: Read the module entry files first: src/types/index.ts, src/utils/markdown.ts, src/utils/moduleLabel.ts - These are the strongest module starting points. (evidence: src/types/index.ts, src/utils/markdown.ts, src/utils/moduleLabel.ts); Inspect runtime consumers before changing shared code: src/docs/generateFlowDocs.ts, src/types/index.ts, src/utils/changePaths.ts - These runtime-like files depend on the module boundary. (evidence: src/docs/generateFlowDocs.ts, src/types/index.ts, src/utils/changePaths.ts); Change module implementation files together: src/types/index.ts, src/utils/markdown.ts, src/utils/moduleLabel.ts - These files are part of the same module boundary and likely need coordinated edits. (evidence: src/types/index.ts, src/utils/changePaths.ts, src/utils/changeTargets.ts). Verification: Run the project build: package.json - Use the build script after changing the area. Command: npm run build. (evidence: package.json) Run the project test suite: package.json - Use the package test script after changing the area. Command: npm run test. (evidence: package.json) Inspect related tests: test/aiBuildSummaries.test.ts:2, test/areaFlows.test.ts:2, test/buildGraph.test.ts:2 - These tests cover files in the area. (evidence: test/aiBuildSummaries.test.ts:2, test/areaFlows.test.ts:2, test/buildGraph.test.ts:2)
 
 ## Modules
 
@@ -15,9 +15,9 @@ Provides shared persistence, configuration, types, and utility helpers. Covers t
 
 ## Entry Files
 
-- `src/types/index.ts:162` - Imported by 50 external files.
+- `src/types/index.ts:162` - Imported by 51 external files.
+- `src/utils/markdown.ts:6` - Imported by 12 external files.
 - `src/utils/moduleLabel.ts:3` - Imported by 12 external files.
-- `src/utils/markdown.ts:6` - Imported by 11 external files.
 - `src/utils/docPaths.ts:5` - Imported by 11 external files.
 - `src/utils/routeCoverage.ts:9` - Imported by 8 external files.
 
@@ -43,7 +43,7 @@ Provides shared persistence, configuration, types, and utility helpers. Covers t
 
 ## Area Flows In
 
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
 - `Core application logic: storage (src/storage)` -> `Shared support: types (src/types) + utils (src/utils)` (3 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Shared support: types (src/types) + utils (src/utils)` (1 imports)
@@ -69,9 +69,9 @@ _No test consumers detected._
 
 ## Common Change Paths
 
-- `Read the module entry files first` -> `src/types/index.ts`, `src/utils/moduleLabel.ts`, `src/utils/markdown.ts`, `src/utils/docPaths.ts` - These are the strongest module starting points. (evidence: `src/types/index.ts`, `src/utils/moduleLabel.ts`, `src/utils/markdown.ts`, `src/utils/docPaths.ts`)
+- `Read the module entry files first` -> `src/types/index.ts`, `src/utils/markdown.ts`, `src/utils/moduleLabel.ts`, `src/utils/docPaths.ts` - These are the strongest module starting points. (evidence: `src/types/index.ts`, `src/utils/markdown.ts`, `src/utils/moduleLabel.ts`, `src/utils/docPaths.ts`)
 - `Inspect runtime consumers before changing shared code` -> `src/docs/generateFlowDocs.ts`, `src/types/index.ts`, `src/utils/changePaths.ts`, `src/utils/changeTargets.ts` - These runtime-like files depend on the module boundary. (evidence: `src/docs/generateFlowDocs.ts`, `src/types/index.ts`, `src/utils/changePaths.ts`, `src/utils/changeTargets.ts`)
-- `Change module implementation files together` -> `src/types/index.ts`, `src/utils/moduleLabel.ts`, `src/utils/markdown.ts`, `src/utils/docPaths.ts` - These files are part of the same module boundary and likely need coordinated edits. (evidence: `src/types/index.ts`, `src/utils/changePaths.ts`, `src/utils/changeTargets.ts`, `src/utils/consumers.ts`)
+- `Change module implementation files together` -> `src/types/index.ts`, `src/utils/markdown.ts`, `src/utils/moduleLabel.ts`, `src/utils/docPaths.ts` - These files are part of the same module boundary and likely need coordinated edits. (evidence: `src/types/index.ts`, `src/utils/changePaths.ts`, `src/utils/changeTargets.ts`, `src/utils/consumers.ts`)
 
 ## Change Guidance
 
@@ -79,9 +79,9 @@ _No test consumers detected._
 - `src/knowledge/moduleFocus.ts:18` - A directly connected implementation file. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
 - `src/ai/contextPacks.ts:56` - A directly connected implementation file. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
 - `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
-- `src/storage/metadataStore.ts:98` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
-- `src/knowledge/moduleAreas.ts:30` - A directly connected implementation file. [Symbols: detectModuleAreas@30]
 - `src/knowledge/areaOrdering.ts:24` - A directly connected implementation file. [Symbols: orderedAreas@11, areaRoleRank@24]
+- `src/storage/metadataStore.ts:99` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
+- `src/knowledge/moduleAreas.ts:30` - A directly connected implementation file. [Symbols: detectModuleAreas@30]
 - `src/docs/generateFlowDocs.ts:18` - A directly connected implementation file. [Symbols: generateFlowsIndexDoc@18, generateModuleFlowDoc@86]
 
 ## Verification
@@ -102,7 +102,7 @@ _No test consumers detected._
 - `test/detectTests.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentsMd.ts`, `src/scanner/detectTests.ts`, `src/types/index.ts`
 - `test/diagrams.test.ts:2` covers `src/diagrams/generateDiagrams.ts`, `src/types/index.ts`
 - `test/fileImportance.test.ts:2` covers `src/knowledge/fileImportance.ts`, `src/types/index.ts`
-- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/types/index.ts`
+- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/docs/generateQualityDoc.ts`, `src/types/index.ts`
 - `test/moduleAreas.test.ts:2` covers `src/knowledge/moduleAreas.ts`, `src/types/index.ts`
 - `test/packageManager.test.ts:2` covers `src/utils/packageManager.ts`
 - `test/sourceText.test.ts:2` covers `src/utils/sourceText.ts`

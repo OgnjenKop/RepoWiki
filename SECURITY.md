@@ -19,14 +19,19 @@ Include:
 
 ## Data Handling
 
-RepoWiki is local-first by default:
+RepoWiki has a local deterministic baseline:
 
 - It scans files on disk.
 - It writes Markdown docs and JSON metadata into the target repository.
-- It does not call a model provider unless AI summaries are explicitly enabled.
+- It does not call a model provider during baseline generation unless AI summaries are explicitly enabled.
 
 Generated docs may include file paths, environment variable names, imports, exports, route strings, and test relationships. Review generated output before publishing it from private repositories.
 
-## Optional AI Mode
+## Model-Backed Workflows
 
-When `--ai` is enabled, repository context can be sent to the configured OpenAI-compatible endpoint. Do not enable AI summaries for private or sensitive repositories unless that data sharing is acceptable for your environment.
+RepoWiki supports model-backed review and summary workflows:
+
+- `repowiki review` writes a prompt that you can use with Codex or ChatGPT through your existing subscription.
+- `--ai` sends repository context to the configured OpenAI-compatible endpoint for automated summaries.
+
+Do not use model-backed workflows for private or sensitive repositories unless that data sharing is acceptable for your environment.

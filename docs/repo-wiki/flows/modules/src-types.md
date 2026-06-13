@@ -16,14 +16,14 @@ Likely defines shared records for files, graphs, summaries, tests, and change ta
 
 ## Entry Files
 
-- `src/types/index.ts:162` - Imported by 54 external files.
+- `src/types/index.ts:162` - Imported by 55 external files.
 
 ## Area Flows
 
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
 - `Core application logic: storage (src/storage)` -> `Shared support: types (src/types) + utils (src/utils)` (3 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Shared support: types (src/types) + utils (src/utils)` (1 imports)
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (108 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Shared support: types (src/types) + utils (src/utils)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
 
 ## Entry Points
@@ -37,7 +37,7 @@ Likely defines shared records for files, graphs, summaries, tests, and change ta
 - `test/detectTests.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentsMd.ts`, `src/scanner/detectTests.ts`, `src/types/index.ts`
 - `test/diagrams.test.ts:2` covers `src/diagrams/generateDiagrams.ts`, `src/types/index.ts`
 - `test/fileImportance.test.ts:2` covers `src/knowledge/fileImportance.ts`, `src/types/index.ts`
-- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/types/index.ts`
+- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/docs/generateQualityDoc.ts`, `src/types/index.ts`
 - `test/moduleAreas.test.ts:2` covers `src/knowledge/moduleAreas.ts`, `src/types/index.ts`
 - `test/summaries.test.ts:2` covers `src/knowledge/buildSummaries.ts`, `src/types/index.ts`
 - `test/update.test.ts:2` covers `src/commands/update.ts`, `src/types/index.ts`
@@ -55,6 +55,7 @@ Likely defines shared records for files, graphs, summaries, tests, and change ta
 - `src/docs/generateFlowDocs.ts` imports this module
 - `src/docs/generateIndexDoc.ts` imports this module
 - `src/docs/generateModuleDoc.ts` imports this module
+- `src/docs/generateQualityDoc.ts` imports this module
 - `src/docs/generateSetupDoc.ts` imports this module
 - `src/docs/repoWikiCli.ts` imports this module
 - `src/docs/writeDocs.ts` imports this module
@@ -107,7 +108,7 @@ Likely defines shared records for files, graphs, summaries, tests, and change ta
 - `types (src/types) <- ai (src/ai)` (3 imports)
 - `types (src/types) <- commands (src/commands)`
 - `types (src/types) <- diagrams (src/diagrams)`
-- `types (src/types) <- docs (src/docs)` (12 imports)
+- `types (src/types) <- docs (src/docs)` (13 imports)
 - `types (src/types) <- graph (src/graph)`
 - `types (src/types) <- knowledge (src/knowledge)` (10 imports)
 - `types (src/types) <- scanner (src/scanner)` (8 imports)
@@ -148,7 +149,7 @@ _No test consumers detected._
 - `test/detectTests.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentsMd.ts`, `src/scanner/detectTests.ts`, `src/types/index.ts`
 - `test/diagrams.test.ts:2` covers `src/diagrams/generateDiagrams.ts`, `src/types/index.ts`
 - `test/fileImportance.test.ts:2` covers `src/knowledge/fileImportance.ts`, `src/types/index.ts`
-- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/types/index.ts`
+- `test/generateDocs.test.ts:2` covers `src/cli.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts`, `src/docs/generateFlowDocs.ts`, `src/docs/generateIndexDoc.ts`, `src/docs/generateModuleDoc.ts`, `src/docs/generateQualityDoc.ts`, `src/types/index.ts`
 - `test/moduleAreas.test.ts:2` covers `src/knowledge/moduleAreas.ts`, `src/types/index.ts`
 - `test/summaries.test.ts:2` covers `src/knowledge/buildSummaries.ts`, `src/types/index.ts`
 - `test/update.test.ts:2` covers `src/commands/update.ts`, `src/types/index.ts`
@@ -159,7 +160,7 @@ _No test consumers detected._
 - `src/knowledge/moduleFocus.ts:18` - A directly connected implementation file. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
 - `src/ai/contextPacks.ts:56` - A directly connected implementation file. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
 - `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
-- `src/storage/metadataStore.ts:98` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
+- `src/knowledge/areaOrdering.ts:24` - A directly connected implementation file. [Symbols: orderedAreas@11, areaRoleRank@24]
 
 ## Verification
 

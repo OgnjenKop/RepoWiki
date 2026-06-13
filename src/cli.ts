@@ -23,7 +23,7 @@ program
 program.command("generate").description("Generate the full wiki from scratch.").action(run(generateCommand));
 program.command("update").description("Update stale wiki docs and metadata.").action(run(updateCommand));
 program.command("check").description("Check whether the wiki is stale.").action(run(checkCommand));
-program.command("review").description("Generate a Codex-ready no-API review prompt.").action(run(reviewCommand));
+program.command("review").description("Generate a Codex-ready model review prompt.").action(run(reviewCommand));
 
 program.parseAsync(process.argv);
 

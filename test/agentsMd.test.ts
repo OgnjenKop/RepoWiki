@@ -57,6 +57,7 @@ describe("generateAgentsSection", () => {
     });
     expect(section).toContain("docs/repo-wiki/flows/index.md");
     expect(section).toContain("docs/repo-wiki/areas/index.md");
+    expect(section).toContain("docs/repo-wiki/quality.md");
     expect(section).toContain("docs/repo-wiki/codex-review.md");
     expect(section).toContain("## Area Docs");
     expect(section).toContain("## Area Summaries");

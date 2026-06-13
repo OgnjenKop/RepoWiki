@@ -50,6 +50,7 @@ export async function writeMetadata(scan: RepoScan, options: MetadataWriteOption
       "docs/repo-wiki/index.md",
       "docs/repo-wiki/architecture.md",
       "docs/repo-wiki/codex-review.md",
+      "docs/repo-wiki/quality.md",
       "docs/repo-wiki/setup.md",
       "docs/repo-wiki/agent-context.md",
       "docs/repo-wiki/flows/index.md",
