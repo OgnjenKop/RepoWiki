@@ -5,6 +5,7 @@ import { pathExists } from "../utils/fs.js";
 
 type PackageJson = {
   name?: string;
+  displayName?: string;
   scripts?: Record<string, string>;
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
@@ -21,7 +22,7 @@ export async function detectProject(rootDir: string, files: string[]): Promise<P
   const type = detectProjectType(allDeps, normalizedFiles);
   const cliMetadata = await detectCliMetadata(rootDir);
   return {
-    name: packageJson.name ?? path.basename(rootDir),
+    name: packageJson.displayName ?? packageJson.name ?? path.basename(rootDir),
     type,
     packageManager: detectPackageManager(normalizedFiles),
     scripts: packageJson.scripts ?? {},

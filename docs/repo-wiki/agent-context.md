@@ -2,7 +2,7 @@
 
 ## Project Summary
 
-repowiki is detected as Node/TypeScript. This summary is generated from repository structure and package metadata only.
+RepoWiki is detected as Node/TypeScript. This summary is generated from repository structure and package metadata only.
 
 ## Knowledge Base
 

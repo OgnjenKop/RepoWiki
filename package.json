@@ -1,5 +1,6 @@
 {
   "name": "repowiki",
+  "displayName": "RepoWiki",
   "version": "0.1.0",
   "description": "Generate a deterministic Markdown wiki for software repositories.",
   "type": "module",

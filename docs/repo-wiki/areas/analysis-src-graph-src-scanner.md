@@ -18,7 +18,7 @@ Contains domain behavior, application state, services, routing, and data flow. C
 - `src/scanner/scanRepo.ts:49` - Imported by 7 external files.
 - `src/scanner/detectModules.ts:54` - Imported by 1 external file.
 - `src/scanner/fileClassifiers.ts:13` - Imported by 1 external file.
-- `src/scanner/detectProject.ts:56` - Imported by 1 external file.
+- `src/scanner/detectProject.ts:57` - Imported by 1 external file.
 - `src/scanner/detectTests.ts:6` - Imported by 1 external file.
 
 ## Root Paths
@@ -75,7 +75,7 @@ Contains domain behavior, application state, services, routing, and data flow. C
 
 - `src/scanner/scanRepo.ts:49` - A connected implementation file with both imports and exports. [Symbols: scanRepo@49]
 - `src/commands/update.ts:87` - A directly connected implementation file. [Symbols: updateCommand@9, getAffectedModules@46, getAffectedRoutes@71, getAffectedAreas@87]
-- `src/scanner/detectProject.ts:56` - A connected implementation file with both imports and exports. [Symbols: detectProject@13, detectProjectType@45, detectPackageManager@56]
+- `src/scanner/detectProject.ts:57` - A connected implementation file with both imports and exports. [Symbols: detectProject@14, detectProjectType@46, detectPackageManager@57]
 - `src/scanner/detectModules.ts:54` - A connected implementation file with both imports and exports. [Symbols: detectModules@54]
 - `src/scanner/detectTests.ts:6` - A connected implementation file with both imports and exports. [Symbols: detectTests@6]
 - `src/scanner/fileClassifiers.ts:13` - A connected implementation file with both imports and exports. [Symbols: isTestFile@5, isMarkdownFile@9, isCodeFile@13, isEnvFile@17]

@@ -2,15 +2,15 @@
 
 ## Project Overview
 
-- Project: repowiki
+- Project: RepoWiki
 - Detected stack: Node/TypeScript
 - Package manager: npm
-- Files scanned: 96
+- Files scanned: 97
 - Modules detected: 11
 
 ## Summary
 
-repowiki is a Node/TypeScript repository. Detected modules: ai (src/ai), cli (src/cli.ts), commands (src/commands), diagrams (src/diagrams), docs (src/docs), graph (src/graph), knowledge (src/knowledge), scanner (src/scanner), storage (src/storage), types (src/types), utils (src/utils). Important config files: package.json, tsconfig.json, vitest.config.ts. Scripts: build, dev, pretest, test. CLI commands: check, generate, review, update. CLI flags: --ai, --ai-api-key, --ai-base-url, --ai-model, --root, --verbose. Key module areas: Operations and entry points: cli (src/cli.ts) + commands (src/commands), Core application logic: graph (src/graph) + scanner (src/scanner), Core application logic: storage (src/storage), Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Shared support: types (src/types) + utils (src/utils). Key area flows: Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more -> Shared support: types (src/types) + utils (src/utils), Core application logic: graph (src/graph) + scanner (src/scanner) -> Shared support: types (src/types) + utils (src/utils), Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Core application logic: graph (src/graph) + scanner (src/scanner), Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Core application logic: storage (src/storage). Important entry files: src/cli.ts:34, src/types/index.ts:162, src/utils/markdown.ts:6, src/utils/moduleLabel.ts:3, src/docs/generateAgentsMd.ts:13, src/docs/writeDocs.ts:27, src/knowledge/areaOrdering.ts:24, src/knowledge/moduleFocus.ts:18. Key module flows: ai (src/ai) -> knowledge (src/knowledge), ai (src/ai) -> types (src/types), ai (src/ai) -> utils (src/utils), cli (src/cli.ts) -> commands (src/commands), commands (src/commands) -> scanner (src/scanner).
+RepoWiki is a Node/TypeScript repository. Detected modules: ai (src/ai), cli (src/cli.ts), commands (src/commands), diagrams (src/diagrams), docs (src/docs), graph (src/graph), knowledge (src/knowledge), scanner (src/scanner), storage (src/storage), types (src/types), utils (src/utils). Important config files: package.json, tsconfig.json, vitest.config.ts. Scripts: build, dev, pretest, test. CLI commands: check, generate, review, update. CLI flags: --ai, --ai-api-key, --ai-base-url, --ai-model, --root, --verbose. Key module areas: Operations and entry points: cli (src/cli.ts) + commands (src/commands), Core application logic: graph (src/graph) + scanner (src/scanner), Core application logic: storage (src/storage), Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Shared support: types (src/types) + utils (src/utils). Key area flows: Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more -> Shared support: types (src/types) + utils (src/utils), Core application logic: graph (src/graph) + scanner (src/scanner) -> Shared support: types (src/types) + utils (src/utils), Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Core application logic: graph (src/graph) + scanner (src/scanner), Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Core application logic: storage (src/storage). Important entry files: src/cli.ts:34, src/types/index.ts:162, src/utils/markdown.ts:6, src/utils/moduleLabel.ts:3, src/docs/generateAgentsMd.ts:13, src/docs/writeDocs.ts:27, src/knowledge/areaOrdering.ts:24, src/knowledge/moduleFocus.ts:18. Key module flows: ai (src/ai) -> knowledge (src/knowledge), ai (src/ai) -> types (src/types), ai (src/ai) -> utils (src/utils), cli (src/cli.ts) -> commands (src/commands), commands (src/commands) -> scanner (src/scanner).
 
 ## Detected Stack
 
@@ -25,6 +25,7 @@ Detected from package metadata, config files, and repository structure.
 
 ## Repository Structure
 
+- `.gitignore`
 - `README.md`
 - `package.json`
 - `repowiki_agent_prompt.md`
