@@ -1,0 +1,40 @@
+flowchart TD
+  src_ai["ai (src/ai)"]
+  src_cli["cli (src/cli.ts)"]
+  src_commands["commands (src/commands)"]
+  src_diagrams["diagrams (src/diagrams)"]
+  src_docs["docs (src/docs)"]
+  src_graph["graph (src/graph)"]
+  src_knowledge["knowledge (src/knowledge)"]
+  src_scanner["scanner (src/scanner)"]
+  src_storage["storage (src/storage)"]
+  src_types["types (src/types)"]
+  src_utils["utils (src/utils)"]
+  src_ai --> src_knowledge
+  src_ai --> src_types
+  src_ai --> src_utils
+  src_cli --> src_commands
+  src_commands --> src_ai
+  src_commands --> src_docs
+  src_commands --> src_scanner
+  src_commands --> src_storage
+  src_commands --> src_types
+  src_diagrams --> src_types
+  src_diagrams --> src_utils
+  src_docs --> src_diagrams
+  src_docs --> src_knowledge
+  src_docs --> src_types
+  src_docs --> src_utils
+  src_graph --> src_types
+  src_knowledge --> src_types
+  src_knowledge --> src_utils
+  src_scanner --> src_graph
+  src_scanner --> src_knowledge
+  src_scanner --> src_types
+  src_scanner --> src_utils
+  src_storage --> src_ai
+  src_storage --> src_knowledge
+  src_storage --> src_types
+  src_storage --> src_utils
+  src_utils --> src_knowledge
+  src_utils --> src_types

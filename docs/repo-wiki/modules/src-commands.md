@@ -1,0 +1,96 @@
+# Commands
+
+## Purpose
+
+Likely implements CLI command entry points and orchestration. 4 files belong to this module. Main files: src/commands/check.ts, src/commands/generate.ts, src/commands/review.ts, src/commands/update.ts. Entry files: src/commands/update.ts:87, src/commands/check.ts:4, src/commands/generate.ts:7. Module areas: Operations and entry points: cli (src/cli.ts) + commands (src/commands). Exported symbols include checkCommand (src/commands/check.ts:4), generateCommand (src/commands/generate.ts:7), reviewCommand (src/commands/review.ts:7), getAffectedAreas (src/commands/update.ts:87), getAffectedModules (src/commands/update.ts:46), getAffectedRoutes (src/commands/update.ts:71), hasGlobalWikiImpact (src/commands/update.ts:116), updateCommand (src/commands/update.ts:9). Used by: src/cli.ts, test/checkCommand.test.ts, test/update.test.ts. Runtime consumers: src/cli.ts -> src/commands/check.ts, src/commands/generate.ts. Test consumers: test/checkCommand.test.ts -> src/commands/check.ts, test/update.test.ts -> src/commands/update.ts. Common change paths: Read the module entry files first: src/commands/update.ts, src/commands/check.ts, src/commands/generate.ts - These are the strongest module starting points. (evidence: src/commands/update.ts, src/commands/check.ts, src/commands/generate.ts); Inspect runtime consumers before changing shared code: src/cli.ts, src/commands/check.ts, src/commands/generate.ts - These runtime-like files depend on the module boundary. (evidence: src/cli.ts, src/commands/check.ts, src/commands/generate.ts); Review test consumers before changing behavior: test/checkCommand.test.ts, src/commands/check.ts, test/update.test.ts - These tests show expected behavior around the module boundary. (evidence: test/checkCommand.test.ts, src/commands/check.ts, test/update.test.ts). Verification: Run the repository build command: package.json - Use the build script after changing the module. Command: npm run build. (evidence: package.json) Inspect related tests: test/checkCommand.test.ts:5, test/update.test.ts:2 - These tests exercise module behavior or its direct targets. (evidence: test/checkCommand.test.ts:5, test/update.test.ts:2) Run the repository test command: package.json - Use the project test script after changing the module. Command: npm run test. (evidence: package.json)
+
+## Module Path
+
+`src/commands`
+
+## Module Areas
+
+- [Operations and entry points: cli (src/cli.ts) + commands (src/commands)](../areas/orchestration-src-cli-src-commands.md) - Coordinates runnable entry points, scripts, commands, and top-level execution flow. Covers cli (src/cli.ts), commands (src/commands).
+
+## Area Summaries
+
+- [Operations and entry points: cli (src/cli.ts) + commands (src/commands)](../areas/orchestration-src-cli-src-commands.md) - Coordinates runnable entry points, scripts, commands, and top-level execution flow. Covers cli (src/cli.ts), commands (src/commands).…
+
+## Entry Files
+
+- `src/commands/update.ts:87` - Imported by 2 external files.
+- `src/commands/check.ts:4` - Imported by 2 external files.
+- `src/commands/generate.ts:7` - Imported by 1 external file.
+- `src/commands/review.ts:7` - Imported by 1 external file.
+
+## Main Files
+
+- `src/commands/check.ts`
+- `src/commands/generate.ts`
+- `src/commands/review.ts`
+- `src/commands/update.ts`
+
+## Exported Symbols
+
+- `checkCommand` from `src/commands/check.ts:4`
+- `generateCommand` from `src/commands/generate.ts:7`
+- `reviewCommand` from `src/commands/review.ts:7`
+- `getAffectedAreas` from `src/commands/update.ts:87`
+- `getAffectedModules` from `src/commands/update.ts:46`
+- `getAffectedRoutes` from `src/commands/update.ts:71`
+- `hasGlobalWikiImpact` from `src/commands/update.ts:116`
+- `updateCommand` from `src/commands/update.ts:9`
+
+## Internal Dependencies
+
+_None detected._
+
+## External Dependencies
+
+- `node:path`
+
+## Runtime Consumers
+
+- `src/cli.ts` -> `src/commands/check.ts`, `src/commands/generate.ts`, `src/commands/review.ts`, `src/commands/update.ts` (4 imports into this module)
+
+## Test Consumers
+
+- `test/checkCommand.test.ts` -> `src/commands/check.ts` (1 imports into this module)
+- `test/update.test.ts` -> `src/commands/update.ts` (1 imports into this module)
+
+## Common Change Paths
+
+- `Read the module entry files first` -> `src/commands/update.ts`, `src/commands/check.ts`, `src/commands/generate.ts`, `src/commands/review.ts` - These are the strongest module starting points. (evidence: `src/commands/update.ts`, `src/commands/check.ts`, `src/commands/generate.ts`, `src/commands/review.ts`)
+- `Inspect runtime consumers before changing shared code` -> `src/cli.ts`, `src/commands/check.ts`, `src/commands/generate.ts`, `src/commands/review.ts` - These runtime-like files depend on the module boundary. (evidence: `src/cli.ts`, `src/commands/check.ts`, `src/commands/generate.ts`, `src/commands/review.ts`)
+- `Review test consumers before changing behavior` -> `test/checkCommand.test.ts`, `src/commands/check.ts`, `test/update.test.ts`, `src/commands/update.ts` - These tests show expected behavior around the module boundary. (evidence: `test/checkCommand.test.ts`, `src/commands/check.ts`, `test/update.test.ts`, `src/commands/update.ts`)
+- `Change module implementation files together` -> `src/commands/update.ts`, `src/commands/check.ts`, `src/commands/generate.ts`, `src/commands/review.ts` - These files are part of the same module boundary and likely need coordinated edits. (evidence: `src/commands/check.ts`, `src/commands/generate.ts`, `src/commands/review.ts`, `src/commands/update.ts`)
+
+## Related Tests
+
+- `test/checkCommand.test.ts:5` covers `src/commands/check.ts`
+- `test/update.test.ts:2` covers `src/commands/update.ts`, `src/types/index.ts`
+
+## Change Guidance
+
+- `src/cli.ts:34` - A directly connected implementation file.
+- `src/commands/update.ts:87` - A connected implementation file with both imports and exports. [Symbols: updateCommand@9, getAffectedModules@46, getAffectedRoutes@71, getAffectedAreas@87]
+- `src/commands/check.ts:4` - A connected implementation file with both imports and exports. [Symbols: checkCommand@4]
+- `src/commands/generate.ts:7` - A connected implementation file with both imports and exports. [Symbols: generateCommand@7]
+- `src/commands/review.ts:7` - A connected implementation file with both imports and exports. [Symbols: reviewCommand@7]
+
+## Decision Points
+
+- Start with `src/cli.ts:34` if you are changing public behavior.
+- Use `src/commands/update.ts:87` as the next stop for supporting logic.
+- Check `test/checkCommand.test.ts:5` before changing implementation details.
+
+## Verification
+
+- Related tests: `test/checkCommand.test.ts:5`, `test/update.test.ts:2`
+- Run: `npm run test`
+
+## Notes For AI Agents
+
+- Start by reading the main files listed above.
+- Treat the purpose as heuristic unless confirmed by code comments, tests, or README content.
+- Update this wiki after changing public exports, routing, environment config, or test behavior.

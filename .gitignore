@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.repowiki/
+coverage/
+*.log
+.env
+.env.*
+!.env.example
