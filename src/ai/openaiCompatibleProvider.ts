@@ -13,21 +13,28 @@ export class OpenAICompatibleSummaryProvider implements SummaryProvider {
 
   async summarize(pack: ContextPack): Promise<string> {
     const messages = buildSummaryMessages(pack);
-    const response = await fetch(`${this.config.baseUrl.replace(/\/$/, "")}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${this.config.apiKey}`
-      },
-      body: JSON.stringify({
-        model: this.config.model,
-        temperature: 0.2,
-        messages
-      })
-    });
+    const endpoint = `${this.config.baseUrl.replace(/\/$/, "")}/chat/completions`;
+    let response: Response;
+    try {
+      response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${this.config.apiKey}`
+        },
+        body: JSON.stringify({
+          model: this.config.model,
+          temperature: 0.2,
+          messages
+        })
+      });
+    } catch (error) {
+      throw new Error(`AI summary request failed for model ${this.config.model} at ${endpoint}: ${error instanceof Error ? error.message : String(error)}`);
+    }
 
     if (!response.ok) {
-      throw new Error(`AI summary request failed with HTTP ${response.status}`);
+      const body = await readErrorBody(response);
+      throw new Error(`AI summary request failed for model ${this.config.model} at ${endpoint} with HTTP ${response.status}${body ? `: ${body}` : ""}`);
     }
 
     const data = (await response.json()) as {
@@ -39,5 +46,14 @@ export class OpenAICompatibleSummaryProvider implements SummaryProvider {
     }
     const draft = parseSummaryDraft(content);
     return renderSummaryMarkdown(draft);
+  }
+}
+
+async function readErrorBody(response: Response): Promise<string> {
+  try {
+    const body = await response.text();
+    return body.trim().slice(0, 500);
+  } catch {
+    return "";
   }
 }

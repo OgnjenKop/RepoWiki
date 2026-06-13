@@ -14,6 +14,7 @@ export function buildSummaryMessages(pack: ContextPack): ChatMessage[] {
       role: "system",
       content: [
         "You are writing Qoder-style repository wiki content for an AI coding agent.",
+        "Write evidence-grounded documentation, not generic repository commentary.",
         "Your output will be rendered directly into a generated repo wiki, so it must be useful for a developer making a safe first change.",
         "Use only the provided evidence pack.",
         "Do not invent behavior, APIs, dependencies, or flows that are not supported by the evidence.",
