@@ -5,7 +5,7 @@
 - Project: RepoWiki
 - Detected stack: Node/TypeScript
 - Package manager: npm
-- Files scanned: 97
+- Files scanned: 100
 - Modules detected: 11
 
 ## Summary
@@ -26,7 +26,10 @@ Detected from package metadata, config files, and repository structure.
 ## Repository Structure
 
 - `.gitignore`
+- `CONTRIBUTING.md`
+- `LICENSE`
 - `README.md`
+- `SECURITY.md`
 - `package.json`
 - `repowiki_agent_prompt.md`
 - `src`

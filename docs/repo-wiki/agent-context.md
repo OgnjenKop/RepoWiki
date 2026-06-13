@@ -141,6 +141,7 @@ _No runtime consumers detected._
 
 ## Change Safety Notes
 
+- Review carefully before changing `SECURITY.md`
 - Review carefully before changing `src/scanner/detectEnvVars.ts`
 - Review carefully before changing `test/detectEnvVars.test.ts`
 

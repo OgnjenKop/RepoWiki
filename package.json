@@ -2,8 +2,31 @@
   "name": "repowiki",
   "displayName": "RepoWiki",
   "version": "0.1.0",
-  "description": "Generate a deterministic Markdown wiki for software repositories.",
+  "description": "Generate deterministic, agent-ready Markdown wikis for software repositories.",
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OgnjenKop/RepoWiki.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OgnjenKop/RepoWiki/issues"
+  },
+  "homepage": "https://github.com/OgnjenKop/RepoWiki#readme",
+  "keywords": [
+    "documentation",
+    "repo-wiki",
+    "agents",
+    "codex",
+    "markdown",
+    "static-analysis",
+    "developer-tools"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "bin": {
     "repowiki": "./dist/cli.js"
   },
