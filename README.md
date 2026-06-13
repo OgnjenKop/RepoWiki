@@ -7,16 +7,17 @@ RepoWiki generates Qoder-style, agent-ready documentation for a software reposit
 
 It is built for agents and maintainers who need a fast, useful map of an unfamiliar codebase: modules, architecture, important files, change paths, tests, diagrams, and model-ready review context.
 
-The goal is not "docs without AI." The goal is high-quality repository documentation that coding agents can use immediately. RepoWiki starts with deterministic local analysis so every repo gets a stable baseline, then supports model-backed review and summary workflows when you want stronger documentation quality.
+The goal is high-quality repository documentation that coding agents can use immediately. The primary path is API-backed AI synthesis, supported by deterministic local analysis so every repo has a stable evidence base and fallback baseline.
 
 ## Why RepoWiki
 
 - Qoder-style repository maps: overview, architecture, setup, modules, areas, flows, and change paths.
-- Deterministic baseline: generated docs can be committed, reviewed, and checked in CI.
+- AI-first synthesis: `repowiki synthesize` requires a model and generates evidence-grounded wiki summaries.
+- Deterministic baseline: local analysis can be committed, reviewed, and checked in CI.
 - Agent-ready context: writes `AGENTS.md`, `docs/repo-wiki/*`, and `.repowiki/context/*`.
 - Model-ready by design: output is structured for Codex, ChatGPT, and other coding agents.
-- Subscription-friendly review: `repowiki review` creates a prompt you can use in Codex or ChatGPT without wiring an API key into the CLI.
-- Optional OpenAI-compatible summaries are available when you want API-backed enrichment.
+- Subscription-friendly review: `repowiki review` creates a prompt you can use in Codex or ChatGPT for quality review.
+- OpenAI-compatible APIs are supported for Qoder-style synthesis and summary enrichment.
 - Works across common TypeScript, React, Node, and multi-root app layouts.
 
 ## Quick Start
