@@ -5,6 +5,7 @@ import type { VerificationHint } from "../knowledge/verification.js";
 
 export type AiRuntimeOptions = {
   enabled?: boolean;
+  required?: boolean;
   baseUrl?: string;
   model?: string;
   apiKey?: string;

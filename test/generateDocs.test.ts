@@ -22,7 +22,7 @@ describe("generateIndexDoc", () => {
         devDependencies: [],
         configFiles: [],
         cliOptions: ["--root", "--verbose", "--ai"],
-        cliCommands: ["generate", "update", "check", "review"]
+        cliCommands: ["generate", "synthesize", "update", "check", "review"]
       },
         graph: {
           files: [
@@ -75,6 +75,7 @@ describe("generateIndexDoc", () => {
     expect(doc).toContain("Run the project build");
     expect(doc).toContain("## RepoWiki Commands");
     expect(doc).toContain("`repowiki generate`");
+    expect(doc).toContain("`repowiki synthesize`");
     expect(doc).toContain("`repowiki update`");
     expect(doc).toContain("`repowiki check`");
     expect(doc).toContain("`repowiki review`");
@@ -131,7 +132,7 @@ describe("generateFlowsIndexDoc", () => {
         devDependencies: [],
         configFiles: [],
         cliOptions: ["--root", "--verbose", "--ai"],
-        cliCommands: ["generate", "update", "check", "review"]
+        cliCommands: ["generate", "synthesize", "update", "check", "review"]
       },
       graph: {
         files: [
@@ -521,7 +522,7 @@ describe("generateAgentContextDoc", () => {
         devDependencies: [],
         configFiles: ["package.json"],
         cliOptions: ["--root", "--verbose", "--ai"],
-        cliCommands: ["generate", "update", "check", "review"]
+        cliCommands: ["generate", "synthesize", "update", "check", "review"]
       },
       graph: {
         files: [
@@ -561,6 +562,7 @@ describe("generateAgentContextDoc", () => {
     expect(doc).toContain("CLI area summary.");
     expect(doc).toContain("## RepoWiki Commands");
     expect(doc).toContain("`repowiki generate`");
+    expect(doc).toContain("`repowiki synthesize`");
     expect(doc).toContain("`repowiki update`");
     expect(doc).toContain("`repowiki check`");
     expect(doc).toContain("## RepoWiki Flags");

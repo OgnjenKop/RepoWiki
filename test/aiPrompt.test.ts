@@ -83,8 +83,17 @@ describe("ai prompt", () => {
   it("builds a grounded evidence prompt for summaries", () => {
     const messages = buildSummaryMessages(pack);
     expect(messages).toHaveLength(2);
-    expect(messages[0]?.content).toContain("evidence-grounded");
+    expect(messages[0]?.content).toContain("Qoder-style repository wiki content");
+    expect(messages[0]?.content).toContain("safe first change");
+    expect(messages[0]?.content).toContain("Prefer specific architecture");
+    expect(messages[0]?.content).toContain("Do not say a module \"likely\"");
     expect(messages[0]?.content).toContain("Return a single JSON object");
+    expect(messages[1]?.content).toContain("Documentation Goal");
+    expect(messages[1]?.content).toContain("high-quality Qoder RepoWiki page");
+    expect(messages[1]?.content).toContain("Scope-Specific Instructions");
+    expect(messages[1]?.content).toContain("public surface");
+    expect(messages[1]?.content).toContain("Field Quality Requirements");
+    expect(messages[1]?.content).toContain("summary: 2-4 sentences");
     expect(messages[1]?.content).toContain("Required Output Shape");
     expect(messages[1]?.content).toContain("Knowledge Items");
     expect(messages[1]?.content).toContain("Relations");
@@ -98,6 +107,8 @@ describe("ai prompt", () => {
     expect(messages[1]?.content).toContain("verificationSteps");
     expect(messages[1]?.content).toContain("decisionPoints");
     expect(messages[1]?.content).toContain('"evidence": ["string"]');
+    expect(messages[1]?.content).toContain("Use exact file paths from the evidence pack");
+    expect(messages[1]?.content).toContain("verificationSteps must reference provided commands");
     expect(messages[1]?.content).toContain("src/auth/service.ts");
     expect(messages[1]?.content).toContain("function:login (exported) @ src/auth/service.ts:1");
     expect(messages[1]?.content).toContain("exports login");

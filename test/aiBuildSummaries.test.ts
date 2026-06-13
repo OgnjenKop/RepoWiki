@@ -3,6 +3,35 @@ import { buildRepoSummaries } from "../src/ai/buildSummaries.js";
 import type { RepoScan } from "../src/types/index.js";
 
 describe("buildRepoSummaries", () => {
+  it("requires model credentials when strict AI synthesis is requested", async () => {
+    const scan: RepoScan = {
+      rootDir: "/tmp/project",
+      project: {
+        name: "fixture",
+        type: "Node/TypeScript",
+        packageManager: "npm",
+        scripts: {},
+        dependencies: [],
+        devDependencies: [],
+        configFiles: []
+      },
+      graph: {
+        files: [],
+        imports: [],
+        modules: [],
+        areas: [],
+        routes: [],
+        envVars: [],
+        tests: []
+      }
+    };
+
+    await expect(buildRepoSummaries({
+      scan,
+      options: { enabled: true, required: true }
+    })).rejects.toThrow("AI synthesis requires");
+  });
+
   it("builds ai summaries for the project, modules, and routes when a provider is available", async () => {
     const scan: RepoScan = {
       rootDir: "/tmp/project",

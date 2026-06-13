@@ -38,6 +38,7 @@ describe("detectProjectType", () => {
       program.option("--verbose", "print verbose output");
       program.option("--ai", "enable AI-generated summaries");
       program.command("generate");
+      program.command("synthesize");
       program.command("update");
       program.command("check");
       program.command("review");
@@ -45,6 +46,6 @@ describe("detectProjectType", () => {
 
     const project = await detectProject(root, ["package.json", "src/cli.ts"]);
     expect(project.cliOptions).toEqual(["--ai", "--root", "--verbose"]);
-    expect(project.cliCommands).toEqual(["check", "generate", "review", "update"]);
+    expect(project.cliCommands).toEqual(["check", "generate", "review", "synthesize", "update"]);
   });
 });

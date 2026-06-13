@@ -9,18 +9,18 @@ Flow docs explain how code moves through the repository: module imports, route e
 - Modules detected: 11
 - Routes detected: 0
 - Test files detected: 31
-- Import edges detected: 407
+- Import edges detected: 413
 
 ## Key Module Flows
 
 - `ai (src/ai)` -> `knowledge (src/knowledge)` (13 imports)
 - `ai (src/ai)` -> `types (src/types)` (3 imports)
 - `ai (src/ai)` -> `utils (src/utils)` (7 imports)
-- `cli (src/cli.ts)` -> `commands (src/commands)` (4 imports)
-- `commands (src/commands)` -> `ai (src/ai)` (6 imports)
-- `commands (src/commands)` -> `docs (src/docs)` (3 imports)
-- `commands (src/commands)` -> `scanner (src/scanner)` (4 imports)
-- `commands (src/commands)` -> `storage (src/storage)` (4 imports)
+- `cli (src/cli.ts)` -> `commands (src/commands)` (5 imports)
+- `commands (src/commands)` -> `ai (src/ai)` (8 imports)
+- `commands (src/commands)` -> `docs (src/docs)` (4 imports)
+- `commands (src/commands)` -> `scanner (src/scanner)` (5 imports)
+- `commands (src/commands)` -> `storage (src/storage)` (5 imports)
 - `commands (src/commands)` -> `types (src/types)`
 - `diagrams (src/diagrams)` -> `types (src/types)`
 - `diagrams (src/diagrams)` -> `utils (src/utils)`
@@ -70,9 +70,9 @@ Flow docs explain how code moves through the repository: module imports, route e
 
 - `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (4 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (12 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (5 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (5 imports)
 - `Core application logic: storage (src/storage)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (3 imports)
 - `Core application logic: storage (src/storage)` -> `Shared support: types (src/types) + utils (src/utils)` (3 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
@@ -105,7 +105,7 @@ _No routes detected._
 
 - [ai (src/ai)](modules/src-ai.md) - 6 files
 - [cli (src/cli.ts)](modules/src-cli.md) - 1 file
-- [commands (src/commands)](modules/src-commands.md) - 4 files
+- [commands (src/commands)](modules/src-commands.md) - 5 files
 - [diagrams (src/diagrams)](modules/src-diagrams.md) - 1 file
 - [docs (src/docs)](modules/src-docs.md) - 13 files
 - [graph (src/graph)](modules/src-graph.md) - 1 file

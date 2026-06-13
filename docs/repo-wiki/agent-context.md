@@ -34,22 +34,22 @@ RepoWiki is detected as Node/TypeScript. This summary is generated from reposito
 
 ## Important Entry Files
 
-- `src/cli.ts:34` - Defines 7 symbols used inside this module.
+- `src/cli.ts:36` - Defines 7 symbols used inside this module.
 - `src/types/index.ts:162` - Central implementation file with exported behavior.
 - `src/utils/markdown.ts:6` - Imported by 12 external files.
 - `src/utils/moduleLabel.ts:3` - Imported by 12 external files.
 - `src/docs/generateAgentsMd.ts:13` - Imported by 2 external files.
-- `src/docs/writeDocs.ts:28` - Imported by 3 external files.
+- `src/docs/writeDocs.ts:28` - Imported by 4 external files.
 - `src/knowledge/areaOrdering.ts:24` - Imported by 12 external files.
 - `src/knowledge/moduleFocus.ts:18` - Imported by 12 external files.
 - `src/scanner/detectModules.ts:54` - Imported by 1 external file.
-- `src/scanner/scanRepo.ts:49` - Imported by 7 external files.
+- `src/scanner/scanRepo.ts:49` - Imported by 8 external files.
 
 ## Module Map
 
 - `ai (src/ai)`: 6 files under `src/ai`
 - `cli (src/cli.ts)`: 1 file under `src/cli.ts`
-- `commands (src/commands)`: 4 files under `src/commands`
+- `commands (src/commands)`: 5 files under `src/commands`
 - `diagrams (src/diagrams)`: 1 file under `src/diagrams`
 - `docs (src/docs)`: 13 files under `src/docs`
 - `graph (src/graph)`: 1 file under `src/graph`
@@ -89,9 +89,9 @@ Read `docs/repo-wiki/areas/index.md` for the area-level map.
 
 - `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (4 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (12 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (5 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (5 imports)
 
 ## Runtime Consumers
 
@@ -132,8 +132,9 @@ _No runtime consumers detected._
 
 - `repowiki --help` - Show CLI help.
 - `repowiki check` - Verify whether the wiki is stale.
-- `repowiki generate` - Generate the full wiki from scratch.
-- `repowiki review`
+- `repowiki generate` - Generate the deterministic baseline wiki.
+- `repowiki review` - Generate a Codex-ready model review prompt.
+- `repowiki synthesize` - Generate the full wiki with required AI synthesis.
 - `repowiki update` - Refresh stale docs and metadata.
 
 ## RepoWiki Flags
@@ -158,7 +159,7 @@ _No runtime consumers detected._
 - `README.md:1` - Project overview and contributor guidance.
 - `vitest.config.ts:1` - Configuration that shapes runtime or tooling behavior. (Configuration changes should be checked against build and runtime behavior.)
 - `tsconfig.json:1` - Configuration that shapes runtime or tooling behavior. (Configuration changes should be checked against build and runtime behavior.)
-- `src/cli.ts:34` - A dependency-heavy file that influences nearby code.
+- `src/cli.ts:36` - A dependency-heavy file that influences nearby code.
 - `src/knowledge/moduleFocus.ts:18` - A connected implementation file with both imports and exports. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
 - `src/ai/contextPacks.ts:56` - A connected implementation file with both imports and exports. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
 

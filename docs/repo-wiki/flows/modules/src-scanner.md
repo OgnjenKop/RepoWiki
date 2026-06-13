@@ -4,7 +4,7 @@
 
 ## Overview
 
-Likely scans files and builds repository graph metadata. 9 files belong to this module. Main files: src/scanner/detectEnvVars.ts, src/scanner/detectModules.ts, src/scanner/detectPathAliases.ts, src/scanner/detectProject.ts. Entry files: src/scanner/scanRepo.ts:49, src/scanner/detectModules.ts:54, src/scanner/fileClassifiers.ts:13. Module areas: Core application logic: graph (src/graph) + scanner (src/scanner). Exported symbols include detectEnvVars (src/scanner/detectEnvVars.ts:5), detectModules (src/scanner/detectModules.ts:54), detectPathAliases (src/scanner/detectPathAliases.ts:15), detectPackageManager (src/scanner/detectProject.ts:57), detectProject (src/scanner/detectProject.ts:14), detectProjectType (src/scanner/detectProject.ts:46), detectRoutes (src/scanner/detectRoutes.ts:4), detectTests (src/scanner/detectTests.ts:6). Used by: src/commands/check.ts, src/commands/generate.ts, src/commands/review.ts, src/commands/update.ts. Runtime consumers: src/commands/check.ts -> src/scanner/scanRepo.ts, src/commands/generate.ts -> src/scanner/scanRepo.ts, src/commands/review.ts -> src/scanner/scanRepo.ts. Test consumers: test/detectEnvVars.test.ts -> src/scanner/detectEnvVars.ts, test/detectModules.test.ts -> src/scanner/detectModules.ts, test/detectPathAliases.test.ts -> src/scanner/detectPathAliases.ts. Common change paths: Read the module entry files first: src/scanner/scanRepo.ts, src/scanner/detectModules.ts, src/scanner/fileClassifiers.ts - These are the strongest module starting points. (evidence: src/scanner/scanRepo.ts, src/scanner/detectModules.ts, src/scanner/fileClassifiers.ts); Inspect runtime consumers before changing shared code: src/commands/check.ts, src/scanner/scanRepo.ts, src/commands/generate.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/check.ts, src/scanner/scanRepo.ts, src/commands/generate.ts); Review test consumers before changing behavior: test/detectEnvVars.test.ts, src/scanner/detectEnvVars.ts, test/detectModules.test.ts - These tests show expected behavior around the module boundary. (evidence: test/detectEnvVars.test.ts, src/scanner/detectEnvVars.ts, test/detectModules.test.ts). Verification: Run the repository build command: package.json - Use the build script after changing the module. Command: npm run build. (evidence: package.json) Inspect related tests: test/detectEnvVars.test.ts:2, test/detectModules.test.ts:2, test/detectPathAliases.test.ts:5 - These tests exercise module behavior or its direct targets. (evidence: test/detectEnvVars.test.ts:2, test/detectModules.test.ts:2, test/detectPathAliases.test.ts:5) Run the repository test command: package.json - Use the project test script after changing the module. Command: npm run test. (evidence: package.json) Internal flow: src/scanner/detectTests.ts -> src/scanner/fileClassifiers.ts.
+Likely scans files and builds repository graph metadata. 9 files belong to this module. Main files: src/scanner/detectEnvVars.ts, src/scanner/detectModules.ts, src/scanner/detectPathAliases.ts, src/scanner/detectProject.ts. Entry files: src/scanner/scanRepo.ts:49, src/scanner/detectModules.ts:54, src/scanner/fileClassifiers.ts:13. Module areas: Core application logic: graph (src/graph) + scanner (src/scanner). Exported symbols include detectEnvVars (src/scanner/detectEnvVars.ts:5), detectModules (src/scanner/detectModules.ts:54), detectPathAliases (src/scanner/detectPathAliases.ts:15), detectPackageManager (src/scanner/detectProject.ts:57), detectProject (src/scanner/detectProject.ts:14), detectProjectType (src/scanner/detectProject.ts:46), detectRoutes (src/scanner/detectRoutes.ts:4), detectTests (src/scanner/detectTests.ts:6). Used by: src/commands/check.ts, src/commands/generate.ts, src/commands/review.ts, src/commands/synthesize.ts. Runtime consumers: src/commands/check.ts -> src/scanner/scanRepo.ts, src/commands/generate.ts -> src/scanner/scanRepo.ts, src/commands/review.ts -> src/scanner/scanRepo.ts. Test consumers: test/detectEnvVars.test.ts -> src/scanner/detectEnvVars.ts, test/detectModules.test.ts -> src/scanner/detectModules.ts, test/detectPathAliases.test.ts -> src/scanner/detectPathAliases.ts. Common change paths: Read the module entry files first: src/scanner/scanRepo.ts, src/scanner/detectModules.ts, src/scanner/fileClassifiers.ts - These are the strongest module starting points. (evidence: src/scanner/scanRepo.ts, src/scanner/detectModules.ts, src/scanner/fileClassifiers.ts); Inspect runtime consumers before changing shared code: src/commands/check.ts, src/scanner/scanRepo.ts, src/commands/generate.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/check.ts, src/scanner/scanRepo.ts, src/commands/generate.ts); Review test consumers before changing behavior: test/detectEnvVars.test.ts, src/scanner/detectEnvVars.ts - These tests show expected behavior around the module boundary. (evidence: test/detectEnvVars.test.ts, src/scanner/detectEnvVars.ts). Verification: Run the repository build command: package.json - Use the build script after changing the module. Command: npm run build. (evidence: package.json) Inspect related tests: test/detectEnvVars.test.ts:2, test/detectModules.test.ts:2, test/detectPathAliases.test.ts:5 - These tests exercise module behavior or its direct targets. (evidence: test/detectEnvVars.test.ts:2, test/detectModules.test.ts:2, test/detectPathAliases.test.ts:5) Run the repository test command: package.json - Use the project test script after changing the module. Command: npm run test. (evidence: package.json) Internal flow: src/scanner/detectTests.ts -> src/scanner/fileClassifiers.ts.
 
 ## Module Areas
 
@@ -16,7 +16,7 @@ Likely scans files and builds repository graph metadata. 9 files belong to this 
 
 ## Entry Files
 
-- `src/scanner/scanRepo.ts:49` - Imported by 7 external files.
+- `src/scanner/scanRepo.ts:49` - Imported by 8 external files.
 - `src/scanner/detectModules.ts:54` - Imported by 1 external file.
 - `src/scanner/fileClassifiers.ts:13` - Imported by 1 external file.
 - `src/scanner/detectProject.ts:57` - Imported by 1 external file.
@@ -26,7 +26,7 @@ Likely scans files and builds repository graph metadata. 9 files belong to this 
 
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (5 imports)
 
 ## Entry Points
 
@@ -44,6 +44,7 @@ Likely scans files and builds repository graph metadata. 9 files belong to this 
 - `src/commands/check.ts` imports this module
 - `src/commands/generate.ts` imports this module
 - `src/commands/review.ts` imports this module
+- `src/commands/synthesize.ts` imports this module
 - `src/commands/update.ts` imports this module
 - `test/detectEnvVars.test.ts` imports this module
 - `test/detectModules.test.ts` imports this module
@@ -61,7 +62,7 @@ Likely scans files and builds repository graph metadata. 9 files belong to this 
 
 - `Read the module entry files first` -> `src/scanner/scanRepo.ts`, `src/scanner/detectModules.ts`, `src/scanner/fileClassifiers.ts`, `src/scanner/detectProject.ts` - These are the strongest module starting points. (evidence: `src/scanner/scanRepo.ts`, `src/scanner/detectModules.ts`, `src/scanner/fileClassifiers.ts`, `src/scanner/detectProject.ts`)
 - `Inspect runtime consumers before changing shared code` -> `src/commands/check.ts`, `src/scanner/scanRepo.ts`, `src/commands/generate.ts`, `src/commands/review.ts` - These runtime-like files depend on the module boundary. (evidence: `src/commands/check.ts`, `src/scanner/scanRepo.ts`, `src/commands/generate.ts`, `src/commands/review.ts`)
-- `Review test consumers before changing behavior` -> `test/detectEnvVars.test.ts`, `src/scanner/detectEnvVars.ts`, `test/detectModules.test.ts`, `src/scanner/detectModules.ts` - These tests show expected behavior around the module boundary. (evidence: `test/detectEnvVars.test.ts`, `src/scanner/detectEnvVars.ts`, `test/detectModules.test.ts`, `src/scanner/detectModules.ts`)
+- `Review test consumers before changing behavior` -> `test/detectEnvVars.test.ts`, `src/scanner/detectEnvVars.ts` - These tests show expected behavior around the module boundary. (evidence: `test/detectEnvVars.test.ts`, `src/scanner/detectEnvVars.ts`)
 - `Change module implementation files together` -> `src/scanner/scanRepo.ts`, `src/scanner/detectModules.ts`, `src/scanner/fileClassifiers.ts`, `src/scanner/detectProject.ts` - These files are part of the same module boundary and likely need coordinated edits. (evidence: `src/scanner/detectEnvVars.ts`, `src/scanner/detectModules.ts`, `src/scanner/detectPathAliases.ts`, `src/scanner/detectProject.ts`)
 
 ## Module Connections
@@ -70,7 +71,7 @@ Likely scans files and builds repository graph metadata. 9 files belong to this 
 - `scanner (src/scanner) -> knowledge (src/knowledge)` (2 imports)
 - `scanner (src/scanner) -> types (src/types)` (8 imports)
 - `scanner (src/scanner) -> utils (src/utils)` (11 imports)
-- `scanner (src/scanner) <- commands (src/commands)` (4 imports)
+- `scanner (src/scanner) <- commands (src/commands)` (5 imports)
 
 ## Internal Flow
 
@@ -95,6 +96,7 @@ Likely scans files and builds repository graph metadata. 9 files belong to this 
 - `src/commands/check.ts` -> `src/scanner/scanRepo.ts` (1 imports into this module)
 - `src/commands/generate.ts` -> `src/scanner/scanRepo.ts` (1 imports into this module)
 - `src/commands/review.ts` -> `src/scanner/scanRepo.ts` (1 imports into this module)
+- `src/commands/synthesize.ts` -> `src/scanner/scanRepo.ts` (1 imports into this module)
 - `src/commands/update.ts` -> `src/scanner/scanRepo.ts` (1 imports into this module)
 
 ## Test Consumers
@@ -102,7 +104,6 @@ Likely scans files and builds repository graph metadata. 9 files belong to this 
 - `test/detectEnvVars.test.ts` -> `src/scanner/detectEnvVars.ts` (1 imports into this module)
 - `test/detectModules.test.ts` -> `src/scanner/detectModules.ts` (1 imports into this module)
 - `test/detectPathAliases.test.ts` -> `src/scanner/detectPathAliases.ts` (1 imports into this module)
-- `test/detectProject.test.ts` -> `src/scanner/detectProject.ts` (1 imports into this module)
 
 ## Related Tests
 

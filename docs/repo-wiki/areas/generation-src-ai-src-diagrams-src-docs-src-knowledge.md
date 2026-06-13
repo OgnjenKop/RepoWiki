@@ -6,7 +6,7 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 ## Summary
 
-Contains UI, presentation, docs, generated output, or user-facing surfaces. Covers ai (src/ai), diagrams (src/diagrams), docs (src/docs), knowledge (src/knowledge). Modules: ai (src/ai), diagrams (src/diagrams), docs (src/docs), knowledge (src/knowledge). Root paths: src/ai, src/diagrams, src/docs, src/knowledge. Entry files: src/ai/contextPacks.ts:56, src/knowledge/moduleFocus.ts:18, src/ai/types.ts:6. Runtime consumers: src/commands/update.ts -> src/ai/buildSummaries.ts, src/ai/contextPacks.ts, src/commands/generate.ts -> src/ai/buildSummaries.ts, src/ai/types.ts, src/storage/metadataStore.ts -> src/ai/contextPacks.ts, src/knowledge/buildKnowledge.ts. Test consumers: test/generateDocs.test.ts -> src/docs/generateAgentContextDoc.ts, src/docs/generateArchitectureDoc.ts, test/knowledge.test.ts -> src/knowledge/areaOrdering.ts, src/knowledge/buildKnowledge.ts, test/aiPrompt.test.ts -> src/ai/prompt.ts, src/ai/types.ts. Incoming area flows: Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Core application logic: storage (src/storage) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Core application logic: graph (src/graph) + scanner (src/scanner) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more. Outgoing area flows: Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more -> Shared support: types (src/types) + utils (src/utils). Common change paths: Read the module entry files first: src/ai/contextPacks.ts, src/knowledge/moduleFocus.ts, src/ai/types.ts - These are the strongest module starting points. (evidence: src/ai/contextPacks.ts, src/knowledge/moduleFocus.ts, src/ai/types.ts); Inspect runtime consumers before changing shared code: src/commands/update.ts, src/ai/buildSummaries.ts, src/ai/contextPacks.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/update.ts, src/ai/buildSummaries.ts, src/ai/contextPacks.ts); Review test consumers before changing behavior: test/generateDocs.test.ts, src/docs/generateAgentContextDoc.ts, src/docs/generateArchitectureDoc.ts - These tests show expected behavior around the module boundary. (evidence: test/generateDocs.test.ts, src/docs/generateAgentContextDoc.ts, src/docs/generateArchitectureDoc.ts). Verification: Run the project build: package.json - Use the build script after changing the area. Command: npm run build. (evidence: package.json) Run the project test suite: package.json - Use the package test script after changing the area. Command: npm run test. (evidence: package.json) Inspect related tests: test/agentsMd.test.ts:2, test/aiBuildSummaries.test.ts:2, test/aiPrompt.test.ts:2 - These tests cover files in the area. (evidence: test/agentsMd.test.ts:2, test/aiBuildSummaries.test.ts:2, test/aiPrompt.test.ts:2)
+Contains UI, presentation, docs, generated output, or user-facing surfaces. Covers ai (src/ai), diagrams (src/diagrams), docs (src/docs), knowledge (src/knowledge). Modules: ai (src/ai), diagrams (src/diagrams), docs (src/docs), knowledge (src/knowledge). Root paths: src/ai, src/diagrams, src/docs, src/knowledge. Entry files: src/ai/contextPacks.ts:56, src/knowledge/moduleFocus.ts:18, src/ai/types.ts:6. Runtime consumers: src/commands/update.ts -> src/ai/buildSummaries.ts, src/ai/contextPacks.ts, src/commands/generate.ts -> src/ai/buildSummaries.ts, src/ai/types.ts, src/commands/synthesize.ts -> src/ai/buildSummaries.ts, src/ai/types.ts. Test consumers: test/generateDocs.test.ts -> src/docs/generateAgentContextDoc.ts, src/docs/generateArchitectureDoc.ts, test/knowledge.test.ts -> src/knowledge/areaOrdering.ts, src/knowledge/buildKnowledge.ts. Incoming area flows: Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Core application logic: storage (src/storage) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Core application logic: graph (src/graph) + scanner (src/scanner) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more. Outgoing area flows: Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more -> Shared support: types (src/types) + utils (src/utils). Common change paths: Read the module entry files first: src/ai/contextPacks.ts, src/knowledge/moduleFocus.ts, src/ai/types.ts - These are the strongest module starting points. (evidence: src/ai/contextPacks.ts, src/knowledge/moduleFocus.ts, src/ai/types.ts); Inspect runtime consumers before changing shared code: src/commands/update.ts, src/ai/buildSummaries.ts, src/ai/contextPacks.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/update.ts, src/ai/buildSummaries.ts, src/ai/contextPacks.ts); Review test consumers before changing behavior: test/generateDocs.test.ts, src/docs/generateAgentContextDoc.ts, src/docs/generateArchitectureDoc.ts - These tests show expected behavior around the module boundary. (evidence: test/generateDocs.test.ts, src/docs/generateAgentContextDoc.ts, src/docs/generateArchitectureDoc.ts). Verification: Run the project build: package.json - Use the build script after changing the area. Command: npm run build. (evidence: package.json) Run the project test suite: package.json - Use the package test script after changing the area. Command: npm run test. (evidence: package.json) Inspect related tests: test/agentsMd.test.ts:2, test/aiBuildSummaries.test.ts:2, test/aiPrompt.test.ts:2 - These tests cover files in the area. (evidence: test/agentsMd.test.ts:2, test/aiBuildSummaries.test.ts:2, test/aiPrompt.test.ts:2)
 
 ## Modules
 
@@ -19,9 +19,9 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 - `src/ai/contextPacks.ts:56` - Imported by 5 external files.
 - `src/knowledge/moduleFocus.ts:18` - Imported by 3 external files.
-- `src/ai/types.ts:6` - Imported by 4 external files.
-- `src/knowledge/areaOrdering.ts:24` - Imported by 1 external file.
-- `src/ai/buildSummaries.ts:8` - Imported by 4 external files.
+- `src/ai/types.ts:6` - Imported by 5 external files.
+- `src/ai/buildSummaries.ts:8` - Imported by 5 external files.
+- `src/docs/writeDocs.ts:28` - Imported by 4 external files.
 
 ## Root Paths
 
@@ -36,8 +36,8 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 - `src/knowledge/areaOrdering.ts`
 - `src/knowledge/areaFlows.ts`
 - `src/ai/contextPacks.ts`
-- `src/knowledge/verification.ts`
 - `src/ai/types.ts`
+- `src/knowledge/verification.ts`
 - `src/knowledge/changeTargets.ts`
 - `src/knowledge/moduleAreas.ts`
 
@@ -49,7 +49,7 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 ## Area Flows In
 
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (12 imports)
 - `Core application logic: storage (src/storage)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (3 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
 - `Shared support: types (src/types) + utils (src/utils)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
@@ -62,6 +62,7 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 - `src/commands/update.ts` -> `src/ai/buildSummaries.ts`, `src/ai/contextPacks.ts`, `src/ai/types.ts`, `src/docs/writeDocs.ts` (4 imports into this area)
 - `src/commands/generate.ts` -> `src/ai/buildSummaries.ts`, `src/ai/types.ts`, `src/docs/writeDocs.ts` (3 imports into this area)
+- `src/commands/synthesize.ts` -> `src/ai/buildSummaries.ts`, `src/ai/types.ts`, `src/docs/writeDocs.ts` (3 imports into this area)
 - `src/storage/metadataStore.ts` -> `src/ai/contextPacks.ts`, `src/knowledge/buildKnowledge.ts`, `src/knowledge/buildSummaries.ts` (3 imports into this area)
 - `src/commands/review.ts` -> `src/ai/buildSummaries.ts`, `src/docs/writeDocs.ts` (2 imports into this area)
 - `src/scanner/scanRepo.ts` -> `src/knowledge/buildKnowledge.ts`, `src/knowledge/moduleAreas.ts` (2 imports into this area)
@@ -70,22 +71,21 @@ Contains UI, presentation, docs, generated output, or user-facing surfaces. Cove
 
 - `test/generateDocs.test.ts` -> `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`, `src/docs/generateAreasIndexDoc.ts` (8 imports into this area)
 - `test/knowledge.test.ts` -> `src/knowledge/areaOrdering.ts`, `src/knowledge/buildKnowledge.ts`, `src/knowledge/moduleFocus.ts` (3 imports into this area)
-- `test/aiPrompt.test.ts` -> `src/ai/prompt.ts`, `src/ai/types.ts` (2 imports into this area)
 
 ## Common Change Paths
 
-- `Read the module entry files first` -> `src/ai/contextPacks.ts`, `src/knowledge/moduleFocus.ts`, `src/ai/types.ts`, `src/knowledge/areaOrdering.ts` - These are the strongest module starting points. (evidence: `src/ai/contextPacks.ts`, `src/knowledge/moduleFocus.ts`, `src/ai/types.ts`, `src/knowledge/areaOrdering.ts`)
+- `Read the module entry files first` -> `src/ai/contextPacks.ts`, `src/knowledge/moduleFocus.ts`, `src/ai/types.ts`, `src/ai/buildSummaries.ts` - These are the strongest module starting points. (evidence: `src/ai/contextPacks.ts`, `src/knowledge/moduleFocus.ts`, `src/ai/types.ts`, `src/ai/buildSummaries.ts`)
 - `Inspect runtime consumers before changing shared code` -> `src/commands/update.ts`, `src/ai/buildSummaries.ts`, `src/ai/contextPacks.ts`, `src/ai/types.ts` - These runtime-like files depend on the module boundary. (evidence: `src/commands/update.ts`, `src/ai/buildSummaries.ts`, `src/ai/contextPacks.ts`, `src/ai/types.ts`)
 - `Review test consumers before changing behavior` -> `test/generateDocs.test.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts` - These tests show expected behavior around the module boundary. (evidence: `test/generateDocs.test.ts`, `src/docs/generateAgentContextDoc.ts`, `src/docs/generateArchitectureDoc.ts`, `src/docs/generateAreaDoc.ts`)
-- `Change module implementation files together` -> `src/ai/contextPacks.ts`, `src/knowledge/moduleFocus.ts`, `src/ai/types.ts`, `src/knowledge/areaOrdering.ts` - These files are part of the same module boundary and likely need coordinated edits. (evidence: `src/ai/buildSummaries.ts`, `src/ai/contextPacks.ts`, `src/ai/openaiCompatibleProvider.ts`, `src/ai/prompt.ts`)
+- `Change module implementation files together` -> `src/ai/contextPacks.ts`, `src/knowledge/moduleFocus.ts`, `src/ai/types.ts`, `src/ai/buildSummaries.ts` - These files are part of the same module boundary and likely need coordinated edits. (evidence: `src/ai/buildSummaries.ts`, `src/ai/contextPacks.ts`, `src/ai/openaiCompatibleProvider.ts`, `src/ai/prompt.ts`)
 
 ## Change Guidance
 
 - `src/knowledge/moduleFocus.ts:18` - A connected implementation file with both imports and exports. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
 - `src/ai/contextPacks.ts:56` - A connected implementation file with both imports and exports. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
 - `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
-- `src/knowledge/areaOrdering.ts:24` - A connected implementation file with both imports and exports. [Symbols: orderedAreas@11, areaRoleRank@24]
 - `src/storage/metadataStore.ts:99` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
+- `src/knowledge/areaOrdering.ts:24` - A connected implementation file with both imports and exports. [Symbols: orderedAreas@11, areaRoleRank@24]
 - `src/knowledge/moduleAreas.ts:30` - A connected implementation file with both imports and exports. [Symbols: detectModuleAreas@30]
 - `src/docs/generateFlowDocs.ts:18` - A connected implementation file with both imports and exports. [Symbols: generateFlowsIndexDoc@18, generateModuleFlowDoc@86]
 - `src/knowledge/buildSummaries.ts:11` - A connected implementation file with both imports and exports. [Symbols: buildDeterministicSummaries@11]

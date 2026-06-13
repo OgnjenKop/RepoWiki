@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Likely implements CLI command entry points and orchestration. 1 file belong to this module. Main files: src/cli.ts. Entry files: src/cli.ts:34. Module areas: Operations and entry points: cli (src/cli.ts) + commands (src/commands). Common change paths: Read the module entry files first: src/cli.ts - These are the strongest module starting points. (evidence: src/cli.ts); Change module implementation files together: src/cli.ts - These files are part of the same module boundary and likely need coordinated edits. (evidence: src/cli.ts). Verification: Run the repository build command: package.json - Use the build script after changing the module. Command: npm run build. (evidence: package.json) Inspect related tests: test/cli.e2e.test.ts:8, test/detectTests.test.ts:2, test/generateDocs.test.ts:2 - These tests exercise module behavior or its direct targets. (evidence: test/cli.e2e.test.ts:8, test/detectTests.test.ts:2, test/generateDocs.test.ts:2) Run the repository test command: package.json - Use the project test script after changing the module. Command: npm run test. (evidence: package.json)
+Likely implements CLI command entry points and orchestration. 1 file belong to this module. Main files: src/cli.ts. Entry files: src/cli.ts:36. Module areas: Operations and entry points: cli (src/cli.ts) + commands (src/commands). Common change paths: Read the module entry files first: src/cli.ts - These are the strongest module starting points. (evidence: src/cli.ts); Change module implementation files together: src/cli.ts - These files are part of the same module boundary and likely need coordinated edits. (evidence: src/cli.ts). Verification: Run the repository build command: package.json - Use the build script after changing the module. Command: npm run build. (evidence: package.json) Inspect related tests: test/cli.e2e.test.ts:8, test/detectTests.test.ts:2, test/generateDocs.test.ts:2 - These tests exercise module behavior or its direct targets. (evidence: test/cli.e2e.test.ts:8, test/detectTests.test.ts:2, test/generateDocs.test.ts:2) Run the repository test command: package.json - Use the project test script after changing the module. Command: npm run test. (evidence: package.json)
 
 ## Module Path
 
@@ -18,7 +18,7 @@ Likely implements CLI command entry points and orchestration. 1 file belong to t
 
 ## Entry Files
 
-- `src/cli.ts:34` - Defines 7 symbols used inside this module.
+- `src/cli.ts:36` - Defines 7 symbols used inside this module.
 
 ## Main Files
 
@@ -59,13 +59,13 @@ _No test consumers detected._
 
 ## Change Guidance
 
-- `src/cli.ts:34` - A dependency-heavy file that influences nearby code.
+- `src/cli.ts:36` - A dependency-heavy file that influences nearby code.
 - `test/generateDocs.test.ts:2` - Tests that verify this area. (Update the test expectations if behavior changes.)
 - `test/detectTests.test.ts:2` - Tests that verify this area. (Update the test expectations if behavior changes.)
 
 ## Decision Points
 
-- Start with `src/cli.ts:34` if you are changing public behavior.
+- Start with `src/cli.ts:36` if you are changing public behavior.
 - Use `test/generateDocs.test.ts:2` as the next stop for supporting logic.
 - Check `test/cli.e2e.test.ts:8` before changing implementation details.
 

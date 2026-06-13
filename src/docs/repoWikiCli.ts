@@ -5,9 +5,11 @@ import type { RepoScan } from "../types/index.js";
 export function renderRepoWikiCommands(scan: RepoScan): string[] {
   const commands = [...new Set(scan.project.cliCommands ?? [])].sort();
   const rendered = commands.map((command) => {
-    if (command === "generate") return `${code("repowiki generate")} - Generate the full wiki from scratch.`;
+    if (command === "synthesize") return `${code("repowiki synthesize")} - Generate the full wiki with required AI synthesis.`;
+    if (command === "generate") return `${code("repowiki generate")} - Generate the deterministic baseline wiki.`;
     if (command === "update") return `${code("repowiki update")} - Refresh stale docs and metadata.`;
     if (command === "check") return `${code("repowiki check")} - Verify whether the wiki is stale.`;
+    if (command === "review") return `${code("repowiki review")} - Generate a Codex-ready model review prompt.`;
     return code(`repowiki ${command}`);
   });
   return [`${code("repowiki --help")} - Show CLI help.`, ...rendered];

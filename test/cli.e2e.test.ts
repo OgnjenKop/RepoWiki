@@ -62,6 +62,28 @@ describe("CLI end-to-end", () => {
     expect(reviewPrompt).toContain("subscription-backed model review path");
   }, 15000);
 
+  it("requires AI credentials for synthesize", async () => {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "repowiki-cli-synthesize-"));
+    await fs.mkdir(path.join(root, "src"), { recursive: true });
+    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "synthesize-fixture" }));
+    await fs.writeFile(path.join(root, "src/index.ts"), "export const value = 1;\n");
+
+    const result = spawnSync("node", [cliPath, "--root", root, "synthesize"], {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        OPENAI_API_KEY: "",
+        OPENAI_BASE_URL: "",
+        OPENAI_MODEL: "",
+        REPOWIKI_AI_API_KEY: "",
+        REPOWIKI_AI_BASE_URL: "",
+        REPOWIKI_AI_MODEL: ""
+      }
+    });
+
+    expect(result.status).toBe(1);
+  }, 15000);
+
   it("removes stale route context packs when route files are deleted", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "repowiki-cli-route-"));
     await fs.mkdir(path.join(root, "src"), { recursive: true });
@@ -82,7 +104,7 @@ describe("CLI end-to-end", () => {
     await expect(fs.access(routePack)).rejects.toMatchObject({ code: "ENOENT" });
     const index = JSON.parse(await fs.readFile(path.join(root, ".repowiki/index.json"), "utf8")) as { routeContextFiles?: Record<string, string> };
     expect(Object.keys(index.routeContextFiles ?? {})).toHaveLength(0);
-  });
+  }, 15000);
 
   it("refreshes module docs when a related test file is added", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "repowiki-cli-test-"));
@@ -102,7 +124,7 @@ describe("CLI end-to-end", () => {
     const moduleDoc = await fs.readFile(path.join(root, "docs/repo-wiki/modules/src-auth.md"), "utf8");
     expect(moduleDoc).toContain("## Related Tests");
     expect(moduleDoc).toContain("test/auth.test.ts");
-  });
+  }, 15000);
 
   it("removes stale area docs and context packs when an area is deleted", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "repowiki-cli-area-"));
@@ -139,5 +161,5 @@ describe("CLI end-to-end", () => {
     };
     expect(indexAfter.areaContextFiles?.[areaId!]).toBeUndefined();
     expect(indexAfter.areaFiles?.[areaId!]).toBeUndefined();
-  });
+  }, 15000);
 });

@@ -40,8 +40,9 @@ Read:
 
 - `repowiki --help` - Show CLI help.
 - `repowiki check` - Verify whether the wiki is stale.
-- `repowiki generate` - Generate the full wiki from scratch.
-- `repowiki review`
+- `repowiki generate` - Generate the deterministic baseline wiki.
+- `repowiki review` - Generate a Codex-ready model review prompt.
+- `repowiki synthesize` - Generate the full wiki with required AI synthesis.
 - `repowiki update` - Refresh stale docs and metadata.
 
 ## RepoWiki Flags
@@ -57,7 +58,7 @@ Read:
 
 - `ai (src/ai)`: 6 files under `src/ai`
 - `cli (src/cli.ts)`: 1 file under `src/cli.ts`
-- `commands (src/commands)`: 4 files under `src/commands`
+- `commands (src/commands)`: 5 files under `src/commands`
 - `diagrams (src/diagrams)`: 1 file under `src/diagrams`
 - `docs (src/docs)`: 13 files under `src/docs`
 - `graph (src/graph)`: 1 file under `src/graph`
@@ -97,9 +98,9 @@ Read `docs/repo-wiki/areas/index.md` for the area-level map.
 
 - `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (4 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (12 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (5 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (5 imports)
 
 ## Safety Rules
 

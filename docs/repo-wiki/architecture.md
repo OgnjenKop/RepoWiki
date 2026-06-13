@@ -42,9 +42,9 @@
 
 - `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (9 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (4 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (12 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (5 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (5 imports)
 - `Core application logic: storage (src/storage)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (3 imports)
 - `Core application logic: storage (src/storage)` -> `Shared support: types (src/types) + utils (src/utils)` (3 imports)
 - `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (2 imports)
@@ -57,19 +57,19 @@
 
 ## Import Graph Summary
 
-- Import edges detected: 407
-- Files with imports: 87
+- Import edges detected: 413
+- Files with imports: 88
 
 ## Key Module Flows
 
 - `ai (src/ai)` -> `knowledge (src/knowledge)` (13 imports)
 - `ai (src/ai)` -> `types (src/types)` (3 imports)
 - `ai (src/ai)` -> `utils (src/utils)` (7 imports)
-- `cli (src/cli.ts)` -> `commands (src/commands)` (4 imports)
-- `commands (src/commands)` -> `ai (src/ai)` (6 imports)
-- `commands (src/commands)` -> `docs (src/docs)` (3 imports)
-- `commands (src/commands)` -> `scanner (src/scanner)` (4 imports)
-- `commands (src/commands)` -> `storage (src/storage)` (4 imports)
+- `cli (src/cli.ts)` -> `commands (src/commands)` (5 imports)
+- `commands (src/commands)` -> `ai (src/ai)` (8 imports)
+- `commands (src/commands)` -> `docs (src/docs)` (4 imports)
+- `commands (src/commands)` -> `scanner (src/scanner)` (5 imports)
+- `commands (src/commands)` -> `storage (src/storage)` (5 imports)
 - `commands (src/commands)` -> `types (src/types)`
 - `diagrams (src/diagrams)` -> `types (src/types)`
 - `diagrams (src/diagrams)` -> `utils (src/utils)`
@@ -101,17 +101,17 @@
 - `src/knowledge/areaFlows.ts` - 11 incoming imports
 - `src/utils/docPaths.ts` - 11 incoming imports
 - `src/ai/contextPacks.ts` - 6 incoming imports
+- `src/ai/types.ts` - 9 incoming imports
 - `src/knowledge/verification.ts` - 8 incoming imports
-- `src/ai/types.ts` - 8 incoming imports
 
 ## Important Entry Files
 
-- `src/cli.ts:34` - Defines 7 symbols used inside this module.
+- `src/cli.ts:36` - Defines 7 symbols used inside this module.
 - `src/types/index.ts:162` - Central implementation file with exported behavior.
 - `src/utils/markdown.ts:6` - Imported by 12 external files.
 - `src/utils/moduleLabel.ts:3` - Imported by 12 external files.
 - `src/docs/generateAgentsMd.ts:13` - Imported by 2 external files.
-- `src/docs/writeDocs.ts:28` - Imported by 3 external files.
+- `src/docs/writeDocs.ts:28` - Imported by 4 external files.
 - `src/knowledge/areaOrdering.ts:24` - Imported by 12 external files.
 - `src/knowledge/moduleFocus.ts:18` - Imported by 12 external files.
 

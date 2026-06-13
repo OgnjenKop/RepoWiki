@@ -6,7 +6,7 @@ Contains domain behavior, application state, services, routing, and data flow. C
 
 ## Summary
 
-Contains domain behavior, application state, services, routing, and data flow. Covers graph (src/graph), scanner (src/scanner). Modules: graph (src/graph), scanner (src/scanner). Root paths: src/graph, src/scanner. Entry files: src/scanner/scanRepo.ts:49, src/scanner/detectModules.ts:54, src/scanner/fileClassifiers.ts:13. Runtime consumers: src/commands/check.ts -> src/scanner/scanRepo.ts, src/commands/generate.ts -> src/scanner/scanRepo.ts, src/commands/review.ts -> src/scanner/scanRepo.ts. Test consumers: test/buildGraph.test.ts -> src/graph/buildGraph.ts, test/detectEnvVars.test.ts -> src/scanner/detectEnvVars.ts, test/detectModules.test.ts -> src/scanner/detectModules.ts. Incoming area flows: Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Core application logic: graph (src/graph) + scanner (src/scanner). Outgoing area flows: Core application logic: graph (src/graph) + scanner (src/scanner) -> Shared support: types (src/types) + utils (src/utils), Core application logic: graph (src/graph) + scanner (src/scanner) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more. Common change paths: Read the module entry files first: src/scanner/scanRepo.ts, src/scanner/detectModules.ts, src/scanner/fileClassifiers.ts - These are the strongest module starting points. (evidence: src/scanner/scanRepo.ts, src/scanner/detectModules.ts, src/scanner/fileClassifiers.ts); Inspect runtime consumers before changing shared code: src/commands/check.ts, src/scanner/scanRepo.ts, src/commands/generate.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/check.ts, src/scanner/scanRepo.ts, src/commands/generate.ts); Review test consumers before changing behavior: test/buildGraph.test.ts, src/graph/buildGraph.ts, test/detectEnvVars.test.ts - These tests show expected behavior around the module boundary. (evidence: test/buildGraph.test.ts, src/graph/buildGraph.ts, test/detectEnvVars.test.ts). Verification: Run the project build: package.json - Use the build script after changing the area. Command: npm run build. (evidence: package.json) Run the project test suite: package.json - Use the package test script after changing the area. Command: npm run test. (evidence: package.json) Inspect related tests: test/buildGraph.test.ts:2, test/detectEnvVars.test.ts:2, test/detectModules.test.ts:2 - These tests cover files in the area. (evidence: test/buildGraph.test.ts:2, test/detectEnvVars.test.ts:2, test/detectModules.test.ts:2)
+Contains domain behavior, application state, services, routing, and data flow. Covers graph (src/graph), scanner (src/scanner). Modules: graph (src/graph), scanner (src/scanner). Root paths: src/graph, src/scanner. Entry files: src/scanner/scanRepo.ts:49, src/scanner/detectModules.ts:54, src/scanner/fileClassifiers.ts:13. Runtime consumers: src/commands/check.ts -> src/scanner/scanRepo.ts, src/commands/generate.ts -> src/scanner/scanRepo.ts, src/commands/review.ts -> src/scanner/scanRepo.ts. Test consumers: test/buildGraph.test.ts -> src/graph/buildGraph.ts, test/detectEnvVars.test.ts -> src/scanner/detectEnvVars.ts, test/detectModules.test.ts -> src/scanner/detectModules.ts. Incoming area flows: Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Core application logic: graph (src/graph) + scanner (src/scanner). Outgoing area flows: Core application logic: graph (src/graph) + scanner (src/scanner) -> Shared support: types (src/types) + utils (src/utils), Core application logic: graph (src/graph) + scanner (src/scanner) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more. Common change paths: Read the module entry files first: src/scanner/scanRepo.ts, src/scanner/detectModules.ts, src/scanner/fileClassifiers.ts - These are the strongest module starting points. (evidence: src/scanner/scanRepo.ts, src/scanner/detectModules.ts, src/scanner/fileClassifiers.ts); Inspect runtime consumers before changing shared code: src/commands/check.ts, src/scanner/scanRepo.ts, src/commands/generate.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/check.ts, src/scanner/scanRepo.ts, src/commands/generate.ts); Review test consumers before changing behavior: test/buildGraph.test.ts, src/graph/buildGraph.ts - These tests show expected behavior around the module boundary. (evidence: test/buildGraph.test.ts, src/graph/buildGraph.ts). Verification: Run the project build: package.json - Use the build script after changing the area. Command: npm run build. (evidence: package.json) Run the project test suite: package.json - Use the package test script after changing the area. Command: npm run test. (evidence: package.json) Inspect related tests: test/buildGraph.test.ts:2, test/detectEnvVars.test.ts:2, test/detectModules.test.ts:2 - These tests cover files in the area. (evidence: test/buildGraph.test.ts:2, test/detectEnvVars.test.ts:2, test/detectModules.test.ts:2)
 
 ## Modules
 
@@ -15,7 +15,7 @@ Contains domain behavior, application state, services, routing, and data flow. C
 
 ## Entry Files
 
-- `src/scanner/scanRepo.ts:49` - Imported by 7 external files.
+- `src/scanner/scanRepo.ts:49` - Imported by 8 external files.
 - `src/scanner/detectModules.ts:54` - Imported by 1 external file.
 - `src/scanner/fileClassifiers.ts:13` - Imported by 1 external file.
 - `src/scanner/detectProject.ts:57` - Imported by 1 external file.
@@ -43,7 +43,7 @@ Contains domain behavior, application state, services, routing, and data flow. C
 
 ## Area Flows In
 
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (4 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (5 imports)
 
 ## Area Flows Out
 
@@ -55,6 +55,7 @@ Contains domain behavior, application state, services, routing, and data flow. C
 - `src/commands/check.ts` -> `src/scanner/scanRepo.ts` (1 imports into this area)
 - `src/commands/generate.ts` -> `src/scanner/scanRepo.ts` (1 imports into this area)
 - `src/commands/review.ts` -> `src/scanner/scanRepo.ts` (1 imports into this area)
+- `src/commands/synthesize.ts` -> `src/scanner/scanRepo.ts` (1 imports into this area)
 - `src/commands/update.ts` -> `src/scanner/scanRepo.ts` (1 imports into this area)
 
 ## Test Consumers
@@ -62,13 +63,12 @@ Contains domain behavior, application state, services, routing, and data flow. C
 - `test/buildGraph.test.ts` -> `src/graph/buildGraph.ts` (1 imports into this area)
 - `test/detectEnvVars.test.ts` -> `src/scanner/detectEnvVars.ts` (1 imports into this area)
 - `test/detectModules.test.ts` -> `src/scanner/detectModules.ts` (1 imports into this area)
-- `test/detectPathAliases.test.ts` -> `src/scanner/detectPathAliases.ts` (1 imports into this area)
 
 ## Common Change Paths
 
 - `Read the module entry files first` -> `src/scanner/scanRepo.ts`, `src/scanner/detectModules.ts`, `src/scanner/fileClassifiers.ts`, `src/scanner/detectProject.ts` - These are the strongest module starting points. (evidence: `src/scanner/scanRepo.ts`, `src/scanner/detectModules.ts`, `src/scanner/fileClassifiers.ts`, `src/scanner/detectProject.ts`)
 - `Inspect runtime consumers before changing shared code` -> `src/commands/check.ts`, `src/scanner/scanRepo.ts`, `src/commands/generate.ts`, `src/commands/review.ts` - These runtime-like files depend on the module boundary. (evidence: `src/commands/check.ts`, `src/scanner/scanRepo.ts`, `src/commands/generate.ts`, `src/commands/review.ts`)
-- `Review test consumers before changing behavior` -> `test/buildGraph.test.ts`, `src/graph/buildGraph.ts`, `test/detectEnvVars.test.ts`, `src/scanner/detectEnvVars.ts` - These tests show expected behavior around the module boundary. (evidence: `test/buildGraph.test.ts`, `src/graph/buildGraph.ts`, `test/detectEnvVars.test.ts`, `src/scanner/detectEnvVars.ts`)
+- `Review test consumers before changing behavior` -> `test/buildGraph.test.ts`, `src/graph/buildGraph.ts` - These tests show expected behavior around the module boundary. (evidence: `test/buildGraph.test.ts`, `src/graph/buildGraph.ts`)
 - `Change module implementation files together` -> `src/scanner/scanRepo.ts`, `src/scanner/detectModules.ts`, `src/scanner/fileClassifiers.ts`, `src/scanner/detectProject.ts` - These files are part of the same module boundary and likely need coordinated edits. (evidence: `src/graph/buildGraph.ts`, `src/scanner/detectEnvVars.ts`, `src/scanner/detectModules.ts`, `src/scanner/detectPathAliases.ts`)
 
 ## Change Guidance

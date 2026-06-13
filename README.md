@@ -29,13 +29,19 @@ npm run build
 npm link
 ```
 
-Generate docs for another repository:
+Generate Qoder-style docs for another repository with AI synthesis:
+
+```bash
+repowiki --root ../some-repo --ai-model "<model>" --ai-api-key "$OPENAI_API_KEY" synthesize
+```
+
+Generate the deterministic baseline without AI:
 
 ```bash
 repowiki --root ../some-repo generate
 ```
 
-Update docs after code changes:
+Update deterministic docs after code changes:
 
 ```bash
 repowiki --root ../some-repo update
@@ -77,6 +83,7 @@ Commit `docs/repo-wiki` and `AGENTS.md` if you want the wiki available to contri
 
 ```bash
 repowiki generate
+repowiki synthesize
 repowiki update
 repowiki check
 repowiki review
@@ -95,10 +102,17 @@ Global flags:
 
 ## Model-Backed Quality Workflows
 
-RepoWiki supports two model-backed quality paths:
+RepoWiki supports three model-backed quality paths:
 
-1. Use your Codex or ChatGPT subscription with `repowiki review`.
-2. Use OpenAI-compatible API summaries with `--ai`.
+1. Use `repowiki synthesize` for API-backed wiki generation.
+2. Use your Codex or ChatGPT subscription with `repowiki review`.
+3. Use `repowiki generate --ai` for API-backed summaries on the baseline generator.
+
+The primary Qoder-like path is:
+
+```bash
+repowiki --root ../some-repo --ai-model "<model>" --ai-api-key "$OPENAI_API_KEY" synthesize
+```
 
 The subscription path is the easiest way to get model judgment without adding API credentials to the CLI:
 
@@ -106,7 +120,7 @@ The subscription path is the easiest way to get model judgment without adding AP
 repowiki --root ../some-repo review
 ```
 
-For automated API-backed summaries, provide a model and API key explicitly:
+For the baseline generator with AI summaries, provide a model and API key explicitly:
 
 ```bash
 repowiki --root ../some-repo --ai --ai-model "<model>" --ai-api-key "$OPENAI_API_KEY" generate

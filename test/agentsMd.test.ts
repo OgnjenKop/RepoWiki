@@ -34,7 +34,7 @@ describe("generateAgentsSection", () => {
         devDependencies: [],
         configFiles: [],
         cliOptions: ["--root", "--verbose", "--ai"],
-        cliCommands: ["generate", "update", "check", "review"]
+        cliCommands: ["generate", "synthesize", "update", "check", "review"]
       },
       graph: {
         files: [],
@@ -66,6 +66,7 @@ describe("generateAgentsSection", () => {
     expect(section).toContain("`npm install`");
     expect(section).toContain("## RepoWiki Commands");
     expect(section).toContain("`repowiki generate`");
+    expect(section).toContain("`repowiki synthesize`");
     expect(section).toContain("`repowiki update`");
     expect(section).toContain("`repowiki check`");
     expect(section).toContain("`repowiki review`");

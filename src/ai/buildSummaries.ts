@@ -10,7 +10,12 @@ export async function buildRepoSummaries(input: SummaryBuildInput): Promise<Repo
   const knowledge = scan.knowledge ?? { items: [] };
   const deterministic = buildDeterministicSummaries(scan, knowledge);
   const provider = createSummaryProvider(options);
-  if (!provider) return deterministic;
+  if (!provider) {
+    if (options?.required) {
+      throw new Error("AI synthesis requires --ai-model and --ai-api-key, or REPOWIKI_AI_MODEL and REPOWIKI_AI_API_KEY.");
+    }
+    return deterministic;
+  }
 
   try {
     const projectPack = await buildProjectContextPack(scan);
@@ -31,7 +36,10 @@ export async function buildRepoSummaries(input: SummaryBuildInput): Promise<Repo
       routes[routeSummaryKey(route)] = await summarizePackOrFallback(provider, pack, options, deterministic.routes?.[routeSummaryKey(route)]);
     }
     return { project, areas: Object.keys(areas).length ? areas : undefined, modules, routes: Object.keys(routes).length ? routes : undefined };
-  } catch {
+  } catch (error) {
+    if (options?.required) {
+      throw error;
+    }
     return deterministic;
   }
 }
@@ -64,7 +72,10 @@ async function summarizePackOrFallback(
 ): Promise<SummaryRecord> {
   try {
     return await summarizePack(provider, pack, options);
-  } catch {
+  } catch (error) {
+    if (options?.required) {
+      throw error;
+    }
     if (!fallback) throw new Error(`No fallback summary available for ${pack.scope}:${pack.title}`);
     return fallback;
   }

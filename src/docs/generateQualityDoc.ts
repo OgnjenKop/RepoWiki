@@ -37,8 +37,9 @@ For ${scan.project.name}, that means the wiki should clearly expose:
 Use model-backed review to raise documentation quality beyond deterministic heuristics:
 
 ${list([
+  `${code("repowiki synthesize")} - generate the full wiki with required API-backed AI synthesis.`,
   `${code("repowiki review")} - generate a Codex or ChatGPT review prompt for subscription-backed model review.`,
-  `${code("repowiki --ai generate")} - generate API-backed summaries when an OpenAI-compatible model is configured.`,
+  `${code("repowiki --ai generate")} - add API-backed summaries to the deterministic baseline generator.`,
   `${code("repowiki update")} - refresh docs after applying generator improvements.`,
   `${code("repowiki check")} - verify generated docs are fresh.`
 ])}
