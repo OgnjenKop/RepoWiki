@@ -18,13 +18,15 @@ export class OpenAICompatibleSummaryProvider implements SummaryProvider {
     try {
       response = await fetch(endpoint, {
         method: "POST",
+        signal: AbortSignal.timeout(600_000),
         headers: {
           "content-type": "application/json",
           authorization: `Bearer ${this.config.apiKey}`
         },
         body: JSON.stringify({
           model: this.config.model,
-          temperature: 0.2,
+          response_format: { type: "json_object" },
+          max_tokens: 4000,
           messages
         })
       });

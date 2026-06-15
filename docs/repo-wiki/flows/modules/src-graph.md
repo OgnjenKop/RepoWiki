@@ -64,7 +64,7 @@ _No internal module-to-module flow detected._
 
 ## Change Targets
 
-- `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
+- `src/scanner/scanRepo.ts:61` - A directly connected implementation file. [Symbols: scanRepo@61]
 - `src/graph/buildGraph.ts:4` - A connected implementation file with both imports and exports. [Symbols: buildGraph@4]
 - `test/buildGraph.test.ts:2` - Tests that verify this area. (Update the test expectations if behavior changes.)
 

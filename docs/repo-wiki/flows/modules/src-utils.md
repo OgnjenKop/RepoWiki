@@ -126,8 +126,8 @@ _No test consumers detected._
 ## Change Targets
 
 - `src/knowledge/moduleFocus.ts:18` - A directly connected implementation file. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
-- `src/ai/contextPacks.ts:56` - A directly connected implementation file. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
-- `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
+- `src/ai/contextPacks.ts:57` - A directly connected implementation file. [Symbols: buildProjectContextPack@22, buildAreaContextPack@57, buildModuleContextPack@121, buildRouteContextPack@174]
+- `src/scanner/scanRepo.ts:61` - A directly connected implementation file. [Symbols: scanRepo@61]
 - `src/storage/metadataStore.ts:99` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
 - `src/knowledge/moduleAreas.ts:30` - A directly connected implementation file. [Symbols: detectModuleAreas@30]
 

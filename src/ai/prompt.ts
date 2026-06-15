@@ -28,7 +28,8 @@ export function buildSummaryMessages(pack: ContextPack): ChatMessage[] {
         "Use these keys exactly: summary, responsibilities, importantFiles, executionFlow, decisionPoints, commonChangePaths, changeTargets, changeRisks, verificationSteps, notesForAiAgents, unknowns.",
         "responsibilities, executionFlow, decisionPoints, changeRisks, verificationSteps, notesForAiAgents, and unknowns must be arrays of strings.",
         "commonChangePaths must be an array of objects with task, files, note, and evidence string[] fields.",
-        "importantFiles and changeTargets must be arrays of objects with path, reason, and evidence string[] fields."
+        "importantFiles and changeTargets must be arrays of objects with path, reason, and evidence string[] fields.",
+        "Keep JSON compact: summary must be 2-3 sentences, arrays must contain at most 5 items, and each string must be under 240 characters."
       ].join(" ")
     },
     {
@@ -43,6 +44,7 @@ export function buildSummaryMessages(pack: ContextPack): ChatMessage[] {
         "- Produce wiki content comparable to a high-quality Qoder RepoWiki page.",
         "- Optimize for agent navigation: what this scope owns, where to read first, where edits usually happen, what can break, and how to verify.",
         "- The response should be concise but not shallow. Avoid generic boilerplate like \"this module manages functionality\".",
+        "- Keep the JSON compact enough for cheaper models: no section should include more than 5 entries.",
         "- If the evidence is insufficient for a section, put the gap in unknowns instead of guessing.",
         "",
         "## Scope-Specific Instructions",

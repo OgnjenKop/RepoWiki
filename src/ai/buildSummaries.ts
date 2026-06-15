@@ -19,20 +19,25 @@ export async function buildRepoSummaries(input: SummaryBuildInput): Promise<Repo
 
   try {
     const projectPack = await buildProjectContextPack(scan);
+    logSynthesisProgress("project", projectPack.title, 1, 1);
     const project = await summarizePackOrFallback(provider, projectPack, options, deterministic.project);
     const areas: Record<string, SummaryRecord> = {};
-    for (const area of orderedAreas(scan)) {
+    const ordered = orderedAreas(scan);
+    for (const [index, area] of ordered.entries()) {
       const pack = await buildAreaContextPack({ scan, area });
+      logSynthesisProgress("area", pack.title, index + 1, ordered.length);
       areas[area.id] = await summarizePackOrFallback(provider, pack, options, deterministic.areas?.[area.id]);
     }
     const modules: Record<string, SummaryRecord> = {};
-    for (const module of scan.graph.modules) {
+    for (const [index, module] of scan.graph.modules.entries()) {
       const pack = await buildModuleContextPack({ scan, module });
+      logSynthesisProgress("module", pack.title, index + 1, scan.graph.modules.length);
       modules[module.id] = await summarizePackOrFallback(provider, pack, options, deterministic.modules[module.id]);
     }
     const routes: Record<string, SummaryRecord> = {};
-    for (const route of scan.graph.routes) {
+    for (const [index, route] of scan.graph.routes.entries()) {
       const pack = await buildRouteContextPack({ scan, route });
+      logSynthesisProgress("route", pack.title, index + 1, scan.graph.routes.length);
       routes[routeSummaryKey(route)] = await summarizePackOrFallback(provider, pack, options, deterministic.routes?.[routeSummaryKey(route)]);
     }
     return { project, areas: Object.keys(areas).length ? areas : undefined, modules, routes: Object.keys(routes).length ? routes : undefined };
@@ -54,7 +59,7 @@ function createSummaryProvider(options?: AiRuntimeOptions): SummaryProvider | un
 }
 
 async function summarizePack(provider: SummaryProvider, pack: ContextPack, options?: AiRuntimeOptions): Promise<SummaryRecord> {
-  const content = await provider.summarize(pack);
+  const content = await summarizePackWithRetry(provider, pack, options?.required ? 2 : 1);
   return {
     provider: "ai",
     model: options?.model ?? process.env.REPOWIKI_AI_MODEL ?? process.env.OPENAI_MODEL,
@@ -62,6 +67,21 @@ async function summarizePack(provider: SummaryProvider, pack: ContextPack, optio
     sources: pack.files.map((file) => file.path),
     updatedAt: new Date().toISOString()
   };
+}
+
+async function summarizePackWithRetry(provider: SummaryProvider, pack: ContextPack, attempts: number): Promise<string> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      return await provider.summarize(pack);
+    } catch (error) {
+      lastError = error;
+      if (attempt < attempts) {
+        console.error(`Retrying ${pack.scope} "${pack.title}" after AI summary failure: ${error instanceof Error ? error.message : String(error)}`);
+      }
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error(String(lastError));
 }
 
 async function summarizePackOrFallback(
@@ -83,4 +103,8 @@ async function summarizePackOrFallback(
 
 function routeSummaryKey(route: import("../types/index.js").RouteRecord): string {
   return `${route.file}:${route.method ?? "ANY"}:${route.path ?? "unknown"}`;
+}
+
+function logSynthesisProgress(scope: string, title: string, current: number, total: number): void {
+  console.error(`Synthesizing ${scope} ${current}/${total}: ${title}`);
 }

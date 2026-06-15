@@ -15,8 +15,9 @@ import { buildAreaFlows } from "../knowledge/areaFlows.js";
 import { orderedAreas } from "../knowledge/areaOrdering.js";
 import { splitConsumers } from "../utils/consumers.js";
 
-const defaultSnippetLines = 80;
-const maxSnippetChars = 6000;
+const defaultSnippetLines = 40;
+const maxSnippetChars = 1000;
+const maxContextFiles = 16;
 
 export async function buildProjectContextPack(scan: RepoScan): Promise<ContextPack> {
   const changePaths = selectProjectChangePaths(scan);
@@ -307,7 +308,7 @@ export function sanitizePathFragment(value: string): string {
 }
 
 async function selectFiles(scan: RepoScan, files: string[]): Promise<ContextFile[]> {
-  const unique = [...new Set(files.filter(Boolean))];
+  const unique = [...new Set(files.filter(Boolean))].slice(0, maxContextFiles);
   const selected: ContextFile[] = [];
   for (const file of unique) {
     const record = scan.graph.files.find((entry) => entry.path === file);

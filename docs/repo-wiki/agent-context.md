@@ -43,7 +43,7 @@ RepoWiki is detected as Node/TypeScript. This summary is generated from reposito
 - `src/knowledge/areaOrdering.ts:24` - Imported by 12 external files.
 - `src/knowledge/moduleFocus.ts:18` - Imported by 12 external files.
 - `src/scanner/detectModules.ts:54` - Imported by 1 external file.
-- `src/scanner/scanRepo.ts:49` - Imported by 8 external files.
+- `src/scanner/scanRepo.ts:61` - Imported by 8 external files.
 
 ## Module Map
 
@@ -161,7 +161,7 @@ _No runtime consumers detected._
 - `tsconfig.json:1` - Configuration that shapes runtime or tooling behavior. (Configuration changes should be checked against build and runtime behavior.)
 - `src/cli.ts:36` - A dependency-heavy file that influences nearby code.
 - `src/knowledge/moduleFocus.ts:18` - A connected implementation file with both imports and exports. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
-- `src/ai/contextPacks.ts:56` - A connected implementation file with both imports and exports. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
+- `src/ai/contextPacks.ts:57` - A connected implementation file with both imports and exports. [Symbols: buildProjectContextPack@22, buildAreaContextPack@57, buildModuleContextPack@121, buildRouteContextPack@174]
 
 ## Testing Commands
 

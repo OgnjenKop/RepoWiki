@@ -122,15 +122,15 @@ _None detected._
 ## Change Guidance
 
 - `src/knowledge/moduleFocus.ts:18` - A connected implementation file with both imports and exports. [Symbols: ModuleEntryFile@5, ModuleConsumer@11, ContextChangePath@18, selectModuleEntryFiles@25]
-- `src/ai/contextPacks.ts:56` - A directly connected implementation file. [Symbols: buildProjectContextPack@21, buildAreaContextPack@56, buildModuleContextPack@120, buildRouteContextPack@173]
-- `src/scanner/scanRepo.ts:49` - A directly connected implementation file. [Symbols: scanRepo@49]
+- `src/ai/contextPacks.ts:57` - A directly connected implementation file. [Symbols: buildProjectContextPack@22, buildAreaContextPack@57, buildModuleContextPack@121, buildRouteContextPack@174]
+- `src/scanner/scanRepo.ts:61` - A directly connected implementation file. [Symbols: scanRepo@61]
 - `src/storage/metadataStore.ts:99` - A directly connected implementation file. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
 - `src/knowledge/areaOrdering.ts:24` - A connected implementation file with both imports and exports. [Symbols: orderedAreas@11, areaRoleRank@24]
 
 ## Decision Points
 
 - Start with `src/knowledge/moduleFocus.ts:18` if you are changing public behavior.
-- Use `src/ai/contextPacks.ts:56` as the next stop for supporting logic.
+- Use `src/ai/contextPacks.ts:57` as the next stop for supporting logic.
 - Check `test/areaFlows.test.ts:2` before changing implementation details.
 
 ## Verification
