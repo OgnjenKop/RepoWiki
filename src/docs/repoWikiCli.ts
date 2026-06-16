@@ -16,12 +16,12 @@ export function renderRepoWikiCommands(scan: RepoScan): string[] {
 }
 
 const repoWikiFlags: Array<{ flag: string; description: string }> = [
-  { flag: "--root <path>", description: "repository root to scan" },
+  { flag: "--root", description: "repository root to scan" },
   { flag: "--verbose", description: "print verbose output" },
   { flag: "--ai", description: "enable AI-generated summaries" },
-  { flag: "--ai-base-url <url>", description: "OpenAI-compatible API base URL" },
-  { flag: "--ai-model <model>", description: "AI model name" },
-  { flag: "--ai-api-key <key>", description: "AI API key" }
+  { flag: "--ai-base-url", description: "OpenAI-compatible API base URL" },
+  { flag: "--ai-model", description: "AI model name" },
+  { flag: "--ai-api-key", description: "AI API key" }
 ];
 
 export function renderRepoWikiFlags(_scan: RepoScan): string[] {

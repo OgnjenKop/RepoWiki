@@ -59,8 +59,8 @@ describe("generateIndexDoc", () => {
     expect(doc).toContain("[Areas](areas/index.md)");
     expect(doc).toContain("[Quality Bar](quality.md)");
     expect(doc).toContain("## Test Coverage");
-    expect(doc).toContain("`auth (src/auth)` — 1 test");
-    expect(doc).toContain("`db (src/db)` — 1 test");
+    expect(doc).toContain("`auth (src/auth)` - 1 test");
+    expect(doc).toContain("`db (src/db)` - 1 test");
     expect(doc).toContain("Area summary.");
     expect(doc).toContain("## Important Entry Files");
     expect(doc).toContain("src/auth/index.ts");
@@ -219,7 +219,7 @@ describe("generateArchitectureDoc", () => {
     };
 
     const doc = generateArchitectureDoc(scan);
-    expect(doc).toContain("## Key Module Flows");
+    expect(doc).toContain("## Data Flow");
     expect(doc).toContain("auth");
     expect(doc).toContain("db");
     expect(doc).toContain("[direct]");
