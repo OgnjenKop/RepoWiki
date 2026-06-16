@@ -20,9 +20,10 @@ export async function updateCommand(rootDir = process.cwd(), aiOptions?: AiRunti
   const affectedAreas = getAffectedAreas(scan, changes, previousIndex?.areaFiles ?? {});
   const deletedFiles = hasDeletedFiles(changes);
   const globalWikiImpact = hasGlobalWikiImpact(changes);
-  const cache = await loadSummaryCache(rootDir);
+  const noCache = aiOptions?.noCache ?? false;
+  const cache = noCache ? undefined : await loadSummaryCache(rootDir);
   const insightModel = resolveAiModel(aiOptions);
-  const insightCache = await loadInsightCache(rootDir, insightModel);
+  const insightCache = noCache ? undefined : await loadInsightCache(rootDir, insightModel);
   const summaries = await buildRepoSummaries({ scan, options: aiOptions, cache });
   const insights = await buildRepoInsights({ scan, options: aiOptions, cache: insightCache });
   const analyzed = { ...scan, summaries, insights };
@@ -43,8 +44,8 @@ export async function updateCommand(rootDir = process.cwd(), aiOptions?: AiRunti
     cleanRoutes: deletedFiles || globalWikiImpact,
     previousIndex: previousIndex
   });
-  await writeSummaryCache(rootDir, cache);
-  await writeInsightCache(rootDir, insightCache);
+  if (cache) await writeSummaryCache(rootDir, cache);
+  if (insightCache) await writeInsightCache(rootDir, insightCache);
   console.log("RepoWiki updated.");
   console.log("");
   printChanges(changes);

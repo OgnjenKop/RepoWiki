@@ -135,7 +135,9 @@ Environment variables are also supported:
 - `REPOWIKI_AI_BASE_URL` (or `OPENAI_BASE_URL`, default `https://openrouter.ai/api/v1`)
 - `REPOWIKI_AI_MODEL` (or `OPENAI_MODEL`, default `deepseek/deepseek-chat-v3.1`)
 
-The first run writes AI responses to `.repowiki/ai-summaries.json` and `.repowiki/ai-insights.json` (keyed by model and content hash). Re-runs hit the cache and skip the network round-trip; change a prompt or the underlying file hashes and entries are invalidated automatically.
+If passing the API key on the command line, prefer `--ai-api-key=<key>` (single argument) over `--ai-api-key <key>` (two arguments) to avoid shell quoting issues with keys that contain special characters.
+
+The first run writes AI responses to `.repowiki/ai-summaries.json` and `.repowiki/ai-insights.json` (keyed by model and content hash). Re-runs hit the cache and skip the network round-trip; change a prompt or the underlying file hashes and entries are invalidated automatically. Pass `--no-cache` to force a fresh run (still updates the cache files with the new results).
 
 ## Development
 

@@ -10,17 +10,18 @@ import { writeMetadata } from "../storage/metadataStore.js";
 
 export async function synthesizeCommand(rootDir = process.cwd(), aiOptions?: AiRuntimeOptions): Promise<void> {
   const scan = await scanRepo(rootDir);
-  const cache = await loadSummaryCache(rootDir);
+  const noCache = aiOptions?.noCache ?? false;
+  const cache = noCache ? undefined : await loadSummaryCache(rootDir);
   const aiRuntime = { ...aiOptions, enabled: true, required: true };
   const insightModel = resolveAiModel(aiRuntime);
-  const insightCache = await loadInsightCache(rootDir, insightModel);
+  const insightCache = noCache ? undefined : await loadInsightCache(rootDir, insightModel);
   const summaries = await buildRepoSummaries({ scan, options: aiRuntime, cache });
   const insights = await buildRepoInsights({ scan, options: aiRuntime, cache: insightCache });
   const analyzed = { ...scan, summaries, insights };
   const docs = await writeDocs(analyzed);
   await writeMetadata(analyzed);
-  await writeSummaryCache(rootDir, cache);
-  await writeInsightCache(rootDir, insightCache);
+  if (cache) await writeSummaryCache(rootDir, cache);
+  if (insightCache) await writeInsightCache(rootDir, insightCache);
   logSynthesisCoverage(summaries);
   console.log("");
   console.log("RepoWiki synthesized with AI.");

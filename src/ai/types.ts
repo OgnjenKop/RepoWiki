@@ -9,6 +9,7 @@ export type AiRuntimeOptions = {
   baseUrl?: string;
   model?: string;
   apiKey?: string;
+  noCache?: boolean;
 };
 
 export type ContextFile = Pick<FileRecord, "path" | "language" | "imports" | "exports" | "symbols"> & {

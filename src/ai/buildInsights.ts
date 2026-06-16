@@ -111,7 +111,7 @@ async function chatWithCache(
     const cached = getCachedInsight(cache, scope, packHash);
     if (cached !== undefined) return cached;
   }
-  const content = await chatSafe(provider, scope, () => messages);
+  const content = await chatWithProvider(provider, scope, messages);
   if (cache) {
     setCachedInsight(cache, scope, packHash, content);
   }
@@ -127,31 +127,12 @@ function createProvider(options?: AiRuntimeOptions): OpenAICompatibleSummaryProv
   return new OpenAICompatibleSummaryProvider({ baseUrl, model, apiKey });
 }
 
-async function chatSafe(
+async function chatWithProvider(
   provider: OpenAICompatibleSummaryProvider,
   purpose: string,
-  build: () => Array<{ role: "system" | "user" | "assistant"; content: string }>
+  messages: Array<{ role: "system" | "user" | "assistant"; content: string }>
 ): Promise<string> {
-  try {
-    return await provider.chat(build(), purpose, { jsonMode: true });
-  } catch (error) {
-    if (isContextLimitError(error)) {
-      return await provider.chat(build(), purpose, { jsonMode: true });
-    }
-    throw error;
-  }
-}
-
-function isContextLimitError(error: unknown): boolean {
-  const message = error instanceof Error ? error.message : String(error);
-  const lower = message.toLowerCase();
-  return lower.includes("token limit") ||
-    lower.includes("context length") ||
-    lower.includes("context too long") ||
-    lower.includes("maximum context") ||
-    lower.includes("finish_reason: length") ||
-    lower.includes("too many tokens") ||
-    lower.includes("exceeds token");
+  return provider.chat(messages, purpose, { jsonMode: true });
 }
 
 function buildProjectContext(scan: RepoScan) {
