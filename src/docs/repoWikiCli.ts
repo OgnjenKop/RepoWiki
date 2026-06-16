@@ -15,16 +15,17 @@ export function renderRepoWikiCommands(scan: RepoScan): string[] {
   return [`${code("repowiki --help")} - Show CLI help.`, ...rendered];
 }
 
-export function renderRepoWikiFlags(scan: RepoScan): string[] {
-  return [...new Set(scan.project.cliOptions ?? [])].sort().map((flag) => {
-    if (flag === "--root") return `${code(flag)} - repository root to scan`;
-    if (flag === "--verbose") return `${code(flag)} - print verbose output`;
-    if (flag === "--ai") return `${code(flag)} - enable AI-generated summaries`;
-    if (flag === "--ai-base-url") return `${code(flag)} - OpenAI-compatible API base URL`;
-    if (flag === "--ai-model") return `${code(flag)} - AI model name`;
-    if (flag === "--ai-api-key") return `${code(flag)} - AI API key`;
-    return code(flag);
-  });
+const repoWikiFlags: Array<{ flag: string; description: string }> = [
+  { flag: "--root <path>", description: "repository root to scan" },
+  { flag: "--verbose", description: "print verbose output" },
+  { flag: "--ai", description: "enable AI-generated summaries" },
+  { flag: "--ai-base-url <url>", description: "OpenAI-compatible API base URL" },
+  { flag: "--ai-model <model>", description: "AI model name" },
+  { flag: "--ai-api-key <key>", description: "AI API key" }
+];
+
+export function renderRepoWikiFlags(_scan: RepoScan): string[] {
+  return repoWikiFlags.map(({ flag, description }) => `${code(flag)} - ${description}`);
 }
 
 export function renderInstallCommand(scan: RepoScan): string {

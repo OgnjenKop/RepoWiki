@@ -1,5 +1,5 @@
 import type { ModuleAreaRecord, RepoScan } from "../types/index.js";
-import { code, list, pluralize } from "../utils/markdown.js";
+import { code, list, pluralize, statCards, section, callout, tableOfContents, breadcrumbs, linkCard } from "../utils/markdown.js";
 import { moduleLabel } from "../utils/moduleLabel.js";
 import { buildAreaFlows } from "../knowledge/areaFlows.js";
 import { selectModuleChangeTargets } from "../knowledge/changeTargets.js";
@@ -11,10 +11,13 @@ import { selectAreaConsumers, selectAreaEntryFiles } from "../knowledge/areaFocu
 import { selectModuleChangePaths } from "../knowledge/moduleFocus.js";
 import { formatChangePath } from "../utils/changePaths.js";
 import { renderConsumerList, splitConsumers } from "../utils/consumers.js";
+import { aiSummaryBody } from "../ai/summaryFormat.js";
 
 export function generateAreaDoc(scan: RepoScan, area: ModuleAreaRecord): string {
   const modules = scan.graph.modules.filter((module) => area.modules.includes(module.id));
-  const summary = scan.summaries?.areas?.[area.id]?.content ?? area.purpose ?? "Connected implementation area.";
+  const summary = scan.summaries?.areas?.[area.id]?.content
+    ? aiSummaryBody(scan.summaries.areas[area.id].content)
+    : (area.purpose ?? "Connected implementation area.");
   const flows = buildAreaFlows(scan);
   const moduleConnections = buildModuleConnections(scan, modules);
   const tests = scan.graph.tests.filter((test) =>
@@ -35,21 +38,47 @@ export function generateAreaDoc(scan: RepoScan, area: ModuleAreaRecord): string 
 
   return `# ${area.name}
 
-## Purpose
+${breadcrumbs([
+  { label: "Wiki", href: "../index.md" },
+  { label: "Areas", href: "index.md" },
+  { label: area.name }
+])}
 
-${area.purpose ?? "Connected implementation area."}
+## At a Glance
 
-## Summary
+${statCards([
+  { label: "Modules", value: modules.length, hint: "in this area" },
+  { label: "Files", value: area.files.length, hint: "scanned" },
+  { label: "Tests", value: tests.length, hint: "covering files" },
+  { label: "Entry files", value: entryFiles.length, hint: "imported by others" }
+])}
+
+## What This Area Is
 
 ${summary}
 
+${callout("note", "Purpose", area.purpose ?? "Connected implementation area.")}
+
+${tableOfContents([
+  { anchor: "what-this-area-is", label: "What This Area Is" },
+  { anchor: "modules", label: "Modules" },
+  { anchor: "entry-files", label: "Entry Files" },
+  { anchor: "key-files", label: "Key Files" },
+  { anchor: "module-connections", label: "Module Connections" },
+  { anchor: "area-flows", label: "Area Flows" },
+  { anchor: "consumers", label: "Consumers" },
+  { anchor: "common-change-paths", label: "Common Change Paths" },
+  { anchor: "change-guidance", label: "Change Guidance" },
+  { anchor: "verification", label: "Verification" }
+])}
+
 ## Modules
 
-${list(modules.map((module) => `[${moduleLabel(module)}](../modules/${module.id}.md) - ${pluralize(module.files.length, "file")}`), "_No modules detected in this area._")}
+${list(modules.map((module) => `[${moduleLabel(module)}](../modules/${module.id}.md) — ${pluralize(module.files.length, "file")}`), "_No modules detected in this area._")}
 
 ## Entry Files
 
-${list(entryFiles.map((entry) => `${code(entry.line ? `${entry.path}:${entry.line}` : entry.path)} - ${entry.reason}`), "_No entry files detected._")}
+${list(entryFiles.map((entry) => `${code(entry.line ? `${entry.path}:${entry.line}` : entry.path)} — ${entry.reason}`), "_No entry files detected._")}
 
 ## Root Paths
 
@@ -57,27 +86,25 @@ ${list(area.rootPaths.map(code), "_No root paths detected._")}
 
 ## Key Files
 
+${callout("tip", "What makes a file \"key\"?", "Key files are the ones other files import from most often within this area. They're the highest-leverage files to read.")}
+
 ${list(centralFiles.map(code), "_No key files detected._")}
 
 ## Module Connections
 
 ${list(moduleConnections, "_No module-to-module connections detected in this area._")}
 
-## Area Flows In
+## Area Flows
 
-${list(incomingFlows.map((flow) => `${code(flow.fromName)} -> ${code(flow.toName)} (${flow.count} imports)`), "_No incoming area flows detected._")}
+${section("Flows In", list(incomingFlows.map((flow) => `${code(flow.fromName)} → ${code(flow.toName)} (${flow.count} imports)`), "_No incoming area flows detected._"))}
 
-## Area Flows Out
+${section("Flows Out", list(outgoingFlows.map((flow) => `${code(flow.fromName)} → ${code(flow.toName)} (${flow.count} imports)`), "_No outgoing area flows detected._"))}
 
-${list(outgoingFlows.map((flow) => `${code(flow.fromName)} -> ${code(flow.toName)} (${flow.count} imports)`), "_No outgoing area flows detected._")}
+## Consumers
 
-## Runtime Consumers
+${section("Runtime Consumers", renderConsumerList(splitAreaConsumers.runtime, "this area", "_No runtime consumers detected._"))}
 
-${renderConsumerList(splitAreaConsumers.runtime, "this area", "_No runtime consumers detected._")}
-
-## Test Consumers
-
-${renderConsumerList(splitAreaConsumers.tests, "this area", "_No test consumers detected._")}
+${section("Test Consumers", renderConsumerList(splitAreaConsumers.tests, "this area", "_No test consumers detected._"))}
 
 ## Common Change Paths
 
@@ -85,7 +112,7 @@ ${list(changePaths.map(formatChangePath), "_No common change paths derived._")}
 
 ## Change Guidance
 
-${list(changeTargets.map((target) => `${code(target.line ? `${target.path}:${target.line}` : target.path)} - ${target.reason}${formatChangeTargetSymbols(target) ? ` [Symbols: ${formatChangeTargetSymbols(target)}]` : ""}${target.caution ? ` (${target.caution})` : ""}`), "_No area-level change targets derived._")}
+${list(changeTargets.map((target) => `${code(target.line ? `${target.path}:${target.line}` : target.path)} — ${target.reason}${formatChangeTargetSymbols(target) ? ` [Symbols: ${formatChangeTargetSymbols(target)}]` : ""}${target.caution ? ` (${target.caution})` : ""}`), "_No area-level change targets derived._")}
 
 ## Verification
 
@@ -108,12 +135,6 @@ ${list(area.files.map(code), "_No files detected in this area._")}
 - [Areas index](index.md)
 - [Repo wiki index](../index.md)
 - [Flow overview](../flows/index.md)
-
-## Notes
-
-- This page groups modules that appear to belong to the same functional area.
-- Use the linked module pages for file-level details.
-- Use the flow overview for cross-area movement.
 `;
 }
 
@@ -154,7 +175,7 @@ function buildModuleConnections(scan: RepoScan, modules: Array<{ id: string; nam
     const toModule = fileToModule.get(edge.to);
     if (!fromModule || !toModule || fromModule === toModule) continue;
     if (!moduleIds.has(fromModule) || !moduleIds.has(toModule)) continue;
-    const key = `${moduleLabels.get(fromModule) ?? fromModule} -> ${moduleLabels.get(toModule) ?? toModule}`;
+    const key = `${moduleLabels.get(fromModule) ?? fromModule} → ${moduleLabels.get(toModule) ?? toModule}`;
     counts.set(key, (counts.get(key) ?? 0) + 1);
   }
   return [...counts.entries()]

@@ -1,20 +1,45 @@
 # Core application logic: storage (src/storage)
 
-## Purpose
+**Navigation:** [Wiki](../index.md) → [Areas](index.md) → Core application logic: storage (src/storage)
 
-Contains domain behavior, application state, services, routing, and data flow. Rooted at src/storage.
+## At a Glance
 
-## Summary
+| | | | |
+| --- | --- | --- | --- |
+| **Modules** | **Files** | **Tests** | **Entry files** |
+| 1 | 1 | 2 | 1 |
+| in this area | scanned | covering files | imported by others |
+
+## What This Area Is
 
 Contains domain behavior, application state, services, routing, and data flow. Rooted at src/storage. Modules: storage (src/storage). Root paths: src/storage. Entry files: src/storage/metadataStore.ts:99. Runtime consumers: src/commands/check.ts -> src/storage/metadataStore.ts, src/commands/generate.ts -> src/storage/metadataStore.ts, src/commands/review.ts -> src/storage/metadataStore.ts. Test consumers: test/metadataArtifacts.test.ts -> src/storage/metadataStore.ts, test/metadataStore.test.ts -> src/storage/metadataStore.ts. Incoming area flows: Operations and entry points: cli (src/cli.ts) + commands (src/commands) -> Core application logic: storage (src/storage). Outgoing area flows: Core application logic: storage (src/storage) -> Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more, Core application logic: storage (src/storage) -> Shared support: types (src/types) + utils (src/utils). Common change paths: Read the module entry files first: src/storage/metadataStore.ts - These are the strongest module starting points. (evidence: src/storage/metadataStore.ts); Inspect runtime consumers before changing shared code: src/commands/check.ts, src/storage/metadataStore.ts, src/commands/generate.ts - These runtime-like files depend on the module boundary. (evidence: src/commands/check.ts, src/storage/metadataStore.ts, src/commands/generate.ts); Review test consumers before changing behavior: test/metadataArtifacts.test.ts, src/storage/metadataStore.ts - These tests show expected behavior around the module boundary. (evidence: test/metadataArtifacts.test.ts, src/storage/metadataStore.ts). Verification: Run the project build: package.json - Use the build script after changing the area. Command: npm run build. (evidence: package.json) Run the project test suite: package.json - Use the package test script after changing the area. Command: npm run test. (evidence: package.json) Inspect related tests: test/metadataArtifacts.test.ts:5, test/metadataStore.test.ts:5 - These tests cover files in the area. (evidence: test/metadataArtifacts.test.ts:5, test/metadataStore.test.ts:5)
 
+> **ℹ️ Purpose**
+>
+> Contains domain behavior, application state, services, routing, and data flow. Rooted at src/storage.
+
+## On This Page
+
+## On This Page
+
+- [What This Area Is](#what-this-area-is)
+- [Modules](#modules)
+- [Entry Files](#entry-files)
+- [Key Files](#key-files)
+- [Module Connections](#module-connections)
+- [Area Flows](#area-flows)
+- [Consumers](#consumers)
+- [Common Change Paths](#common-change-paths)
+- [Change Guidance](#change-guidance)
+- [Verification](#verification)
+
 ## Modules
 
-- [storage (src/storage)](../modules/src-storage.md) - 1 file
+- [storage (src/storage)](../modules/src-storage.md) — 1 file
 
 ## Entry Files
 
-- `src/storage/metadataStore.ts:99` - Imported by 7 external files.
+- `src/storage/metadataStore.ts:99` — Imported by 7 external files.
 
 ## Root Paths
 
@@ -22,20 +47,30 @@ Contains domain behavior, application state, services, routing, and data flow. R
 
 ## Key Files
 
+> **💡 What makes a file "key"?**
+>
+> Key files are the ones other files import from most often within this area. They're the highest-leverage files to read.
+
 - `src/storage/metadataStore.ts`
 
 ## Module Connections
 
 _No module-to-module connections detected in this area._
 
-## Area Flows In
+## Area Flows
 
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (5 imports)
+## Flows In
 
-## Area Flows Out
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` → `Core application logic: storage (src/storage)` (5 imports)
 
-- `Core application logic: storage (src/storage)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (3 imports)
-- `Core application logic: storage (src/storage)` -> `Shared support: types (src/types) + utils (src/utils)` (3 imports)
+
+## Flows Out
+
+- `Core application logic: storage (src/storage)` → `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (3 imports)
+- `Core application logic: storage (src/storage)` → `Shared support: types (src/types) + utils (src/utils)` (3 imports)
+
+
+## Consumers
 
 ## Runtime Consumers
 
@@ -45,10 +80,12 @@ _No module-to-module connections detected in this area._
 - `src/commands/synthesize.ts` -> `src/storage/metadataStore.ts` (1 imports into this area)
 - `src/commands/update.ts` -> `src/storage/metadataStore.ts` (1 imports into this area)
 
+
 ## Test Consumers
 
 - `test/metadataArtifacts.test.ts` -> `src/storage/metadataStore.ts` (1 imports into this area)
 - `test/metadataStore.test.ts` -> `src/storage/metadataStore.ts` (1 imports into this area)
+
 
 ## Common Change Paths
 
@@ -59,14 +96,14 @@ _No module-to-module connections detected in this area._
 
 ## Change Guidance
 
-- `src/storage/metadataStore.ts:99` - A connected implementation file with both imports and exports. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
-- `src/commands/update.ts:87` - A directly connected implementation file. [Symbols: updateCommand@9, getAffectedModules@46, getAffectedRoutes@71, getAffectedAreas@87]
-- `test/metadataArtifacts.test.ts:5` - A directly connected implementation file. (Update the test expectations if behavior changes.)
-- `src/commands/check.ts:4` - A directly connected implementation file. [Symbols: checkCommand@4]
-- `src/commands/generate.ts:7` - A directly connected implementation file. [Symbols: generateCommand@7]
-- `src/commands/review.ts:7` - A directly connected implementation file. [Symbols: reviewCommand@7]
-- `src/commands/synthesize.ts:7` - A directly connected implementation file. [Symbols: synthesizeCommand@7]
-- `test/metadataStore.test.ts:5` - Tests that verify this area. (Update the test expectations if behavior changes.)
+- `src/storage/metadataStore.ts:99` — A connected implementation file with both imports and exports. [Symbols: MetadataWriteOptions@9, hashesFromScan@19, loadHashes@23, hasStoredHashes@27]
+- `src/commands/update.ts:92` — A directly connected implementation file. [Symbols: updateCommand@11, getAffectedModules@51, getAffectedRoutes@76, getAffectedAreas@92]
+- `src/commands/synthesize.ts:9` — A directly connected implementation file. [Symbols: synthesizeCommand@9]
+- `src/commands/generate.ts:8` — A directly connected implementation file. [Symbols: generateCommand@8]
+- `test/metadataArtifacts.test.ts:5` — A directly connected implementation file. (Update the test expectations if behavior changes.)
+- `src/commands/check.ts:4` — A directly connected implementation file. [Symbols: checkCommand@4]
+- `src/commands/review.ts:7` — A directly connected implementation file. [Symbols: reviewCommand@7]
+- `test/metadataStore.test.ts:5` — Tests that verify this area. (Update the test expectations if behavior changes.)
 
 ## Verification
 
@@ -92,9 +129,3 @@ _No related routes detected._
 - [Areas index](index.md)
 - [Repo wiki index](../index.md)
 - [Flow overview](../flows/index.md)
-
-## Notes
-
-- This page groups modules that appear to belong to the same functional area.
-- Use the linked module pages for file-level details.
-- Use the flow overview for cross-area movement.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildAreaContextPack, buildModuleContextPack, buildProjectContextPack, buildRouteContextPack } from "../src/ai/contextPacks.js";
+import { buildAreaContextPack, buildModuleContextPack, buildProjectContextPack, buildRouteContextPack, reduceContextPack } from "../src/ai/contextPacks.js";
 import type { RepoScan } from "../src/types/index.js";
 
 const scan: RepoScan = {
@@ -37,6 +37,17 @@ const scan: RepoScan = {
 };
 
 describe("context packs", () => {
+  it("reduces context packs for token-limit retries", async () => {
+    const modulePack = await buildModuleContextPack({ scan, module: scan.graph.modules[0]! });
+    const reduced = reduceContextPack(modulePack);
+    expect(reduced.files.length).toBeLessThanOrEqual(Math.max(2, Math.floor(modulePack.files.length / 2)));
+    expect(reduced.flows.length).toBeLessThanOrEqual(Math.max(1, Math.floor(modulePack.flows.length / 2)));
+    for (const file of reduced.files) {
+      const lineCount = file.snippet.split(/\r?\n/).length;
+      expect(lineCount).toBeLessThanOrEqual(11); // 10 lines plus optional ellipsis line
+    }
+  });
+
   it("includes flows for project, module, and route packs", async () => {
     const projectPack = await buildProjectContextPack(scan);
     const modulePack = await buildModuleContextPack({ scan, module: scan.graph.modules[0]! });

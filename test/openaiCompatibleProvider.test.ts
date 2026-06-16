@@ -40,6 +40,69 @@ const pack: ContextPack = {
 };
 
 describe("OpenAICompatibleSummaryProvider", () => {
+  it("extracts JSON from reasoning when content is empty", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        choices: [
+          {
+            message: {
+              content: "",
+              reasoning: `{ "summary": "Auth handles login.", "responsibilities": ["Authenticate users."], "importantFiles": [{"path": "src/auth/service.ts", "reason": "login entrypoint", "evidence": ["src/auth/service.ts"]}], "executionFlow": ["Request enters."], "decisionPoints": ["Confirm ownership."], "commonChangePaths": [], "changeTargets": [], "changeRisks": [], "verificationSteps": [], "notesForAiAgents": [], "unknowns": [] }`
+            }
+          }
+        ]
+      })
+    } as Response);
+
+    try {
+      const provider = new OpenAICompatibleSummaryProvider({
+        baseUrl: "https://example.invalid/v1/",
+        model: "gpt-5-mini",
+        apiKey: "secret"
+      });
+
+      const markdown = await provider.summarize(pack);
+      expect(markdown).toContain("Auth handles login.");
+      expect(fetchSpy).toHaveBeenCalledOnce();
+    } finally {
+      fetchSpy.mockRestore();
+    }
+  });
+
+  it("extracts reasoning from arrays, objects, and alternative fields", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        choices: [
+          {
+            message: {
+              content: ""
+            },
+            reasoning: [
+              { text: `{ "summary": "Auth handles login.", "responsibilities": ["Authenticate users."],` },
+              { text: `"importantFiles": [{"path": "src/auth/service.ts", "reason": "login entrypoint", "evidence": ["src/auth/service.ts"]}], "executionFlow": ["Request enters."], "decisionPoints": ["Confirm ownership."], "commonChangePaths": [], "changeTargets": [], "changeRisks": [], "verificationSteps": [], "notesForAiAgents": [], "unknowns": [] }` }
+            ]
+          }
+        ]
+      })
+    } as Response);
+
+    try {
+      const provider = new OpenAICompatibleSummaryProvider({
+        baseUrl: "https://example.invalid/v1/",
+        model: "gpt-5-mini",
+        apiKey: "secret"
+      });
+
+      const markdown = await provider.summarize(pack);
+      expect(markdown).toContain("Auth handles login.");
+      expect(fetchSpy).toHaveBeenCalledOnce();
+    } finally {
+      fetchSpy.mockRestore();
+    }
+  });
+
   it("renders markdown from a valid response payload", async () => {
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
       ok: true,

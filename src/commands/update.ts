@@ -3,8 +3,12 @@ import { scanRepo } from "../scanner/scanRepo.js";
 import { diffHashes, hashesFromScan, loadHashes, loadIndex, writeMetadata } from "../storage/metadataStore.js";
 import type { ChangeSet, RepoScan } from "../types/index.js";
 import { buildRepoSummaries } from "../ai/buildSummaries.js";
+import { buildRepoInsights } from "../ai/buildInsights.js";
 import type { AiRuntimeOptions } from "../ai/types.js";
 import { routeContextKey } from "../ai/contextPacks.js";
+import { resolveAiModel } from "../ai/config.js";
+import { loadSummaryCache, writeSummaryCache } from "../ai/summaryCache.js";
+import { loadInsightCache, writeInsightCache } from "../ai/insightCache.js";
 
 export async function updateCommand(rootDir = process.cwd(), aiOptions?: AiRuntimeOptions): Promise<void> {
   const previous = await loadHashes(rootDir);
@@ -16,8 +20,12 @@ export async function updateCommand(rootDir = process.cwd(), aiOptions?: AiRunti
   const affectedAreas = getAffectedAreas(scan, changes, previousIndex?.areaFiles ?? {});
   const deletedFiles = hasDeletedFiles(changes);
   const globalWikiImpact = hasGlobalWikiImpact(changes);
-  const summaries = await buildRepoSummaries({ scan, options: aiOptions });
-  const analyzed = { ...scan, summaries };
+  const cache = await loadSummaryCache(rootDir);
+  const insightModel = resolveAiModel(aiOptions);
+  const insightCache = await loadInsightCache(rootDir, insightModel);
+  const summaries = await buildRepoSummaries({ scan, options: aiOptions, cache });
+  const insights = await buildRepoInsights({ scan, options: aiOptions, cache: insightCache });
+  const analyzed = { ...scan, summaries, insights };
   const docs = await writeDocs(analyzed, {
     areas: deletedFiles || globalWikiImpact ? "all" : affectedAreas,
     modules: deletedFiles || globalWikiImpact ? "all" : affectedModules,
@@ -35,6 +43,8 @@ export async function updateCommand(rootDir = process.cwd(), aiOptions?: AiRunti
     cleanRoutes: deletedFiles || globalWikiImpact,
     previousIndex: previousIndex
   });
+  await writeSummaryCache(rootDir, cache);
+  await writeInsightCache(rootDir, insightCache);
   console.log("RepoWiki updated.");
   console.log("");
   printChanges(changes);

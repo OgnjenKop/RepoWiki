@@ -8,6 +8,8 @@ import { generateArchitectureDoc } from "./generateArchitectureDoc.js";
 import { generateAreaDoc } from "./generateAreaDoc.js";
 import { generateAreasIndexDoc } from "./generateAreasIndexDoc.js";
 import { generateCodexReviewDoc } from "./generateCodexReviewDoc.js";
+import { generateDesignDoc } from "./generateDesignDoc.js";
+import { generateDesignHtml } from "./generateDesignHtml.js";
 import { generateFlowsIndexDoc, generateModuleFlowDoc } from "./generateFlowDocs.js";
 import { generateModuleDiagram, generateRouteDiagram } from "../diagrams/generateDiagrams.js";
 import { generateIndexDoc } from "./generateIndexDoc.js";
@@ -63,6 +65,10 @@ export async function writeDocs(scan: RepoScan, options: WriteDocsOptions = {}):
   }
   await writeText(path.join(docsRoot, "agent-context.md"), generateAgentContextDoc(scan));
   written.push("docs/repo-wiki/agent-context.md");
+  await writeText(path.join(docsRoot, "design.md"), generateDesignDoc(scan));
+  written.push("docs/repo-wiki/design.md");
+  await writeText(path.join(docsRoot, "design.html"), generateDesignHtml(scan));
+  written.push("docs/repo-wiki/design.html");
   await writeText(path.join(docsRoot, "flows", "index.md"), generateFlowsIndexDoc(scan));
   written.push("docs/repo-wiki/flows/index.md");
   const selectedModules = modulesToWrite === "all"

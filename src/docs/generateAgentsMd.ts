@@ -5,6 +5,7 @@ import { buildAreaFlows } from "../knowledge/areaFlows.js";
 import { areaDocFileName } from "../utils/docPaths.js";
 import { renderInstallCommand, renderRepoWikiCommands, renderRepoWikiFlags } from "./repoWikiCli.js";
 import { summaryExcerpt } from "../utils/summaryExcerpt.js";
+import { aiSummaryBody } from "../ai/summaryFormat.js";
 import { orderedAreas } from "../knowledge/areaOrdering.js";
 
 const start = "<!-- REPOWIKI:START -->";
@@ -30,7 +31,12 @@ Read:
 
 ## Project Structure
 
-${list(scan.graph.modules.map((module) => `${code(module.rootPath)} - ${module.purpose ?? "Detected from file structure."}`))}
+${list(scan.graph.modules.map((module) => {
+    const summary = scan.summaries?.modules?.[module.id]?.content
+      ? aiSummaryBody(summaryExcerpt(scan.summaries.modules[module.id].content))
+      : (module.purpose ?? "Detected from file structure.");
+    return `${code(module.rootPath)} - ${summary}`;
+  }))}
 
 ## Important Commands
 
@@ -50,7 +56,12 @@ ${list(scan.graph.modules.map((module) => `${code(moduleLabel(module))}: ${plura
 
 ## Module Areas
 
-${list(areas.map((area) => `${code(area.name)}: ${pluralize(area.modules.length, "module")}${area.purpose ? ` - ${area.purpose}` : ""}`), "_No module areas detected._")}
+${list(areas.map((area) => {
+    const summary = scan.summaries?.areas?.[area.id]?.content
+      ? aiSummaryBody(summaryExcerpt(scan.summaries.areas[area.id].content))
+      : (area.purpose ?? "Connected implementation area.");
+    return `${code(area.name)}: ${pluralize(area.modules.length, "module")}${summary ? ` - ${summary}` : ""}`;
+  }), "_No module areas detected._")}
 
 ## Area Summaries
 

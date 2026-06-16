@@ -8,7 +8,7 @@ Generated docs should give a new agent enough context to make a safe first chang
 
 For RepoWiki, that means the wiki should clearly expose:
 
-- Project shape: Node/TypeScript, package manager npm, 102 scanned files, and 11 detected modules.
+- Project shape: Node/TypeScript, package manager npm, 115 scanned files, and 11 detected modules.
 - Main areas: Operations and entry points: cli (src/cli.ts) + commands (src/commands); Core application logic: graph (src/graph) + scanner (src/scanner); Core application logic: storage (src/storage); Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more; Shared support: types (src/types) + utils (src/utils).
 - Entry points, central files, and high-signal modules.
 - Runtime consumers and test consumers as separate concepts.

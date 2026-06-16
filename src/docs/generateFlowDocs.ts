@@ -1,5 +1,5 @@
 import type { ModuleRecord, RepoScan } from "../types/index.js";
-import { code, list, pluralize } from "../utils/markdown.js";
+import { code, list, pluralize, callout, breadcrumbs, tableOfContents, statCards, section } from "../utils/markdown.js";
 import { moduleLabel } from "../utils/moduleLabel.js";
 import { scriptCommand } from "../utils/packageManager.js";
 import { selectModuleChangeTargets } from "../knowledge/changeTargets.js";
@@ -17,43 +17,53 @@ import { renderConsumerList, splitConsumers } from "../utils/consumers.js";
 
 export function generateFlowsIndexDoc(scan: RepoScan): string {
   const moduleEdges = buildModuleEdges(scan);
-  const testCoverage = buildModuleTestCoverage(scan).map((item) => `${code(item.module)} - ${item.count} test${item.count === 1 ? "" : "s"}${item.tests.length ? ` (${item.tests.slice(0, 3).map((test) => `${code(test.ref)} ${testCoveragePrefix(test)}`).join(", ")})` : ""}`);
+  const testCoverage = buildModuleTestCoverage(scan).map((item) => `${code(item.module)} — ${item.count} test${item.count === 1 ? "" : "s"}${item.tests.length ? ` (${item.tests.slice(0, 3).map((test) => `${code(test.ref)} ${testCoveragePrefix(test)}`).join(", ")})` : ""}`);
   const routeEntries = scan.graph.routes
     .map((route) => `${route.method ? `${route.method} ` : ""}${route.path ?? "(unknown path)"}${route.controller ? ` (${route.controller})` : ""} [${routeCoverageLabel(route)}] in ${code(route.line ? `${route.file}:${route.line}` : route.file)}`)
     .sort();
-  const areaFlows = buildAreaFlows(scan).slice(0, 8).map((flow) => `${code(flow.fromName)} -> ${code(flow.toName)} (${flow.count} imports)`);
+  const areaFlows = buildAreaFlows(scan).slice(0, 8).map((flow) => `${code(flow.fromName)} → ${code(flow.toName)} (${flow.count} imports)`);
   const areas = orderedAreas(scan);
-  const areaSummaries = areas.map((area) => `[${area.name}](../areas/${areaDocFileName(area.id)}) - ${summaryExcerpt(scan.summaries?.areas?.[area.id]?.content ?? area.purpose ?? "Connected implementation area.")}`);
+  const areaSummaries = areas.map((area) => `[${area.name}](../areas/${areaDocFileName(area.id)}) — ${summaryExcerpt(scan.summaries?.areas?.[area.id]?.content ?? area.purpose ?? "Connected implementation area.")}`);
   const verificationHints = selectProjectVerificationHints(scan);
 
   return `# Flows
 
+${breadcrumbs([{ label: "Wiki", href: "../index.md" }, { label: "Flows" }])}
+
 ## What This Shows
 
-Flow docs explain how code moves through the repository: module imports, route entry points, and the files that shape behavior.
+${callout("note", "About flow docs", "Flow docs explain how code moves through the repository: module imports, route entry points, and the files that shape behavior. Use this page to understand **execution paths** — what depends on what, and where changes propagate.")}
 
 ## Project Shape
 
-- Modules detected: ${scan.graph.modules.length}
-- Routes detected: ${scan.graph.routes.length}
-- Test files detected: ${scan.graph.tests.length}
-- Import edges detected: ${scan.graph.imports.length}
+${statCards([
+  { label: "Modules", value: scan.graph.modules.length, hint: "detected" },
+  { label: "Routes", value: scan.graph.routes.length, hint: "API endpoints" },
+  { label: "Tests", value: scan.graph.tests.length, hint: "files" },
+  { label: "Imports", value: scan.graph.imports.length, hint: "edges" }
+])}
+
+${tableOfContents([
+  { anchor: "key-module-flows", label: "Key Module Flows" },
+  { anchor: "module-areas", label: "Module Areas" },
+  { anchor: "area-flows", label: "Area Flows" },
+  { anchor: "test-coverage-map", label: "Test Coverage Map" },
+  { anchor: "route-entry-points", label: "Route Entry Points" },
+  { anchor: "verification", label: "Verification" },
+  { anchor: "module-flow-docs", label: "Module Flow Docs" }
+])}
 
 ## Key Module Flows
 
-${list(moduleEdges.map((edge) => `${code(edge.from)} -> ${code(edge.to)}${edge.count > 1 ? ` (${edge.count} imports)` : ""}`), "_No inter-module flows detected._")}
+${callout("tip", "Reading the flows", "An arrow from A to B means \"A imports from B\". The module at the head of the arrow is depended on; the module at the tail is the consumer. Modules with many incoming arrows are the most depended-on.")}
+
+${list(moduleEdges.map((edge) => `${code(edge.from)} → ${code(edge.to)}${edge.count > 1 ? ` (${edge.count} imports)` : ""}`), "_No inter-module flows detected._")}
 
 ## Module Areas
 
-${list(areas.map((area) => `${code(area.name)} - ${pluralize(area.modules.length, "module")}`), "_No module areas detected._")}
+${list(areas.map((area) => `[${area.name}](../areas/${areaDocFileName(area.id)}) — ${pluralize(area.modules.length, "module")}`), "_No module areas detected._")}
 
-## Area Docs
-
-${list(areas.map((area) => `[${area.name}](../areas/${areaDocFileName(area.id)}) - ${pluralize(area.modules.length, "module")}`), "_No area docs generated._")}
-
-## Area Summaries
-
-${list(areaSummaries, "_No area summaries available._")}
+${section("Area Summaries", list(areaSummaries, "_No area summaries available._"))}
 
 ## Area Flows
 
@@ -73,7 +83,7 @@ ${list(verificationHints.map(formatVerificationHint), "_No project verification 
 
 ## Module Flow Docs
 
-${list(scan.graph.modules.map((module) => `[${moduleLabel(module)}](modules/${module.id}.md) - ${pluralize(module.files.length, "file")}`))}
+${list(scan.graph.modules.map((module) => `[${moduleLabel(module)}](modules/${module.id}.md) — ${pluralize(module.files.length, "file")}`))}
 
 ## How To Use
 
@@ -87,7 +97,7 @@ export function generateModuleFlowDoc(scan: RepoScan, module: ModuleRecord): str
   const moduleFiles = module.files;
   const summary = scan.summaries?.modules[module.id]?.content ?? module.purpose ?? "No summary available.";
   const areas = orderedAreas(scan).filter((area) => area.modules.includes(module.id));
-  const areaSummaries = areas.map((area) => `[${area.name}](../areas/${areaDocFileName(area.id)}) - ${summaryExcerpt(scan.summaries?.areas?.[area.id]?.content ?? area.purpose ?? "Connected implementation area.")}`);
+  const areaSummaries = areas.map((area) => `[${area.name}](../areas/${areaDocFileName(area.id)}) — ${summaryExcerpt(scan.summaries?.areas?.[area.id]?.content ?? area.purpose ?? "Connected implementation area.")}`);
   const moduleConnections = buildModuleConnections(scan, module);
   const entryFiles = selectModuleEntryFiles(scan, moduleFiles);
   const relatedRoutes = uniqueSorted(scan.graph.routes.filter((route) => moduleFiles.includes(route.file)).map((route) => route.file));
@@ -101,7 +111,7 @@ export function generateModuleFlowDoc(scan: RepoScan, module: ModuleRecord): str
   const importers = uniqueSorted(scan.graph.imports.filter((edge) => moduleFiles.includes(edge.to) && !moduleFiles.includes(edge.from)).map((edge) => edge.from));
   const internalEdges = scan.graph.imports
     .filter((edge) => moduleFiles.includes(edge.from) && moduleFiles.includes(edge.to))
-    .map((edge) => `${code(edge.from)} -> ${code(edge.to)}`);
+    .map((edge) => `${code(edge.from)} → ${code(edge.to)}`);
   const changePaths = selectModuleChangePaths(scan, moduleFiles);
   const externalDeps = [...new Set(
     scan.graph.files
@@ -114,23 +124,27 @@ export function generateModuleFlowDoc(scan: RepoScan, module: ModuleRecord): str
 
   return `# ${module.name} Flow
 
-${code(module.rootPath)}
+${breadcrumbs([
+  { label: "Wiki", href: "../../index.md" },
+  { label: "Flows", href: "../index.md" },
+  { label: module.name }
+])}
 
 ## Overview
 
 ${summary}
 
+${callout("note", "Module path", `${code(module.rootPath)} contains this module's files.`)}
+
 ## Module Areas
 
-${list(areas.map((area) => `[${area.name}](../areas/${areaDocFileName(area.id)}) - ${area.purpose ?? "Connected module area."}`), "_No connected module areas detected._")}
+${list(areas.map((area) => `[${area.name}](../../areas/${areaDocFileName(area.id)}) — ${area.purpose ?? "Connected module area."}`), "_No connected module areas detected._")}
 
-## Area Summaries
-
-${list(areaSummaries, "_No connected area summaries available._")}
+${section("Area Summaries", list(areaSummaries, "_No connected area summaries available._"))}
 
 ## Entry Files
 
-${list(entryFiles.map((entry) => `${code(entry.line ? `${entry.path}:${entry.line}` : entry.path)} - ${entry.reason}`), "_No entry files detected._")}
+${list(entryFiles.map((entry) => `${code(entry.line ? `${entry.path}:${entry.line}` : entry.path)} — ${entry.reason}`), "_No entry files detected._")}
 
 ## Area Flows
 
@@ -177,7 +191,7 @@ ${list(relatedTests.map((test) => `${code(test.line ? `${test.path}:${test.line}
 
 ## Change Targets
 
-${list(changeTargets.map((target) => `${code(target.line ? `${target.path}:${target.line}` : target.path)} - ${target.reason}${formatChangeTargetSymbols(target) ? ` [Symbols: ${formatChangeTargetSymbols(target)}]` : ""}${target.caution ? ` (${target.caution})` : ""}`))}
+${list(changeTargets.map((target) => `${code(target.line ? `${target.path}:${target.line}` : target.path)} — ${target.reason}${formatChangeTargetSymbols(target) ? ` [Symbols: ${formatChangeTargetSymbols(target)}]` : ""}${target.caution ? ` (${target.caution})` : ""}`))}
 
 ## Verification
 
@@ -225,8 +239,8 @@ function buildModuleConnections(scan: RepoScan, module: ModuleRecord): string[] 
     if (!fromModule || !toModule || fromModule === toModule) continue;
     if (fromModule !== module.id && toModule !== module.id) continue;
     const key = fromModule === module.id
-      ? `${moduleLabels.get(fromModule) ?? fromModule} -> ${moduleLabels.get(toModule) ?? toModule}`
-      : `${moduleLabels.get(toModule) ?? toModule} <- ${moduleLabels.get(fromModule) ?? fromModule}`;
+      ? `${moduleLabels.get(fromModule) ?? fromModule} → ${moduleLabels.get(toModule) ?? toModule}`
+      : `${moduleLabels.get(toModule) ?? toModule} ← ${moduleLabels.get(fromModule) ?? fromModule}`;
     counts.set(key, (counts.get(key) ?? 0) + 1);
   }
   return [...counts.entries()]
@@ -254,7 +268,7 @@ function areaFlowsForModule(scan: RepoScan, moduleId: string): string[] {
   const moduleAreas = new Set(orderedAreas(scan).filter((area) => area.modules.includes(moduleId)).map((area) => area.name));
   return buildAreaFlows(scan)
     .filter((flow) => moduleAreas.has(flow.fromName) || moduleAreas.has(flow.toName))
-    .map((flow) => `${code(flow.fromName)} -> ${code(flow.toName)} (${flow.count} imports)`)
+    .map((flow) => `${code(flow.fromName)} → ${code(flow.toName)} (${flow.count} imports)`)
     .sort();
 }
 

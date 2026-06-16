@@ -16,17 +16,17 @@ Read:
 
 ## Project Structure
 
-- `src/ai` - Likely orchestrates AI summaries and context packs for the wiki.
-- `src/cli.ts` - Likely implements CLI command entry points and orchestration.
-- `src/commands` - Likely implements CLI command entry points and orchestration.
-- `src/diagrams` - Likely generates repository diagrams and flow visuals.
-- `src/docs` - Likely generates repository wiki pages, flow docs, and AGENTS.md instructions.
-- `src/graph` - Likely builds the repository import graph and route relationships.
-- `src/knowledge` - Likely derives evidence-backed repository knowledge, summaries, and change guidance.
-- `src/scanner` - Likely scans files and builds repository graph metadata.
-- `src/storage` - Likely handles persistence, metadata, cached state, or storage-backed records.
-- `src/types` - Likely defines shared records for files, graphs, summaries, tests, and change targets.
-- `src/utils` - Likely provides shared filesystem, hashing, markdown, and path helpers.
+- `src/ai` - Likely orchestrates AI summaries and context packs for the wiki. 9 files belong to this module.…
+- `src/cli.ts` - Likely implements CLI command entry points and orchestration. 1 file belong to this module. Main files: src/cli.ts. Entry files: src/cli.ts:36.…
+- `src/commands` - Likely implements CLI command entry points and orchestration. 5 files belong to this module.…
+- `src/diagrams` - Likely generates repository diagrams and flow visuals. 1 file belong to this module. Main files: src/diagrams/generateDiagrams.ts.…
+- `src/docs` - Likely generates repository wiki pages, flow docs, and AGENTS.md instructions. 15 files belong to this module.…
+- `src/graph` - Likely builds the repository import graph and route relationships. 1 file belong to this module. Main files: src/graph/buildGraph.ts. Entry files: src/graph/buildGraph.ts:4.…
+- `src/knowledge` - Likely derives evidence-backed repository knowledge, summaries, and change guidance. 10 files belong to this module.…
+- `src/scanner` - Likely scans files and builds repository graph metadata. 12 files belong to this module.…
+- `src/storage` - Likely handles persistence, metadata, cached state, or storage-backed records. 1 file belong to this module. Main files: src/storage/metadataStore.ts.…
+- `src/types` - Likely defines shared records for files, graphs, summaries, tests, and change targets. 1 file belong to this module. Main files: src/types/index.ts.…
+- `src/utils` - Likely provides shared filesystem, hashing, markdown, and path helpers. 15 files belong to this module.…
 
 ## Important Commands
 
@@ -56,25 +56,25 @@ Read:
 
 ## Module-Specific Notes
 
-- `ai (src/ai)`: 6 files under `src/ai`
+- `ai (src/ai)`: 9 files under `src/ai`
 - `cli (src/cli.ts)`: 1 file under `src/cli.ts`
 - `commands (src/commands)`: 5 files under `src/commands`
 - `diagrams (src/diagrams)`: 1 file under `src/diagrams`
-- `docs (src/docs)`: 13 files under `src/docs`
+- `docs (src/docs)`: 15 files under `src/docs`
 - `graph (src/graph)`: 1 file under `src/graph`
 - `knowledge (src/knowledge)`: 10 files under `src/knowledge`
-- `scanner (src/scanner)`: 9 files under `src/scanner`
+- `scanner (src/scanner)`: 12 files under `src/scanner`
 - `storage (src/storage)`: 1 file under `src/storage`
 - `types (src/types)`: 1 file under `src/types`
-- `utils (src/utils)`: 14 files under `src/utils`
+- `utils (src/utils)`: 15 files under `src/utils`
 
 ## Module Areas
 
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)`: 2 modules - Coordinates runnable entry points, scripts, commands, and top-level execution flow. Covers cli (src/cli.ts), commands (src/commands).
-- `Core application logic: graph (src/graph) + scanner (src/scanner)`: 2 modules - Contains domain behavior, application state, services, routing, and data flow. Covers graph (src/graph), scanner (src/scanner).
-- `Core application logic: storage (src/storage)`: 1 module - Contains domain behavior, application state, services, routing, and data flow. Rooted at src/storage.
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more`: 4 modules - Contains UI, presentation, docs, generated output, or user-facing surfaces. Covers ai (src/ai), diagrams (src/diagrams), docs (src/docs), knowledge (src/knowledge).
-- `Shared support: types (src/types) + utils (src/utils)`: 2 modules - Provides shared persistence, configuration, types, and utility helpers. Covers types (src/types), utils (src/utils).
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)`: 2 modules - Coordinates runnable entry points, scripts, commands, and top-level execution flow. Covers cli (src/cli.ts), commands (src/commands).…
+- `Core application logic: graph (src/graph) + scanner (src/scanner)`: 2 modules - Contains domain behavior, application state, services, routing, and data flow. Covers graph (src/graph), scanner (src/scanner). Modules: graph (src/graph), scanner (src/scanner).…
+- `Core application logic: storage (src/storage)`: 1 module - Contains domain behavior, application state, services, routing, and data flow. Rooted at src/storage. Modules: storage (src/storage). Root paths: src/storage.…
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more`: 4 modules - Contains UI, presentation, docs, generated output, or user-facing surfaces. Covers ai (src/ai), diagrams (src/diagrams), docs (src/docs), knowledge (src/knowledge).…
+- `Shared support: types (src/types) + utils (src/utils)`: 2 modules - Provides shared persistence, configuration, types, and utility helpers. Covers types (src/types), utils (src/utils). Modules: types (src/types), utils (src/utils).…
 
 ## Area Summaries
 
@@ -96,9 +96,9 @@ Read `docs/repo-wiki/areas/index.md` for the area-level map.
 
 ## Area Flows
 
-- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (110 imports)
-- `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (20 imports)
-- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (12 imports)
+- `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` -> `Shared support: types (src/types) + utils (src/utils)` (121 imports)
+- `Core application logic: graph (src/graph) + scanner (src/scanner)` -> `Shared support: types (src/types) + utils (src/utils)` (25 imports)
+- `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Presentation and output: ai (src/ai) + diagrams (src/diagrams) + 2 more` (17 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: graph (src/graph) + scanner (src/scanner)` (5 imports)
 - `Operations and entry points: cli (src/cli.ts) + commands (src/commands)` -> `Core application logic: storage (src/storage)` (5 imports)
 

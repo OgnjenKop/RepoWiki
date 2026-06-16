@@ -51,11 +51,6 @@ export type SummaryMap = {
   routes?: Record<string, SummaryRecord>;
 };
 
-export type SummaryBuildInput = {
-  scan: RepoScan;
-  options?: AiRuntimeOptions;
-};
-
 export type ModuleContextInput = {
   scan: RepoScan;
   module: ModuleRecord;
@@ -69,4 +64,34 @@ export type AreaContextInput = {
 export type RouteContextInput = {
   scan: RepoScan;
   route: import("../types/index.js").RouteRecord;
+};
+
+export type ModuleInsight = {
+  intent: string;
+  patterns: string[];
+  gotchas: string[];
+  whenToExtend: string;
+  relatedConcepts: string[];
+};
+
+export type ProjectNarrative = {
+  tagline: string;
+  overview: string;
+  audience: string;
+  designPhilosophy: string;
+  keyInsights: string[];
+};
+
+export type ArchitecturalStory = {
+  overview: string;
+  designIntent: string;
+  tradeoffs: string[];
+  invariants: string[];
+  evolution: string;
+};
+
+export type RepoInsights = {
+  project?: ProjectNarrative;
+  architecture?: ArchitecturalStory;
+  moduleInsights: Record<string, ModuleInsight>;
 };

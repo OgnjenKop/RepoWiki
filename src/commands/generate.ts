@@ -2,12 +2,14 @@ import { scanRepo } from "../scanner/scanRepo.js";
 import { writeDocs } from "../docs/writeDocs.js";
 import { writeMetadata } from "../storage/metadataStore.js";
 import { buildRepoSummaries } from "../ai/buildSummaries.js";
+import { buildRepoInsights } from "../ai/buildInsights.js";
 import type { AiRuntimeOptions } from "../ai/types.js";
 
 export async function generateCommand(rootDir = process.cwd(), aiOptions?: AiRuntimeOptions): Promise<void> {
   const scan = await scanRepo(rootDir);
   const summaries = await buildRepoSummaries({ scan, options: aiOptions });
-  const analyzed = { ...scan, summaries };
+  const insights = await buildRepoInsights({ scan, options: aiOptions });
+  const analyzed = { ...scan, summaries, insights };
   const docs = await writeDocs(analyzed);
   await writeMetadata(analyzed);
   console.log("RepoWiki generated.");

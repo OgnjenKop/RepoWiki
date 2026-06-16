@@ -25,3 +25,25 @@ export function shouldDetectRuntimeSignals(filePath: string): boolean {
 export function shouldDetectEnvVars(filePath: string): boolean {
   return isEnvFile(filePath) || shouldDetectRuntimeSignals(filePath);
 }
+
+export function shouldDetectComponents(filePath: string): boolean {
+  if (isTestFile(filePath)) return false;
+  const ext = path.posix.extname(filePath).toLowerCase();
+  return [".tsx", ".jsx", ".ts", ".js", ".vue", ".svelte"].includes(ext);
+}
+
+export function shouldDetectDesignTokens(filePath: string): boolean {
+  if (isTestFile(filePath)) return false;
+  const ext = path.posix.extname(filePath).toLowerCase();
+  if (ext === ".css" || ext === ".scss") return true;
+  if (ext === ".json") {
+    return /(?:^|\/)(tokens?|theme|design[-_]?tokens?|tailwind)\//i.test(filePath) ||
+      /^(tokens|theme|design[-_]?tokens)\.json$/i.test(path.posix.basename(filePath));
+  }
+  if (ext === ".ts" || ext === ".js") {
+    return /(?:^|\/)(tokens?|theme|design[-_]?tokens?)\//i.test(filePath) ||
+      /^(tokens?|theme|design[-_]?tokens?)\.(ts|js)$/i.test(path.posix.basename(filePath)) ||
+      /tailwind\.config\.(js|ts|cjs|mjs)$/i.test(filePath);
+  }
+  return false;
+}

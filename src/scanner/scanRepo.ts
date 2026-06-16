@@ -12,7 +12,10 @@ import { detectEnvVars } from "./detectEnvVars.js";
 import { detectRoutes } from "./detectRoutes.js";
 import { detectTests } from "./detectTests.js";
 import { detectPathAliases } from "./detectPathAliases.js";
-import { shouldDetectEnvVars, shouldDetectRuntimeSignals } from "./fileClassifiers.js";
+import { shouldDetectComponents, shouldDetectDesignTokens, shouldDetectEnvVars, shouldDetectRuntimeSignals } from "./fileClassifiers.js";
+import { detectComponents } from "./detectComponents.js";
+import { detectDesignTokens, isTokenFile } from "./detectDesignTokens.js";
+import { buildDesignSystem } from "./detectDesignSystem.js";
 import { buildKnowledge } from "../knowledge/buildKnowledge.js";
 import { detectModuleAreas } from "../knowledge/moduleAreas.js";
 
@@ -65,6 +68,8 @@ export async function scanRepo(rootDir = process.cwd()): Promise<RepoScan> {
   const files: FileRecord[] = [];
   const envVars = [];
   const routes = [];
+  const components = [];
+  const designTokens = [];
   const contentsByPath: Record<string, string> = {};
 
   for (const relativePath of relevant) {
@@ -87,12 +92,15 @@ export async function scanRepo(rootDir = process.cwd()): Promise<RepoScan> {
     files.push(file);
     if (shouldDetectEnvVars(relativePath)) envVars.push(...detectEnvVars(file, text));
     if (shouldDetectRuntimeSignals(relativePath)) routes.push(...detectRoutes(relativePath, text));
+    if (shouldDetectComponents(relativePath)) components.push(...detectComponents(relativePath, text));
+    if (shouldDetectDesignTokens(relativePath) || isTokenFile(relativePath)) designTokens.push(...detectDesignTokens(relativePath, text));
   }
 
   const project = await detectProject(rootDir, discoveredEntries.map(toPosixPath).sort());
   const modules = detectModules(files);
   const aliases = await detectPathAliases(rootDir);
   const imports = buildGraph(files, aliases);
+  const designSystem = buildDesignSystem(components, designTokens, files.map((f) => f.path));
   const graph: CodeGraph = {
     files,
     imports,
@@ -100,7 +108,10 @@ export async function scanRepo(rootDir = process.cwd()): Promise<RepoScan> {
     areas: detectModuleAreas(modules, imports),
     routes,
     envVars,
-    tests: detectTests(files, contentsByPath)
+    tests: detectTests(files, contentsByPath),
+    components,
+    designTokens,
+    designSystem
   };
   return { rootDir, project, graph, knowledge: buildKnowledge({ rootDir, project, graph }) };
 }

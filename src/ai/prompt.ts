@@ -107,7 +107,8 @@ export function buildSummaryMessages(pack: ContextPack): ChatMessage[] {
         "## Files",
         ...formatFiles(pack),
         "",
-        "Keep all strings concise, evidence-grounded, and useful for repo navigation."
+        "## Output Reminder",
+        "Return ONLY a single JSON object. Do not return multiple objects, an array, or any explanatory text outside the JSON. Start with '{' and end with '}'. Every required key must be present: summary, responsibilities, importantFiles, executionFlow, decisionPoints, commonChangePaths, changeTargets, changeRisks, verificationSteps, notesForAiAgents, unknowns."
       ].join("\n")
     }
   ];

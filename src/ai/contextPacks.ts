@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { writeJson } from "../utils/fs.js";
-import type { RepoWikiIndex } from "../types/index.js";
+import type { KnowledgeKind, RepoWikiIndex } from "../types/index.js";
 import type { ContextFile, ContextFlow, ContextPack, ContextRelation, ModuleContextInput, RouteContextInput, AreaContextInput } from "./types.js";
 import type { RepoScan } from "../types/index.js";
 import { selectCentralFiles, selectModuleFocusFiles, selectProjectFocusFiles } from "../knowledge/fileImportance.js";
@@ -15,18 +15,20 @@ import { buildAreaFlows } from "../knowledge/areaFlows.js";
 import { orderedAreas } from "../knowledge/areaOrdering.js";
 import { splitConsumers } from "../utils/consumers.js";
 
-const defaultSnippetLines = 40;
-const maxSnippetChars = 1000;
-const maxContextFiles = 16;
+const defaultSnippetLines = 20;
+const reducedSnippetLines = 10;
+const maxSnippetChars = 600;
+const maxContextFiles = 8;
 
 export async function buildProjectContextPack(scan: RepoScan): Promise<ContextPack> {
   const changePaths = selectProjectChangePaths(scan);
   const verificationHints = selectProjectVerificationHints(scan);
-  const files = await selectFiles(scan, uniqueSorted([
-    ...selectProjectFocusFiles(scan),
+  const priorityFiles = uniquePreserveOrder([
+    ...selectProjectEntryFiles(scan, 4).map((entry) => entry.path),
     ...changePaths.flatMap((path) => path.files),
     ...verificationHintFiles(verificationHints)
-  ]));
+  ]);
+  const files = await selectFiles(scan, [...selectProjectFocusFiles(scan), ...scan.project.configFiles], priorityFiles);
   const centralFiles = selectCentralFiles(scan, 8);
   const entryFiles = selectProjectEntryFiles(scan, 8);
   const consumers = selectProjectConsumers(scan, 8);
@@ -76,12 +78,12 @@ export async function buildAreaContextPack(input: AreaContextInput): Promise<Con
   const changePaths = selectModuleChangePaths(scan, area.files);
   const changeTargets = selectModuleChangeTargets(scan, area.files, 8);
   const verificationHints = selectAreaVerificationHints(scan, area.files);
-  const files = await selectFiles(scan, uniqueSorted([
-    ...selectModuleFocusFiles(scan, area.files, [...relatedTests, ...relatedRoutes, ...relatedImports]),
-    ...scan.project.configFiles,
+  const priorityFiles = uniquePreserveOrder([
+    ...entryFiles.map((entry) => entry.path),
     ...changePaths.flatMap((path) => path.files),
     ...verificationHintFiles(verificationHints)
-  ]));
+  ]);
+  const files = await selectFiles(scan, [...selectModuleFocusFiles(scan, area.files, [...relatedTests, ...relatedRoutes, ...relatedImports]), ...scan.project.configFiles], priorityFiles);
   return {
     scope: "area",
     title: area.name,
@@ -141,12 +143,12 @@ export async function buildModuleContextPack(input: ModuleContextInput): Promise
   const splitModuleConsumers = splitConsumers(consumers);
   const changePaths = selectModuleChangePaths(scan, module.files);
   const verificationHints = selectModuleVerificationHints(scan, module.files);
-  const files = await selectFiles(scan, uniqueSorted([
-    ...selectModuleFocusFiles(scan, module.files, [...relatedTests, ...relatedRoutes, ...relatedImports]),
-    ...scan.project.configFiles,
+  const priorityFiles = uniquePreserveOrder([
+    ...entryFiles.map((entry) => entry.path),
     ...changePaths.flatMap((path) => path.files),
     ...verificationHintFiles(verificationHints)
-  ]));
+  ]);
+  const files = await selectFiles(scan, [...selectModuleFocusFiles(scan, module.files, [...relatedTests, ...relatedRoutes, ...relatedImports]), ...scan.project.configFiles], priorityFiles);
   return {
     scope: "module",
     title: moduleLabel(module),
@@ -188,12 +190,12 @@ export async function buildRouteContextPack(input: RouteContextInput): Promise<C
   const moduleAreas = uniquePreserveOrder(module ? orderedAreas(scan).filter((area) => area.modules.includes(module.id)).map((area) => area.name) : []);
   const changePaths = selectRouteChangePaths(scan, route.file);
   const verificationHints = selectRouteVerificationHints(scan, route.file);
-  const files = await selectFiles(scan, uniqueSorted([
-    ...selectModuleFocusFiles(scan, [route.file, ...moduleFiles], [...relatedTests, ...relatedImports], 10),
-    ...scan.project.configFiles,
+  const priorityFiles = uniquePreserveOrder([
+    route.file,
     ...changePaths.flatMap((path) => path.files),
     ...verificationHintFiles(verificationHints)
-  ]));
+  ]);
+  const files = await selectFiles(scan, [...selectModuleFocusFiles(scan, [route.file, ...moduleFiles], [...relatedTests, ...relatedImports], 10), ...scan.project.configFiles], priorityFiles);
   return {
     scope: "route",
     title: `${route.method ?? "ANY"} ${route.path ?? "(unknown path)"}`.trim(),
@@ -307,8 +309,8 @@ export function sanitizePathFragment(value: string): string {
   return value.replace(/[^A-Za-z0-9._-]+/g, "_").replace(/^_+|_+$/g, "") || "route";
 }
 
-async function selectFiles(scan: RepoScan, files: string[]): Promise<ContextFile[]> {
-  const unique = [...new Set(files.filter(Boolean))].slice(0, maxContextFiles);
+async function selectFiles(scan: RepoScan, files: string[], priorityFiles: string[] = []): Promise<ContextFile[]> {
+  const unique = uniquePreserveOrder([...priorityFiles, ...files]).slice(0, maxContextFiles);
   const selected: ContextFile[] = [];
   for (const file of unique) {
     const record = scan.graph.files.find((entry) => entry.path === file);
@@ -319,16 +321,25 @@ async function selectFiles(scan: RepoScan, files: string[]): Promise<ContextFile
       imports: record.imports.slice(0, 20),
       exports: record.exports.slice(0, 20),
       symbols: record.symbols.slice(0, 20),
-      snippet: await readSnippet(scan.rootDir, record.path)
+      snippet: await readSnippet(scan.rootDir, record)
     });
   }
   return selected;
 }
 
-async function readSnippet(rootDir: string, relativePath: string): Promise<string> {
+async function readSnippet(rootDir: string, record: import("../types/index.js").FileRecord): Promise<string> {
   try {
-    const content = await fs.readFile(path.join(rootDir, relativePath), "utf8");
-    const lines = content.split(/\r?\n/).slice(0, defaultSnippetLines);
+    const content = await fs.readFile(path.join(rootDir, record.path), "utf8");
+    const allLines = content.split(/\r?\n/);
+
+    // Prefer snippets centered on the first exported symbol when available.
+    const anchorSymbol = record.symbols.find((symbol) => symbol.exported && symbol.line) ?? record.symbols.find((symbol) => symbol.line);
+    let startLine = 0;
+    if (anchorSymbol?.line) {
+      startLine = Math.max(0, anchorSymbol.line - 3);
+    }
+
+    const lines = allLines.slice(startLine, startLine + defaultSnippetLines);
     const snippet = lines.join("\n");
     return snippet.length > maxSnippetChars ? `${snippet.slice(0, maxSnippetChars)}\n…` : snippet;
   } catch {
@@ -336,7 +347,7 @@ async function readSnippet(rootDir: string, relativePath: string): Promise<strin
   }
 }
 
-function filterKnowledge(scan: RepoScan, kinds: Array<"project" | "area" | "module" | "route" | "env" | "test" | "config" | "dependency">) {
+function filterKnowledge(scan: RepoScan, kinds: KnowledgeKind[]) {
   return scan.knowledge?.items.filter((item) => kinds.includes(item.kind)) ?? [];
 }
 
@@ -478,6 +489,30 @@ function buildRouteFlows(route: import("../types/index.js").RouteRecord, moduleN
       files: [...new Set([route.file, ...moduleFiles.slice(0, 4), ...relatedTests.slice(0, 3), ...relatedImports.slice(0, 3)])]
     }
   ];
+}
+
+export function reduceContextPack(pack: ContextPack): ContextPack {
+  const reducedFileCount = Math.max(2, Math.floor(pack.files.length / 2));
+  const reducedFiles = pack.files.slice(0, reducedFileCount).map((file) => ({
+    ...file,
+    snippet: truncateSnippetLines(file.snippet, reducedSnippetLines)
+  }));
+  return {
+    ...pack,
+    files: reducedFiles,
+    relations: pack.relations.map((relation) => ({
+      ...relation,
+      files: relation.files.slice(0, Math.max(3, Math.floor(relation.files.length / 2)))
+    })),
+    flows: pack.flows.slice(0, Math.max(1, Math.floor(pack.flows.length / 2)))
+  };
+}
+
+function truncateSnippetLines(snippet: string, lines: number): string {
+  const allLines = snippet.split(/\r?\n/);
+  if (allLines.length <= lines) return snippet;
+  const truncated = allLines.slice(0, lines).join("\n");
+  return `${truncated}\n…`;
 }
 
 function moduleNameForFile(scan: RepoScan, file: string): string | undefined {

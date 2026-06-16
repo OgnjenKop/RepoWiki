@@ -71,6 +71,38 @@ export type TestRecord = {
   coverageConfidence?: "direct" | "inferred" | "fallback";
 };
 
+export type ComponentFramework = "react" | "vue" | "svelte" | "angular" | "solid" | "unknown";
+
+export type ComponentRecord = {
+  name: string;
+  file: string;
+  line?: number;
+  framework: ComponentFramework;
+  exported: boolean;
+  props?: string[];
+  isStory?: boolean;
+};
+
+export type DesignTokenCategory = "color" | "spacing" | "typography" | "shadow" | "border" | "animation" | "breakpoint" | "other";
+
+export type DesignTokenRecord = {
+  name: string;
+  value: string;
+  category: DesignTokenCategory;
+  file: string;
+  line?: number;
+  source: "css-variable" | "theme-object" | "token-json" | "tailwind-config" | "scss-variable";
+};
+
+export type DesignSystemRecord = {
+  framework: ComponentFramework;
+  componentLibraries: string[];
+  tokenFiles: string[];
+  componentFiles: string[];
+  storyFiles: string[];
+  hasStorybook: boolean;
+};
+
 export type CodeGraph = {
   files: FileRecord[];
   imports: GraphEdge[];
@@ -79,6 +111,9 @@ export type CodeGraph = {
   routes: RouteRecord[];
   envVars: EnvVarRecord[];
   tests: TestRecord[];
+  components: ComponentRecord[];
+  designTokens: DesignTokenRecord[];
+  designSystem?: DesignSystemRecord;
 };
 
 export type ProjectInfo = {
@@ -99,6 +134,7 @@ export type RepoScan = {
   graph: CodeGraph;
   knowledge?: RepoKnowledge;
   summaries?: RepoSummaries;
+  insights?: import("../ai/types.js").RepoInsights;
 };
 
 export type PathAlias = {
@@ -125,7 +161,7 @@ export type ChangeTargetSymbol = {
   line?: number;
 };
 
-export type KnowledgeKind = "project" | "area" | "module" | "route" | "env" | "test" | "config" | "dependency";
+export type KnowledgeKind = "project" | "area" | "module" | "route" | "env" | "test" | "config" | "dependency" | "component" | "token" | "design";
 
 export type KnowledgeItem = {
   id: string;

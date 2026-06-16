@@ -95,6 +95,47 @@ export function buildKnowledge(scan: RepoScan): RepoKnowledge {
     });
   }
 
+  if (scan.graph.designSystem) {
+    const designSystem = scan.graph.designSystem;
+    const summaryParts: string[] = [];
+    summaryParts.push(`Detected ${designSystem.framework} UI framework.`);
+    if (designSystem.componentLibraries.length) {
+      summaryParts.push(`Component libraries: ${designSystem.componentLibraries.join(", ")}.`);
+    }
+    summaryParts.push(`${designSystem.componentFiles.length} component file(s) and ${designSystem.tokenFiles.length} token file(s) detected.`);
+    if (designSystem.hasStorybook) summaryParts.push("Storybook detected.");
+    items.push({
+      id: "design:system",
+      kind: "design",
+      title: "Design System",
+      files: [...designSystem.componentFiles, ...designSystem.tokenFiles].slice(0, 20),
+      summary: summaryParts.join(" "),
+      evidence: [...designSystem.componentFiles.slice(0, 3), ...designSystem.tokenFiles.slice(0, 3)].map((file) => evidence(file, "Design system file"))
+    });
+  }
+
+  for (const component of (scan.graph.components ?? []).filter((c) => !c.isStory)) {
+    items.push({
+      id: `component:${component.file}:${component.name}`,
+      kind: "component",
+      title: component.name,
+      files: [component.file],
+      summary: `${component.framework} component${component.exported ? " (exported)" : ""}${component.props?.length ? ` with props: ${component.props.join(", ")}` : ""}.`,
+      evidence: [evidence(component.file, `${component.framework} component declaration`, component.line)]
+    });
+  }
+
+  for (const token of scan.graph.designTokens ?? []) {
+    items.push({
+      id: `token:${token.file}:${token.name}`,
+      kind: "token",
+      title: token.name,
+      files: [token.file],
+      summary: `${token.category} design token (${token.source}) with value ${token.value}.`,
+      evidence: [evidence(token.file, `${token.source} design token`, token.line)]
+    });
+  }
+
   return { items };
 }
 

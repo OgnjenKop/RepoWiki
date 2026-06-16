@@ -11,6 +11,7 @@ import { renderInstallCommand, renderRepoWikiCommands, renderRepoWikiFlags } fro
 import { formatChangePath } from "../utils/changePaths.js";
 import { selectProjectChangePaths, selectProjectConsumers, selectProjectEntryFiles } from "../knowledge/moduleFocus.js";
 import { summaryExcerpt } from "../utils/summaryExcerpt.js";
+import { aiSummaryBody } from "../ai/summaryFormat.js";
 import { orderedAreas } from "../knowledge/areaOrdering.js";
 import { renderConsumerList, splitConsumers } from "../utils/consumers.js";
 
@@ -29,6 +30,9 @@ export function generateAgentContextDoc(scan: RepoScan): string {
   const knowledgeCount = scan.knowledge?.items.length ?? 0;
   const changeTargets = selectProjectChangeTargets(scan, 8);
   const areaFlows = buildAreaFlows(scan).slice(0, 5).map((flow) => `${code(flow.fromName)} -> ${code(flow.toName)} (${flow.count} imports)`);
+  const projectSummary = scan.summaries?.project?.content
+    ? aiSummaryBody(scan.summaries.project.content)
+    : `${scan.project.name} is detected as ${scan.project.type}. This summary is generated from repository structure and package metadata only.`;
   const areaSummaries = areas.map((area) => {
     const summary = summaryExcerpt(scan.summaries?.areas?.[area.id]?.content ?? area.purpose ?? "Connected implementation area.");
     return `[${area.name}](areas/${areaDocFileName(area.id)}) - ${summary}`;
@@ -38,7 +42,7 @@ export function generateAgentContextDoc(scan: RepoScan): string {
 
 ## Project Summary
 
-${scan.project.name} is detected as ${scan.project.type}. This summary is generated from repository structure and package metadata only.
+${projectSummary}
 
 ## Knowledge Base
 
@@ -67,7 +71,12 @@ ${list(scan.graph.modules.map((module) => `${code(moduleLabel(module))}: ${plura
 
 ## Module Areas
 
-${list(areas.map((area) => `${code(area.name)}: ${pluralize(area.modules.length, "module")}${area.purpose ? ` - ${area.purpose}` : ""}`), "_No module areas detected._")}
+${list(areas.map((area) => {
+    const summary = scan.summaries?.areas?.[area.id]?.content
+      ? aiSummaryBody(summaryExcerpt(scan.summaries.areas[area.id].content))
+      : (area.purpose ?? "");
+    return `${code(area.name)}: ${pluralize(area.modules.length, "module")}${summary ? ` - ${summary}` : ""}`;
+  }), "_No module areas detected._")}
 
 ## Area Summaries
 

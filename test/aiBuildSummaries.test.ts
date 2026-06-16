@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { buildRepoSummaries } from "../src/ai/buildSummaries.js";
+import { buildRepoSummaries, logSynthesisCoverage } from "../src/ai/buildSummaries.js";
 import type { RepoScan } from "../src/types/index.js";
 
 describe("buildRepoSummaries", () => {
@@ -200,6 +200,80 @@ describe("buildRepoSummaries", () => {
     }
   });
 
+  it("retries with reduced context when the provider hits a token limit", async () => {
+    const scan: RepoScan = {
+      rootDir: "/tmp/project",
+      project: {
+        name: "fixture",
+        type: "Node/TypeScript",
+        packageManager: "npm",
+        scripts: { build: "tsc", test: "vitest run" },
+        dependencies: [],
+        devDependencies: [],
+        configFiles: ["package.json"]
+      },
+      graph: {
+        files: [
+          { path: "package.json", language: "JSON", size: 1, hash: "pkg", imports: [], exports: [], symbols: [] },
+          { path: "src/auth/controller.ts", language: "TypeScript", size: 1, hash: "controller", imports: ["./service"], exports: ["getAuth"], symbols: [] },
+          { path: "src/auth/service.ts", language: "TypeScript", size: 1, hash: "service", imports: [], exports: ["login"], symbols: [] }
+        ],
+        imports: [{ from: "src/auth/controller.ts", to: "src/auth/service.ts", type: "import" }],
+        modules: [{ id: "src-auth", name: "auth", rootPath: "src/auth", files: ["src/auth/controller.ts", "src/auth/service.ts"] }],
+        areas: [],
+        routes: [],
+        envVars: [],
+        tests: []
+      }
+    };
+
+    const projectResponse = {
+      ok: true,
+      json: async () => ({
+        choices: [{
+          message: {
+            content: `{ "summary": "Repo summary.", "responsibilities": ["Keep repo understandable."], "importantFiles": [{"path": "package.json", "reason": "metadata", "evidence": ["package.json"]}], "executionFlow": [], "decisionPoints": [], "commonChangePaths": [], "changeTargets": [], "changeRisks": [], "verificationSteps": [], "notesForAiAgents": [], "unknowns": [] }`
+          }
+        }]
+      })
+    } as Response;
+
+    const moduleResponse = {
+      ok: true,
+      json: async () => ({
+        choices: [{
+          message: {
+            content: `{ "summary": "Module summary.", "responsibilities": ["Expose auth behavior."], "importantFiles": [{"path": "src/auth/controller.ts", "reason": "module entry", "evidence": ["src/auth/controller.ts"]}], "executionFlow": ["Requests enter the controller."], "decisionPoints": ["Update when auth changes."], "commonChangePaths": [], "changeTargets": [], "changeRisks": [], "verificationSteps": [], "notesForAiAgents": [], "unknowns": [] }`
+          }
+        }]
+      })
+    } as Response;
+
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(projectResponse)
+      .mockRejectedValueOnce(new Error("AI summary response was empty because it hit the token limit"))
+      .mockResolvedValueOnce(moduleResponse);
+
+    try {
+      const summaries = await buildRepoSummaries({
+        scan,
+        options: {
+          enabled: true,
+          baseUrl: "https://example.invalid/v1",
+          model: "gpt-5-mini",
+          apiKey: "secret"
+        }
+      });
+
+      expect(summaries.modules["src-auth"].provider).toBe("ai");
+      expect(summaries.modules["src-auth"].content).toContain("Module summary.");
+      expect(fetchSpy).toHaveBeenCalledTimes(3);
+    } finally {
+      fetchSpy.mockRestore();
+    }
+  });
+
   it("falls back to deterministic summaries for only the packs that fail", async () => {
     const scan: RepoScan = {
       rootDir: "/tmp/project",
@@ -313,6 +387,7 @@ describe("buildRepoSummaries", () => {
       .mockResolvedValueOnce(projectResponse)
       .mockResolvedValueOnce(areaResponse)
       .mockRejectedValueOnce(new Error("module pack failed"))
+      .mockRejectedValueOnce(new Error("module pack failed again"))
       .mockResolvedValueOnce(routeResponse);
 
     try {
@@ -336,9 +411,29 @@ describe("buildRepoSummaries", () => {
       expect(summaries.modules["src-auth"].content).toContain("Module rooted at src/auth");
       expect(summaries.routes?.["src/server.ts:GET:/auth"].provider).toBe("ai");
       expect(summaries.routes?.["src/server.ts:GET:/auth"].content).toContain("Route summary.");
-      expect(fetchSpy).toHaveBeenCalledTimes(4);
+      expect(fetchSpy).toHaveBeenCalledTimes(5);
     } finally {
       fetchSpy.mockRestore();
+    }
+  });
+
+  it("logs synthesis coverage with AI and deterministic counts", () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    try {
+      logSynthesisCoverage({
+        project: { provider: "ai", content: "project" },
+        areas: { "area-a": { provider: "ai", content: "a" }, "area-b": { provider: "deterministic", content: "b" } },
+        modules: { "mod-a": { provider: "ai", content: "a" }, "mod-b": { provider: "deterministic", content: "b" } },
+        routes: { "route-a": { provider: "deterministic", content: "a" } }
+      });
+      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("AI summaries: 3/6"));
+      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("project: 1/1"));
+      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("areas: 1/2"));
+      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("modules: 1/2"));
+      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("routes: 0/1"));
+      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("Deterministic fallbacks: 1 area, 1 module, 1 route"));
+    } finally {
+      errorSpy.mockRestore();
     }
   });
 });
