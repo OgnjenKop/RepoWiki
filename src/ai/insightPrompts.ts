@@ -285,17 +285,3 @@ function parseJsonObject(content: string): any {
   }
   throw new Error("Unclosed JSON object in AI response");
 }
-
-function expectString(value: unknown, field: string): string {
-  if (typeof value !== "string" || !value.trim()) {
-    throw new Error(`Missing string field: ${field}`);
-  }
-  return value.trim();
-}
-
-function expectStringArray(value: unknown, field: string): string[] {
-  if (!Array.isArray(value)) return [];
-  return value
-    .filter((item): item is string => typeof item === "string" && item.trim().length > 0)
-    .map((item) => item.trim());
-}

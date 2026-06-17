@@ -111,7 +111,7 @@ async function chatWithCache(
     const cached = getCachedInsight(cache, scope, packHash);
     if (cached !== undefined) return cached;
   }
-  const content = await chatWithProvider(provider, scope, messages);
+  const content = await provider.chat(messages, scope, { jsonMode: true });
   if (cache) {
     setCachedInsight(cache, scope, packHash, content);
   }
@@ -127,20 +127,12 @@ function createProvider(options?: AiRuntimeOptions): OpenAICompatibleSummaryProv
   return new OpenAICompatibleSummaryProvider({ baseUrl, model, apiKey });
 }
 
-async function chatWithProvider(
-  provider: OpenAICompatibleSummaryProvider,
-  purpose: string,
-  messages: Array<{ role: "system" | "user" | "assistant"; content: string }>
-): Promise<string> {
-  return provider.chat(messages, purpose, { jsonMode: true });
-}
-
 function buildProjectContext(scan: RepoScan) {
   const moduleList = scan.graph.modules.map((m) => m.name);
   const areaList = scan.graph.areas.map((a) => a.name);
   const centralFiles = scan.graph.files
     .filter((f) => ["package.json", "tsconfig.json", "README.md", "index.ts", "index.js", "main.ts", "main.js", "app.ts", "app.js"]
-      .some((name) => f.path.endsWith(name)) || scan.graph.imports.length > 0)
+      .some((name) => f.path.endsWith(name)) || f.imports.length > 0)
     .slice(0, filesForContext)
     .map((f) => f.path);
   const keyFiles = centralFiles.length

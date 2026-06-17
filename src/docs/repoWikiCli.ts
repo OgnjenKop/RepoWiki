@@ -21,7 +21,8 @@ const repoWikiFlags: Array<{ flag: string; description: string }> = [
   { flag: "--ai", description: "enable AI-generated summaries" },
   { flag: "--ai-base-url", description: "OpenAI-compatible API base URL" },
   { flag: "--ai-model", description: "AI model name" },
-  { flag: "--ai-api-key", description: "AI API key" }
+  { flag: "--ai-api-key", description: "AI API key" },
+  { flag: "--no-cache", description: "bypass the AI response cache and re-run all calls" }
 ];
 
 export function renderRepoWikiFlags(_scan: RepoScan): string[] {
