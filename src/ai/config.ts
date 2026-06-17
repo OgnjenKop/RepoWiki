@@ -1,7 +1,7 @@
 import type { AiRuntimeOptions } from "./types.js";
 
 export const DEFAULT_AI_BASE_URL = "https://openrouter.ai/api/v1";
-export const DEFAULT_AI_MODEL = "deepseek/deepseek-chat-v3.1";
+export const DEFAULT_AI_MODEL = "deepseek/deepseek-v4-flash";
 
 export function resolveAiModel(options?: AiRuntimeOptions): string {
   return (

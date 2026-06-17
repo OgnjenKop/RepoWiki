@@ -22,7 +22,7 @@ export async function buildRepoSummaries(input: SummaryBuildInput): Promise<Repo
   const provider = createSummaryProvider(options);
   if (!provider) {
     if (options?.required) {
-      throw new Error("AI synthesis requires --ai-api-key (or REPOWIKI_AI_API_KEY). The default model is `deepseek/deepseek-chat-v3.1`; override with --ai-model or REPOWIKI_AI_MODEL.");
+      throw new Error("AI synthesis requires --ai-api-key (or REPOWIKI_AI_API_KEY). The default model is `deepseek/deepseek-v4-flash`; override with --ai-model or REPOWIKI_AI_MODEL.");
     }
     return deterministic;
   }

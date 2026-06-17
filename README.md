@@ -115,7 +115,7 @@ The primary Qoder-like path is:
 repowiki --root ../some-repo --ai-api-key "$OPENAI_API_KEY" synthesize
 ```
 
-The default model is `deepseek/deepseek-chat-v3.1` (an OpenRouter route) and the default base URL is `https://openrouter.ai/api/v1`. Override either with `--ai-model` / `--ai-base-url` or the matching `REPOWIKI_AI_*` / `OPENAI_*` environment variables. For OpenAI's own API, set `REPOWIKI_AI_BASE_URL=https://api.openai.com/v1` and `REPOWIKI_AI_MODEL=gpt-4o-mini`.
+The default model is `deepseek/deepseek-v4-flash` (an OpenRouter route) and the default base URL is `https://openrouter.ai/api/v1`. Override either with `--ai-model` / `--ai-base-url` or the matching `REPOWIKI_AI_*` / `OPENAI_*` environment variables. For OpenAI's own API, set `REPOWIKI_AI_BASE_URL=https://api.openai.com/v1` and `REPOWIKI_AI_MODEL=gpt-5-mini`.
 
 The subscription path is the easiest way to get model judgment without adding API credentials to the CLI:
 
@@ -133,7 +133,7 @@ Environment variables are also supported:
 
 - `REPOWIKI_AI_API_KEY` (or `OPENAI_API_KEY`)
 - `REPOWIKI_AI_BASE_URL` (or `OPENAI_BASE_URL`, default `https://openrouter.ai/api/v1`)
-- `REPOWIKI_AI_MODEL` (or `OPENAI_MODEL`, default `deepseek/deepseek-chat-v3.1`)
+- `REPOWIKI_AI_MODEL` (or `OPENAI_MODEL`, default `deepseek/deepseek-v4-flash`)
 
 If passing the API key on the command line, prefer `--ai-api-key=<key>` (single argument) over `--ai-api-key <key>` (two arguments) to avoid shell quoting issues with keys that contain special characters.
 
